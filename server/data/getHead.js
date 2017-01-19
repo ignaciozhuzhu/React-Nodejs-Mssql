@@ -1,8 +1,8 @@
 var MessageList = [];
 
-exports.getMessageList = function(callback) {
+exports.getHeadName = function(callback) {
 	var db = require('../sqlserver/db');
-	db.sql("select * from WXUser", function(err, result) {
+	db.sql("select name from syscolumns where id=object_id('WXUser')", function(err, result) {
 		if (err) {
 			console.log(err);
 			return;
