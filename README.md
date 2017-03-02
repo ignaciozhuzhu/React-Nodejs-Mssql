@@ -386,7 +386,7 @@ ReactDOM.render(
 ```
 刷新一下页面，组件已经成功读取数据并渲染到页面上了，这时候可以继续编写样式代码了，在此我们就省略不写样式了。
 
-![clipboard.png](https://sfault-image.b0.upaiyun.com/266/083/2660837534-577cf72c0b0dd_articlex)
+![clipboard.png](http://images.cnblogs.com/cnblogs_com/ignacio/939970/o_react-nodejs01.jpg)
 
 ## 3. 总结 ##
 
