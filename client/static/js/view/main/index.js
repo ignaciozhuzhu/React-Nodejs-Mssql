@@ -28,10 +28,10 @@ class MessageList extends React.Component {
         messages
             .forEach(function(em) {
                 arr.push(
-                    <tr key={em.openid}>
-                      <td style={{border:"1px solid"}}>{em.Id} </td>
-                      <td style={{border:"1px solid"}}>{em.openid} </td>
-                      <td style={{border:"1px solid"}}> {em.mobile}</td>
+                    <tr key={em.cczbh}>
+                      <td style={{border:"1px solid"}}>{em.cczbh} </td>
+                      <td style={{border:"1px solid"}}>{em.cczmc} </td>
+                      <td style={{border:"1px solid"}}> {em.nje}</td>
                     </tr>
                 );
             });

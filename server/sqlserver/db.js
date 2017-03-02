@@ -1,4 +1,4 @@
-var db_config = require('./mydb.config');
+var db_config = require('./dbedb.config');
 var mssql = require('mssql');
 var db = {};
 var config = {
@@ -14,12 +14,13 @@ var config = {
     min: 0,
     max: 10,
     idleTimeoutMillis: 3000
-  }
+  },
+  requestTimeout: 300000
 };
 
 //connection.  
 db.sql = function(sql, callBack) {
-  console.log(db_config.user)
+  console.log("username:" + db_config.user)
   var connection = new mssql.Connection(config, function(err) {
     if (err) {
       console.log(err);

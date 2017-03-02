@@ -26,5 +26,9 @@
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"
+  },
+  "devDependencies": {
+    "node-schedule": "^1.2.0",
+    "request": "^2.79.0"
   }
 }
