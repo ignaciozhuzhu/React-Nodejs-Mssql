@@ -4,7 +4,7 @@ var fundel = require('./post_gh_del');
 var conf = require('../sqlserver/config.js');
 
 var Arraydata = [];
-var ajaxurl = conf + "/hosDataOpe/importAll";
+var ajaxurl = conf.service + "hosDataOpe/importAll";
 //前4000条(最近)
 exports.importDataBatch = function() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
@@ -90,7 +90,7 @@ exports.importData = function() {
     var importGH = function() {
       for (var i = 0, len = Arraydata.length; i < len; i++) {
         //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf + 'hosDataOpe/importData', Arraydata[i]);
+        options[i] = Data(conf.service + 'hosDataOpe/importData', Arraydata[i]);
       }
     }
     importGH();

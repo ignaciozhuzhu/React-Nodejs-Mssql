@@ -110,10 +110,10 @@ exports.getDoc = function(callback) {
 };
 
 //同步预约数据,医院暂时写默认值
-//导入会有缺少,因为有重复数据,我们的接口会自动过滤,比如有次导出1080条,只导入了1061条,这个其实是正常的.
+//导入会有缺少,因为有重复数据,我们的接口会自动过滤,比如有次导出1080条,只导入了1068条,这个其实是正常的.
 exports.getService = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,'默认标签名称' as tagname,cdw as unit from t_yp";
+	var str = "select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno union all select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno ";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);

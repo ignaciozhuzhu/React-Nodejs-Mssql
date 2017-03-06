@@ -23,7 +23,7 @@ fun.getDoc(function(data) {
   var importDoc = function() {
     for (var i = 0, len = Arraydata.length; i < len; i++) {
       //从挂号到结束数据导入的接口,增加至可执行post对象中
-      options[i] = Data(conf + 'hosDataOpe/importDoc', Arraydata[i]);
+      options[i] = Data(conf.service + 'hosDataOpe/importDoc', Arraydata[i]);
     }
   }
   importDoc();

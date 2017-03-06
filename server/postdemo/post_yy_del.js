@@ -2,7 +2,7 @@ var request = require('request');
 var fun = require('../data/getHosDataOpe');
 var conf = require('../sqlserver/config.js');
 
-var ajaxurl = conf + "hosDataOpe/deleteResAll";
+var ajaxurl = conf.service + "hosDataOpe/deleteResAll";
 exports.deleteResAll = function(callbackfunction) {
   var count2 = 0;
   fun.getHosName(function(mdata) {
@@ -62,7 +62,7 @@ exports.importData = function() {
     var importGH = function() {
       for (var i = 0, len = Arraydata.length; i < len; i++) {
         //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf + 'hosDataOpe/importData', Arraydata[i]);
+        options[i] = Data(conf.service + 'hosDataOpe/importData', Arraydata[i]);
       }
     }
     importGH();
