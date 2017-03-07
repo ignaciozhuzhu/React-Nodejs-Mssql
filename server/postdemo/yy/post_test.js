@@ -1,7 +1,7 @@
 var request = require('request');
-var fun = require('../data/getHosDataOpe');
-var fundel = require('./post_gh_del');
-var conf = require('../sqlserver/config.js');
+var fun = require('../../data/getHosDataOpe');
+var fundel = require('../post_gh_del');
+var conf = require('../../sqlserver/config.js');
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";

@@ -1,4 +1,4 @@
-var db_config = require('./dbedb.config');
+var db_config = require('./config.js').db_config;
 var mssql = require('mssql');
 var db = {};
 var config = {
