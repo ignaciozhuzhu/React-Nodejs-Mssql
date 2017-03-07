@@ -21,6 +21,17 @@ exports.getHosDataOpe2 = function(callback) {
 		callback(result);
 	})
 };
+exports.getHosDataOpe3 = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select * from V_GH where ghid>15000 order by ghid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
 
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation = function(callback) {
@@ -86,7 +97,7 @@ exports.getHosName = function(callback) {
 //删除挂号数据
 exports.getHosDataOpeDel = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_GH_Del";
+	var str = "select * from V_GH_Del where ghid>15000";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);

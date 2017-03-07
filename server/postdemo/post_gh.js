@@ -64,6 +64,12 @@ function importDataBatch2() {
   })
 };
 
+exports.importDataBatchNext = function() {
+  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
+  fun.getHosDataOpe3(function(data) {
+    myImport(data);
+  })
+};
 
 
 var count = 0;

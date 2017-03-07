@@ -42,7 +42,7 @@ exports.deleteAll = function(callbackfunction) {
 var Arraydata = [];
 var count = 0;
 //使用批量后,弃用
-exports.importData = function() {
+exports.deleteNext = function() {
   fun.getHosDataOpeDel(function(data) {
     Arraydata = data;
 
@@ -86,7 +86,8 @@ exports.importData = function() {
       // } catch (error) {
       if (count == options.length) {
         console.log("-----------终了-----------");
-        require('./post_gh');
+        var a = require('./post_gh');
+        a.importDataBatchNext();
       }
       // }
     }
