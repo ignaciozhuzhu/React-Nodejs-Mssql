@@ -40,10 +40,10 @@ exports.deleteAll = function(callbackfunction) {
 
 
 var Arraydata = [];
-var count = 0;
 //使用批量后,弃用
 exports.deleteNext = function() {
-  fun.getHosDataOpeDel(function(data) {
+  var count=0;
+  fun.getHosDataOpeDelnext(function(data) {
     Arraydata = data;
 
     function Data(url, body) {

@@ -60,13 +60,20 @@ function myImport(data, callbackfun) {
 function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getHosDataOpe2(function(data) {
+    myImport(data,importDataBatch3);
+  })
+};
+//之后剩下的
+function importDataBatch3() {
+  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
+  fun.getHosDataOpe3(function(data) {
     myImport(data);
   })
 };
 
 exports.importDataBatchNext = function() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpe3(function(data) {
+  fun.getHosDataOpenext(function(data) {
     myImport(data);
   })
 };

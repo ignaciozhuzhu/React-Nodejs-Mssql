@@ -75,6 +75,13 @@ function importDataBatch3() {
 function importDataBatch4() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getReservation4(function(data) {
+    myImport(data,importDataBatch5);
+  })
+};
+//之后剩下的
+function importDataBatch5() {
+  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
+  fun.getReservation5(function(data) {
     myImport(data);
   })
 };
