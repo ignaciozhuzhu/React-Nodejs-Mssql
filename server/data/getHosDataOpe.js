@@ -43,11 +43,43 @@ exports.getHosDataOpenext= function(callback) {
 		callback(result);
 	})
 };
+//创建预约临时数据表
 
+function createyy() {
+
+	var str = "if object_id('tempdb..##yy') is not null " +
+
+		"drop table ##yy " +
+
+		"SELECT     TOP (100) PERCENT CASE WHEN a.hosp_no = '001' THEN '天津市德倍尔口腔诊所' WHEN a.hosp_no = '002' THEN '北京市德倍尔口腔诊所' END AS hospitalname, a.cysxm AS doctorname, " +
+
+		"dbo.Convert2Formatdate(a.drq) AS reserved_date, a.csj AS reserved_time, a.ctext AS remark,case when a.lnew=0 then 1 else 0 end AS isfirst, '0' AS flag, a.cbrxm AS fullname, '' AS idcard, a.cbrbh AS anamnesisno, " +
+
+		"CASE WHEN b.cxb = '男' THEN 1 ELSE - 1 END AS gender, b.csj AS mobile, '' AS otherphone, CASE WHEN len(replace(b.dsr, ' ', '')) <> 8 THEN '20000101' ELSE b.dsr END AS birthday, " +
+
+		"b.cAddress1 AS address, a.nid AS yyid " +
+
+		"into ##yy " +
+
+		"FROM         dbo.t_yy AS a INNER JOIN " +
+
+		"                     dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN " +
+
+		"                    dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN " +
+
+		"                   dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR " +
+
+		"                   d.cTel1 <> '') " +
+
+		"WHERE     (a.ldele = 0) ";
+
+	return str;
+
+}
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select top(4000) * from V_YY order by yyid";
+	var str = createyy() + "select top(4000) * from ##yy order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -59,7 +91,7 @@ exports.getReservation = function(callback) {
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation2 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select top(4000) * from V_YY where yyid>5672 order by yyid";
+	var str = createyy() + "select top(4000) * from ##yy where yyid>5672 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -71,7 +103,7 @@ exports.getReservation2 = function(callback) {
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation3 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select top(4000) * from V_YY where yyid>11218 order by yyid";
+	var str = createyy() + "select top(4000) * from ##yy where yyid>11218 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -83,7 +115,7 @@ exports.getReservation3 = function(callback) {
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation4 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select top(4000) * from V_YY where yyid>16532 order by yyid";
+	var str = createyy() + "select top(4000) * from ##yy where yyid>16532 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -95,7 +127,7 @@ exports.getReservation4 = function(callback) {
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation5 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select top(4000) * from V_YY where yyid>21206 order by yyid";
+	var str = createyy() + "select top(4000) * from ##yy where yyid>21206 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
