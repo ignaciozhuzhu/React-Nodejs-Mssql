@@ -30,4 +30,4 @@ var j = schedule.scheduleJob(rule, function() {
 	//fun_yy.importDataResBatch();　　
 });
 //fun_yynext.deleteResNext();　
-fun_yy.importDataResBatch();　
+fun_yy.deleteResNext();　
