@@ -32,6 +32,31 @@ exports.getHosDataOpe3 = function(callback) {
 		callback(result);
 	})
 };
+
+exports.getHosDataOpeTest = function(callback) {                                
+        var db = require('../sqlserver/db');                                   
+        var str = "select * from V_GH order by ghid";         
+        db.sql(str, function(err, result) {                                    
+                if (err) {                                                     
+                        console.log(err);                                      
+                        return;                                                
+                }
+                callback(result);
+        })
+};
+
+exports.getHosDataOpeTest2 = function(callback) {                               
+        var db = require('../sqlserver/db');
+        var str = "select * from V_YY order by yyid";
+        db.sql(str, function(err, result) {
+                if (err) {
+                        console.log(err);
+                        return;
+                }
+                callback(result);
+        })
+};
+
 exports.getHosDataOpenext= function(callback) {
 	var db = require('../sqlserver/db');
 	var str = "select * from V_GH where ghid>16450 order by ghid";
