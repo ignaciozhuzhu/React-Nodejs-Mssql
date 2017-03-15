@@ -33,6 +33,7 @@ exports.getHosDataOpe3 = function(callback) {
 	})
 };
 
+
 exports.getHosDataOpeTest = function(callback) {                                
         var db = require('../sqlserver/db');                                   
         var str = "select * from V_GH order by ghid";         
@@ -57,7 +58,7 @@ exports.getHosDataOpeTest2 = function(callback) {
         })
 };
 
-exports.getHosDataOpenext= function(callback) {
+exports.getHosDataOpenext = function(callback) {
 	var db = require('../sqlserver/db');
 	var str = "select * from V_GH where ghid>16450 order by ghid";
 	db.sql(str, function(err, result) {
@@ -68,9 +69,23 @@ exports.getHosDataOpenext= function(callback) {
 		callback(result);
 	})
 };
+exports.getHosDataOpeResnext = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = createyy() + "select * from ##yy where yyid>23000 order by yyid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
 //创建预约临时数据表
 
-function createyy() {
+function createyy(status) {
+	if (status)
+		status = 1;
+	else status = 0;
 
 	var str = "if object_id('tempdb..##yy') is not null " +
 
@@ -78,7 +93,7 @@ function createyy() {
 
 		"SELECT     TOP (100) PERCENT CASE WHEN a.hosp_no = '001' THEN '天津市德倍尔口腔诊所' WHEN a.hosp_no = '002' THEN '北京市德倍尔口腔诊所' END AS hospitalname, a.cysxm AS doctorname, " +
 
-		"dbo.Convert2Formatdate(a.drq) AS reserved_date, a.csj AS reserved_time, a.ctext AS remark,case when a.lnew=0 then 1 else 0 end AS isfirst, '0' AS flag, a.cbrxm AS fullname, '' AS idcard, a.cbrbh AS anamnesisno, " +
+		"dbo.Convert2Formatdate(a.drq) AS reserved_date, a.csj AS reserved_time, a.ctext AS remark,case when a.lnew=0 then 1 else 0 end AS isfirst, '" + status + "' AS flag, a.cbrxm AS fullname, '' AS idcard, a.cbrbh AS anamnesisno, " +
 
 		"CASE WHEN b.cxb = '男' THEN 1 ELSE - 1 END AS gender, b.csj AS mobile, '' AS otherphone, CASE WHEN len(replace(b.dsr, ' ', '')) <> 8 THEN '20000101' ELSE b.dsr END AS birthday, " +
 
@@ -95,12 +110,24 @@ function createyy() {
 		"                   dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR " +
 
 		"                   d.cTel1 <> '') " +
-
 		"WHERE     (a.ldele = 0) ";
 
 	return str;
 
 }
+
+exports.getHosDataOpeTest = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select * from V_GH";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
+
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation = function(callback) {
 	var db = require('../sqlserver/db');
@@ -190,6 +217,18 @@ exports.getHosDataOpeDel = function(callback) {
 exports.getHosDataOpeDelnext = function(callback) {
 	var db = require('../sqlserver/db');
 	var str = "select * from V_GH_Del where ghid>16450";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
+//删除预约数据
+exports.getHosDataOpeDelResnext = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = createyy(1) + "select * from ##yy where yyid>23000 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);

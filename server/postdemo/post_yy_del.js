@@ -40,10 +40,10 @@ exports.deleteResAll = function(callbackfunction) {
 
 
 var Arraydata = [];
-var count = 0;
 //使用批量后,弃用
-exports.importData = function() {
-  fun.getHosDataOpeDel(function(data) {
+exports.deleteResNext = function() {
+  var count = 0;
+  fun.getHosDataOpeDelResnext(function(data) {
     Arraydata = data;
 
     function Data(url, body) {
@@ -62,7 +62,7 @@ exports.importData = function() {
     var importGH = function() {
       for (var i = 0, len = Arraydata.length; i < len; i++) {
         //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf.service + 'hosDataOpe/importData', Arraydata[i]);
+        options[i] = Data(conf.service + 'hosDataOpe/delReservation', Arraydata[i]);
       }
     }
     importGH();
@@ -86,7 +86,8 @@ exports.importData = function() {
       // } catch (error) {
       if (count == options.length) {
         console.log("-----------终了-----------");
-        require('./post_gh');
+        var a = require('./post_yy');
+        a.importDataBatchNext();
       }
       // }
     }

@@ -37,6 +37,8 @@ function myImport(data, callbackfun) {
 	importGH();
 	//console.log("yy长度:")
 	console.log("长度："+Arraydata.length+"-----"+ JSON.stringify(Arraydata[19806]));
+
+//	console.log("长度："+options.length);
 	//循环执行导入(批量导入)
 	//request(Data(ajaxurl, Arraydata), callback);
 
