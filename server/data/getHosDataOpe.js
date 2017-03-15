@@ -83,23 +83,23 @@ function createyy(status) {
 
 		"                   dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR " +
 
-		"                   d.cTel1 <> '') " + 
-  "WHERE     (a.ldele = 0) ";
-       
-        return str;
-       
+		"                   d.cTel1 <> '') " +
+		"WHERE     (a.ldele = 0) ";
+
+	return str;
+
 }
 
-exports.getHosDataOpeTest = function(callback) {                                  
-        var db = require('../sqlserver/db');                                   
-        var str = "select * from V_GH";         
-        db.sql(str, function(err, result) {                                    
-                if (err) {                                                     
-                        console.log(err);                                      
-                        return;                                                
-                }
-                callback(result);
-        })
+exports.getHosDataOpeTest = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select * from V_GH";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
 };
 
 //同步服务项目数据,医院暂时写默认值
