@@ -7,7 +7,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";
 //前4000条(最近)
 var importDataBatch = function() {
-	fun.getHosDataOpe(function(data) {
+	fun.getHosDataOpeTest2(function(data) {
 		myImport(data);
 	})
 };
@@ -33,8 +33,10 @@ function myImport(data, callbackfun) {
 			//从挂号到结束数据导入的接口,增加至可执行post对象中
 			options[i] = Data(ajaxurl, Arraydata[i]);
 		}
-	}
+}
 	importGH();
+	//console.log("yy长度:")
+	console.log("长度："+Arraydata.length+"-----"+ JSON.stringify(Arraydata[19806]));
 	//循环执行导入(批量导入)
 	//request(Data(ajaxurl, Arraydata), callback);
 
