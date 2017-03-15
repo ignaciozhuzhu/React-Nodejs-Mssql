@@ -33,6 +33,17 @@ exports.getHosDataOpe3 = function(callback) {
 	})
 };
 
+exports.getHosDataOpeTest = function(callback) {                                  
+        var db = require('../sqlserver/db');                                   
+        var str = "select * from V_GH";         
+        db.sql(str, function(err, result) {                                    
+                if (err) {                                                     
+                        console.log(err);                                      
+                        return;                                                
+                }
+                callback(result);
+        })
+};
 //同步服务项目数据,医院暂时写默认值
 exports.getReservation = function(callback) {
 	var db = require('../sqlserver/db');
