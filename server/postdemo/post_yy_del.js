@@ -68,7 +68,7 @@ exports.deleteResNext = function() {
     importGH();
     //循环执行导入(批量导入)
     request(options[0], callback);
-    console.log("jg" + options[0])
+    console.log("jg" + JSON.stringify(options[0]));
 
     function callback(error, response, data) {
       //try {

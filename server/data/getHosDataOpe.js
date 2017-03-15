@@ -34,28 +34,28 @@ exports.getHosDataOpe3 = function(callback) {
 };
 
 
-exports.getHosDataOpeTest = function(callback) {                                
-        var db = require('../sqlserver/db');                                   
-        var str = "select * from V_GH order by ghid";         
-        db.sql(str, function(err, result) {                                    
-                if (err) {                                                     
-                        console.log(err);                                      
-                        return;                                                
-                }
-                callback(result);
-        })
+exports.getHosDataOpeTest = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select * from V_GH order by ghid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
 };
 
-exports.getHosDataOpeTest2 = function(callback) {                               
-        var db = require('../sqlserver/db');
-        var str = "select * from V_YY order by yyid";
-        db.sql(str, function(err, result) {
-                if (err) {
-                        console.log(err);
-                        return;
-                }
-                callback(result);
-        })
+exports.getHosDataOpeTest2 = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select * from V_YY order by yyid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
 };
 
 exports.getHosDataOpenext = function(callback) {
@@ -71,7 +71,19 @@ exports.getHosDataOpenext = function(callback) {
 };
 exports.getHosDataOpeResnext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + "select * from ##yy where yyid=25394 order by yyid";
+	var str = createyy() + "select * from ##yy where yyid=25395 order by yyid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
+//删除预约数据
+exports.getHosDataOpeDelResnext = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = createyy(1) + "select * from ##yy where yyid=25395 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -225,18 +237,7 @@ exports.getHosDataOpeDelnext = function(callback) {
 		callback(result);
 	})
 };
-//删除预约数据
-exports.getHosDataOpeDelResnext = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = createyy(1) + "select * from ##yy where yyid=25394 order by yyid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
+
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
 exports.getDoc = function(callback) {
