@@ -3,6 +3,7 @@ var fun_gh = require('./post_gh.js');
 var fun_yy = require('./post_yy.js');
 var getdate = require('./getDate');
 var fun_ghnext = require('./post_gh_del.js')
+var fun_yynext = require('./post_yy_del.js');
 
 /*var rule = new schedule.RecurrenceRule();
 //周一到周日的凌晨3点执行
@@ -27,4 +28,4 @@ var j = schedule.scheduleJob(rule, function() {
 	//fun_ghnext.deleteNext();
 	//fun_yy.deleteResNext();　　
 });
-fun_yy.deleteResNext();　
+fun_yynext.deleteResNext();　
