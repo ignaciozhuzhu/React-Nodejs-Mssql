@@ -71,7 +71,7 @@ exports.getHosDataOpenext = function(callback) {
 };
 exports.getHosDataOpeResnext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + "select * from ##yy where yyid>25394 order by yyid";
+	var str = createyy() + "select * from ##yy where yyid=25394 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -228,7 +228,7 @@ exports.getHosDataOpeDelnext = function(callback) {
 //删除预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy(1) + "select * from ##yy where yyid>25394 order by yyid";
+	var str = createyy(1) + "select * from ##yy where yyid=25394 order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
