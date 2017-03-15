@@ -7,7 +7,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";
 //前4000条(最近)
 var importDataBatch = function() {
-	fun.getHosDataOpe(function(data) {
+	fun.getHosDataOpeTest(function(data) {
 		myImport(data);
 	})
 };
@@ -35,6 +35,7 @@ function myImport(data, callbackfun) {
 		}
 	}
 	importGH();
+//	console.log("长度："+options.length);
 	//循环执行导入(批量导入)
 	//request(Data(ajaxurl, Arraydata), callback);
 
