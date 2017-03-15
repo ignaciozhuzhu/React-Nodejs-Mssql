@@ -26,6 +26,8 @@ var j = schedule.scheduleJob(rule, function() {
 	console.log("\n当前时间:" + getdate.fn(new Date()) + "##########################");
 	//fun_gh.importDataBatch();
 	//fun_ghnext.deleteNext();
-	//fun_yy.deleteResNext();　　
+	//fun_yy.deleteResNext();　
+	//fun_yy.importDataResBatch();　　
 });
-fun_yynext.deleteResNext();　
+//fun_yynext.deleteResNext();　
+fun_yy.importDataResBatch();　
