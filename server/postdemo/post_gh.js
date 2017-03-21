@@ -60,20 +60,13 @@ function myImport(data, callbackfun) {
 function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getHosDataOpe2(function(data) {
-    myImport(data,importDataBatch3);
+    myImport(data, importDataBatch3);
   })
 };
 //之后剩下的
 function importDataBatch3() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getHosDataOpe3(function(data) {
-    myImport(data);
-  })
-};
-
-exports.importDataBatchNext = function() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpenext(function(data) {
     myImport(data);
   })
 };
@@ -109,7 +102,6 @@ exports.importData = function() {
     importGH();
     //循环执行导入(批量导入)
     request(options[0], callback);
-    console.log(Arraydata[0])
 
     function callback(error, response, data) {
       if (!error && response.statusCode == 200) {

@@ -10,7 +10,6 @@ exports.importDataResBatch = function() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fundel.deleteResAll(function(callbackfunction) {
     fun.getReservation(function(data) {
-      //myImport(data);
       myImport(data, importDataBatch2);
     })
   })
@@ -92,13 +91,6 @@ function importDataBatch6() {
     myImport(data);
   })
 };
-exports.importDataBatchNext = function() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpeResnext(function(data) {
-    myImport(data);
-  })
-};
-
 
 //使用批量后,弃用
 exports.getReservation = function(index_b, index_e) {

@@ -62,13 +62,14 @@ exports.deleteResNext = function() {
     var importGH = function() {
       for (var i = 0, len = Arraydata.length; i < len; i++) {
         //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf.service + 'hosDataOpe/delReservation', Arraydata[i]);
+        options[i] = Data(conf.service + 'hosDataOpe/importReservation', Arraydata[i]);
       }
     }
     importGH();
     //循环执行导入(批量导入)
-    request(options[0], callback);
-    //console.log("jg" + JSON.stringify(options[0]));
+    try {
+      request(options[0], callback);
+    } catch (error) {}
 
     function callback(error, response, data) {
       //try {
@@ -87,8 +88,8 @@ exports.deleteResNext = function() {
       // } catch (error) {
       if (count == options.length) {
         console.log("-----------终了-----------");
-        var a = require('./post_yy');
-        a.importDataBatchNext();
+        //var a = require('./post_yy');
+        //a.importDataBatchNext();
       }
       // }
     }

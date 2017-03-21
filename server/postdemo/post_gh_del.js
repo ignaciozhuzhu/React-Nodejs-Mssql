@@ -42,7 +42,7 @@ exports.deleteAll = function(callbackfunction) {
 var Arraydata = [];
 //使用批量后,弃用
 exports.deleteNext = function() {
-  var count=0;
+  var count = 0;
   fun.getHosDataOpeDelnext(function(data) {
     Arraydata = data;
 
@@ -67,7 +67,9 @@ exports.deleteNext = function() {
     }
     importGH();
     //循环执行导入(批量导入)
-    request(options[0], callback);
+    try {
+      request(options[0], callback);
+    } catch (error) {}
 
     function callback(error, response, data) {
       //try {
@@ -86,8 +88,6 @@ exports.deleteNext = function() {
       // } catch (error) {
       if (count == options.length) {
         console.log("-----------终了-----------");
-        var a = require('./post_gh');
-        a.importDataBatchNext();
       }
       // }
     }
