@@ -11,23 +11,18 @@ var rule = new schedule.RecurrenceRule();
 //20分钟一次
 rule.minute = [15, 35, 55];
 var j = schedule.scheduleJob(rule, function() {
-	console.log("\n当前时间:" + getdate.fn(new Date()) + "##########################");
+	console.log("\n当前时间:" + getdate.fn(new Date()));
 	fun_ghnext.deleteNext();　
 	fun_yynext.deleteResNext();　　
 });
-/*  fun_ghnext.deleteNext();　
-	fun_yynext.deleteResNext();　*/
 
-
-
-/*var rule = new schedule.RecurrenceRule();
+var rule2 = new schedule.RecurrenceRule();
 //周一到周日的凌晨3点执行
-rule.dayOfWeek = [0, new schedule.Range(1, 6)];　　
-rule.hour = 3;
-rule.minute = 00;
-rule.second = 00;
-var j = schedule.scheduleJob(rule, function() {
-	console.log("\n当前时间:" + getdate.fn(new Date()) + "##########################");
+rule2.dayOfWeek = [0, new schedule.Range(1, 6)];　　
+rule2.hour = 2;
+rule2.minute = 00;
+rule2.second = 00;
+var j2 = schedule.scheduleJob(rule2, function() {
 	fun_gh.importDataBatch();
 	fun_yy.importDataResBatch();　
-})　　*/
+});
