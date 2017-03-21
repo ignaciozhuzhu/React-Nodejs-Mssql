@@ -62,7 +62,7 @@ exports.getHosDataOpeTest2 = function(callback) {
 
 exports.getHosDataOpenext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_GH where ghid>16450 order by ghid";
+	var str = "select * from V_GH where ghid>16800 order by ghid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -218,7 +218,7 @@ exports.getHosName = function(callback) {
 //删除挂号数据
 exports.getHosDataOpeDel = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_GH_Del where ghid>16450";
+	var str = "select * from V_GH_Del where ghid>16800";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -230,7 +230,7 @@ exports.getHosDataOpeDel = function(callback) {
 //删除挂号数据
 exports.getHosDataOpeDelnext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_GH_Del where ghid>16450";
+	var str = "select * from V_GH_Del where ghid>16800";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
