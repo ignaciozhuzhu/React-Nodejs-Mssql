@@ -9,7 +9,7 @@ var rule = new schedule.RecurrenceRule();
 //rule.second = 10;
 //每小时的30分执行
 //20分钟一次
-rule.minute = [15, 35, 55];
+rule.minute = [10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 var j = schedule.scheduleJob(rule, function() {
 	console.log("\n当前时间:" + getdate.fn(new Date()));
 	fun_ghnext.deleteNext();　
