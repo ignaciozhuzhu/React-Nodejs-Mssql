@@ -48,7 +48,8 @@ exports.getHosDataOpeTest = function(callback) {
 
 exports.getHosDataOpeTest2 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_YY order by yyid";
+	var str = "select SUM(totalprice)/100 totalprice,SUM(reduce)/100 reduce from v_gh where dname='王茜'and bookingtime>=1483200000";
+	//var str = "select * from V_YY order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
