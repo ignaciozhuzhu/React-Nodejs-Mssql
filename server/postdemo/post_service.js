@@ -4,7 +4,7 @@ var conf = require('../sqlserver/config.js');
 
 var Arraydata = [];
 var count = 0;
-fun.getService(function(data) {
+fun.getServiceYlkm(function(data) {
   Arraydata = data;
 
   function Data(url, body) {

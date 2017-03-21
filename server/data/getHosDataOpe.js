@@ -265,3 +265,14 @@ exports.getService = function(callback) {
 		callback(result);
 	})
 };
+exports.getServiceYlkm = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "select cname as title,0 as price,0 as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],'' as detail,'' as tagname,'' as unit from T_ylkm		union all select cname as title,0 as price,0 as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],'' as detail,'' as tagname,'' as unit from T_ylkm";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
