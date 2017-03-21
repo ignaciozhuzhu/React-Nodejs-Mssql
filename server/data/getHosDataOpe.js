@@ -48,10 +48,10 @@ exports.getHosDataOpeTest = function(callback) {
 
 exports.getHosDataOpeTest2 = function(callback) {
 	var db = require('../sqlserver/db');
-	//var str = "select * from t_employee where cname='吴鹏'";
-	var str = createyy() + getlastyyid(1) + "select * from ##yy where yyid=16901 order by yyid" //3.21当天
-		//var str = "select SUM(totalprice)/100 totalprice,SUM(reduce)/100 reduce from v_gh where dname='王茜'and bookingtime>=1483200000";
-		//var str = "select * from V_YY order by yyid";
+	var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') WHERE     (a.ldele = 0) and a.nid=16091 ";
+	//var str = createyy() + getlastyyid(1) + "select * from ##yy where yyid=16901 order by yyid" //3.21当天
+	//var str = "select SUM(totalprice)/100 totalprice,SUM(reduce)/100 reduce from v_gh where dname='王茜'and bookingtime>=1483200000";
+	//var str = "select * from V_YY order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
