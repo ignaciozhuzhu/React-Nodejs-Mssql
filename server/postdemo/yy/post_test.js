@@ -33,10 +33,12 @@ function myImport(data, callbackfun) {
 			//从挂号到结束数据导入的接口,增加至可执行post对象中
 			options[i] = Data(ajaxurl, Arraydata[i]);
 		}
-}
+	}
 	importGH();
 	//console.log("yy长度:")
 	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[0]));
+	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
+	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
 
 	//	console.log("长度："+options.length);
 	//循环执行导入(批量导入)
