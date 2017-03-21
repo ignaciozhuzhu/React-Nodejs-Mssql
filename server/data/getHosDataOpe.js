@@ -124,7 +124,7 @@ function createyy(status) {
 
 		"                   dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR " +
 
-		"                   d.cTel1 <> '') " +
+		"                   d.cTel1 <> '') and d.lzz=1 " +
 		"WHERE     (a.ldele = 0) ";
 
 	return str;
