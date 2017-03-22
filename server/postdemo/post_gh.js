@@ -51,7 +51,7 @@ function myImport(data, callbackfun) {
         callbackfun();
       }
     } else {
-      console.log('挂号导入失败~~error:' + error + '~~可能是因为数据量传输过大或连接超时');
+      console.log('挂号导入失败~~error:' + error + '~~状态:' + JSON.stringify(response) + '可能是因为数据量传输过大或连接超时');
       //如遇网络或异常问题连接不上接口,等待2分钟后执行删除所有并重新导入一遍.尝试次数为5次.
       setTimeout(function() {
         if (retryCount < 5) {
