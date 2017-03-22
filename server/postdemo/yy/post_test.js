@@ -36,7 +36,7 @@ function myImport(data, callbackfun) {
 	}
 	importGH();
 	//console.log("yy长度:")
-	for (var i = 0; i < 60; i++) {
+	for (var i = 0; i < Arraydata.length; i++) {
 		console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
 	}
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
