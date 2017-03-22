@@ -20,21 +20,17 @@ for (var i = 0; i < 60; i++) {
 }
 var j = schedule.scheduleJob(rule, function() {
 	console.log("\n当前时间:" + getdate.fn(new Date()));
-	//fun_ghnext.deleteNext();　
-	//fun_yynext.deleteResNext();　　
+	fun_ghnext.deleteNext();　
+	fun_yynext.deleteResNext();　　
 });
 
 var ruleons = new schedule.RecurrenceRule();
 //周一到周日的凌晨2点执行
 ruleons.dayOfWeek = [0, new schedule.Range(1, 6)];　　
-ruleons.hour = 11;
-ruleons.minute = 50;
+ruleons.hour = 2;
+ruleons.minute = 5;
 ruleons.second = 00;
 var jons = schedule.scheduleJob(ruleons, function() {
-	//fun_gh.importDataBatch();
-	//fun_yy.importDataResBatch();　
+	fun_gh.importDataBatch();
+	fun_yy.importDataResBatch();　
 });
-
-console.log("\n当前时间:" + getdate.fn(new Date()));
-fun_gh.importDataBatch();
-fun_yy.importDataResBatch();　
