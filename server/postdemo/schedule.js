@@ -37,4 +37,4 @@ var jons = schedule.scheduleJob(ruleons, function() {
 
 console.log("\n当前时间:" + getdate.fn(new Date()));
 fun_gh.importDataBatch();
-//fun_yy.importDataResBatch();　
+fun_yy.importDataResBatch();　
