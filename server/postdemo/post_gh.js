@@ -73,20 +73,20 @@ function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getHosDataOpe2(function(data) {
     myImport(data, importDataBatch3);
-  })
+  }, 1)
 };
 //之后剩下的
 function importDataBatch3() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpe3(function(data) {
+  fun.getHosDataOpe2(function(data) {
     myImport(data);
-  })
+  }, 2)
 };
 
 
-var count = 0;
 //使用批量后,弃用
 exports.importData = function() {
+  var count = 0;
   fun.getHosDataOpe(function(data) {
     //func_gh_del.importData;
     Arraydata = data;
