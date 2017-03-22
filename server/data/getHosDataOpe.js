@@ -34,31 +34,7 @@ exports.getHosDataOpe3 = function(callback) {
 };
 
 
-exports.getHosDataOpeTest = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = "select * from V_GH order by ghid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-
-exports.getHosDataOpeTest2 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-
-//删除预约数据
+//增量删除新增预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
 	var db = require('../sqlserver/db');
 	console.log(getNowFormatDate())
@@ -72,7 +48,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
 		callback(result);
 	})
 };
-//删除挂号数据
+//增量删除新增挂号数据
 exports.getHosDataOpeDelnext = function(callback) {
 	var db = require('../sqlserver/db');
 	var str = creategh(2) + " select * from ##gh where bookingtime>= '" + gettimestamp() + "'";
@@ -84,22 +60,6 @@ exports.getHosDataOpeDelnext = function(callback) {
 		callback(result);
 	})
 };
-//获取当前时间
-function getNowFormatDate() {
-	var date = new Date();
-	var seperator1 = "-";
-	var seperator2 = ":";
-	var month = date.getMonth() + 1;
-	var strDate = date.getDate();
-	if (month >= 1 && month <= 9) {
-		month = "0" + month;
-	}
-	if (strDate >= 0 && strDate <= 9) {
-		strDate = "0" + strDate;
-	}
-	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-	return currentdate;
-}
 
 //创建挂号临时数据表
 function creategh(status) {
@@ -176,7 +136,19 @@ function getlastyyid(n) {
 
 exports.getHosDataOpeTest = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = "select * from V_GH";
+	var str = "select * from V_GH order by ghid";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
+
+exports.getHosDataOpeTest2 = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -271,9 +243,26 @@ exports.getHosName = function(callback) {
 	})
 };
 
+//获取当前时间戳
 function gettimestamp() {
 	var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
 	return timeStamp;
+}
+//获取当前时间
+function getNowFormatDate() {
+	var date = new Date();
+	var seperator1 = "-";
+	var seperator2 = ":";
+	var month = date.getMonth() + 1;
+	var strDate = date.getDate();
+	if (month >= 1 && month <= 9) {
+		month = "0" + month;
+	}
+	if (strDate >= 0 && strDate <= 9) {
+		strDate = "0" + strDate;
+	}
+	var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+	return currentdate;
 }
 
 

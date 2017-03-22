@@ -88,8 +88,6 @@ exports.deleteResNext = function() {
       // } catch (error) {
       if (count == options.length) {
         console.log("-----------终了-----------");
-        //var a = require('./post_yy');
-        //a.importDataBatchNext();
       }
       // }
     }

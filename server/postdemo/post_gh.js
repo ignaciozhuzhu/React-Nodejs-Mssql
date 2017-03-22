@@ -7,6 +7,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";
 //前4000条(最近)
 exports.importDataBatch = function() {
+  var retryCount = 0;
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fundel.deleteAll(function(callbackfunction) {
     fun.getHosDataOpe(function(data) {
@@ -50,7 +51,16 @@ function myImport(data, callbackfun) {
         callbackfun();
       }
     } else {
-      console.log('导入失败~~error:' + error + '~~可能是因为数据量传输过大');
+      console.log('导入失败~~error:' + error + '~~可能是因为数据量传输过大或连接超时');
+      //如遇网络或异常问题连接不上接口,等待1分钟后执行删除所有并重新导入一遍.尝试次数为5次.
+      setTimeout(function() {
+        if (retryCount < 5) {
+          fundel.deleteAll(function(callbackfunction) {
+            request(Data(ajaxurl, Arraydata), callback);
+            retryCount++;
+          })
+        }
+      }, 60e3);
     }
 
   }
