@@ -31,6 +31,10 @@ ruleons.hour = 11;
 ruleons.minute = 50;
 ruleons.second = 00;
 var jons = schedule.scheduleJob(ruleons, function() {
-	fun_gh.importDataBatch();
-	fun_yy.importDataResBatch();　
+	//fun_gh.importDataBatch();
+	//fun_yy.importDataResBatch();　
 });
+
+console.log("\n当前时间:" + getdate.fn(new Date()));
+fun_gh.importDataBatch();
+fun_yy.importDataResBatch();　

@@ -61,7 +61,7 @@ function myImport(data, callbackfun) {
             retryCount++;
           })
         }
-      }, 120e3);
+      }, 60e3);
     }
 
   }
