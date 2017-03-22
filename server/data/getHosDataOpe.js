@@ -148,7 +148,7 @@ exports.getHosDataOpeTest = function(callback) {
 
 exports.getHosDataOpeTest2 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + " SELECT top(60) * FROM ##yy order by yyid desc  ";
+	var str = createyy() + " SELECT * FROM ##yy where reserved_date>'2036-12-30' order by yyid desc  ";
 	//var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
 	db.sql(str, function(err, result) {
 		if (err) {
