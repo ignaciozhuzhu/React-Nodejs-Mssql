@@ -2,6 +2,7 @@ var request = require('request');
 var fun = require('../../data/getHosDataOpe');
 var fundel = require('../post_gh_del');
 var conf = require('../../sqlserver/config.js');
+var fs = require("fs");
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";
@@ -37,8 +38,15 @@ function myImport(data, callbackfun) {
 	importGH();
 	//console.log("yy长度:")
 	for (var i = 0; i < Arraydata.length; i++) {
-		console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
+		//console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
+
 	}
+	fs.writeFile('weixin3x.txt', JSON.stringify(Arraydata), function(err) {
+		if (err) {
+			return console.error(err);
+		}
+		console.log("数据写入成功！");
+	});
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
 
