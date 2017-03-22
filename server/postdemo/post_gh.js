@@ -17,6 +17,7 @@ exports.importDataBatch = function() {
 
 function myImport(data, callbackfun) {
   Arraydata = data;
+  console.log("挂号此次传递数据的长度:" + data.length)
 
   function Data(url, body) {
     var O = new Object();
