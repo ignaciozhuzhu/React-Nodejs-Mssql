@@ -36,17 +36,17 @@ function myImport(data, callbackfun) {
 		}
 	}
 	importGH();
-	//console.log("yy长度:")
+	console.log("长度:" + Arraydata.length)
 	for (var i = 0; i < Arraydata.length; i++) {
 		//console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
 
 	}
-	fs.writeFile('weixin3x.txt', JSON.stringify(Arraydata), function(err) {
+	/*fs.writeFile('weixin3x.txt', JSON.stringify(Arraydata), function(err) {
 		if (err) {
 			return console.error(err);
 		}
 		console.log("数据写入成功！");
-	});
+	});*/
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
 
