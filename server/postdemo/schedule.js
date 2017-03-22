@@ -27,8 +27,8 @@ var j = schedule.scheduleJob(rule, function() {
 var ruleons = new schedule.RecurrenceRule();
 //周一到周日的凌晨2点执行
 ruleons.dayOfWeek = [0, new schedule.Range(1, 6)];　　
-ruleons.hour = 2;
-ruleons.minute = 5;
+ruleons.hour = 18;
+ruleons.minute = 10;
 ruleons.second = 00;
 var jons = schedule.scheduleJob(ruleons, function() {
 	fun_gh.importDataBatch();
