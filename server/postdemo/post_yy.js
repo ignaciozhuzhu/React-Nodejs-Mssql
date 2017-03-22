@@ -7,7 +7,6 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
 //前4000条(最近)
 exports.importDataResBatch = function() {
-  var retryCount = 0;
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fundel.deleteResAll(function(callbackfunction) {
     fun.getReservation(function(data) {
@@ -41,6 +40,7 @@ function myImport(data, callbackfun) {
   importGH();
   //循环执行导入(批量导入)
   request(Data(ajaxurl, Arraydata), callback);
+  var retryCount = 0;
 
   function callback(error, response) {
     if (!error && response.statusCode == 200) {
@@ -52,15 +52,16 @@ function myImport(data, callbackfun) {
       }
     } else {
       console.log('导入失败~~error:' + error + '~~可能是因为数据量传输过大');
-      //如遇网络或异常问题连接不上接口,等待1分钟后执行删除所有并重新导入一遍.尝试次数为5次.
+      //如遇网络或异常问题连接不上接口,等待2分钟后执行删除所有并重新导入一遍.尝试次数为5次.
       setTimeout(function() {
         if (retryCount < 5) {
+          console.log("重试次数:" + retryCount)
           fundel.deleteResAll(function(callbackfunction) {
             request(Data(ajaxurl, Arraydata), callback);
             retryCount++;
           })
         }
-      }, 60e3);
+      }, 120e3);
     }
 
   }
