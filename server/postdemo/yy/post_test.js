@@ -41,12 +41,12 @@ function myImport(data, callbackfun) {
 		//console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
 
 	}
-	/*fs.writeFile('weixin3x.txt', JSON.stringify(Arraydata), function(err) {
+	fs.writeFile('ghdata.txt', JSON.stringify(Arraydata), function(err) {
 		if (err) {
 			return console.error(err);
 		}
 		console.log("数据写入成功！");
-	});*/
+	});
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
 	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
 
