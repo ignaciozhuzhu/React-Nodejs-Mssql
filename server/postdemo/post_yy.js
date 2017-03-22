@@ -20,9 +20,9 @@ function myImport(data, callbackfun) {
 
   function Data(url, body) {
     var O = new Object();
-    /*    O.headers = {
-          "Connection": "close"
-        };*/
+    O.headers = {
+      "Connection": "close"
+    };
     O.url = url;
     O.method = 'POST';
     O.json = true;
