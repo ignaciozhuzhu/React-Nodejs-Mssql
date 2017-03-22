@@ -17,6 +17,7 @@ exports.importDataResBatch = function() {
 
 function myImport(data, callbackfun) {
   Arraydata = data;
+  console.log("预约此次传递数据的长度:" + JSON.stringify(data).length)
 
   function Data(url, body) {
     var O = new Object();
