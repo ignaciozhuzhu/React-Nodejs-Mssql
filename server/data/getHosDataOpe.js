@@ -10,20 +10,9 @@ exports.getHosDataOpe = function(callback) {
 		callback(result);
 	})
 };
-exports.getHosDataOpe2 = function(callback) {
+exports.getHosDataOpe2 = function(callback, piece) {
 	var db = require('../sqlserver/db');
-	var str = creategh(0) + getlastghid(1) + "select top(4000) * from ##gh where ghid>@lastid order by ghid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-exports.getHosDataOpe3 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = creategh(0) + getlastghid(2) + "select * from ##gh where ghid>@lastid order by ghid";
+	var str = creategh(0) + getlastghid(piece) + "select top(4000) * from ##gh where ghid>@lastid order by ghid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -159,7 +148,7 @@ exports.getHosDataOpeTest2 = function(callback) {
 	})
 };
 
-//同步服务项目数据,医院暂时写默认值
+//同步预约数据,医院暂时写默认值
 exports.getReservation = function(callback) {
 	var db = require('../sqlserver/db');
 	var str = createyy() + "select top(4000) * from ##yy order by yyid";
@@ -171,58 +160,10 @@ exports.getReservation = function(callback) {
 		callback(result);
 	})
 };
-//同步服务项目数据,医院暂时写默认值
-exports.getReservation2 = function(callback) {
+//同步预约数据,医院暂时写默认值
+exports.getReservation2 = function(callback, piece) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(1) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-//同步服务项目数据,医院暂时写默认值
-exports.getReservation3 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(2) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-//同步服务项目数据,医院暂时写默认值
-exports.getReservation4 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(3) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-//同步服务项目数据,医院暂时写默认值
-exports.getReservation5 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(4) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
-	db.sql(str, function(err, result) {
-		if (err) {
-			console.log(err);
-			return;
-		}
-		callback(result);
-	})
-};
-//同步服务项目数据,医院暂时写默认值
-exports.getReservation6 = function(callback) {
-	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(5) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
+	var str = createyy() + getlastyyid(piece) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);

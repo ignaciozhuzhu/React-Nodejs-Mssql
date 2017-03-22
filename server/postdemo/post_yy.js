@@ -73,35 +73,35 @@ function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fun.getReservation2(function(data) {
     myImport(data, importDataBatch3);
-  })
+  }, 1)
 };
 //之后剩下的
 function importDataBatch3() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation3(function(data) {
+  fun.getReservation2(function(data) {
     myImport(data, importDataBatch4);
-  })
+  }, 2)
 };
 //之后剩下的
 function importDataBatch4() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation4(function(data) {
+  fun.getReservation2(function(data) {
     myImport(data, importDataBatch5);
-  })
+  }, 3)
 };
 //之后剩下的
 function importDataBatch5() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation5(function(data) {
+  fun.getReservation2(function(data) {
     myImport(data, importDataBatch6);
-  })
+  }, 4)
 };
 //之后剩下的
 function importDataBatch6() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation6(function(data) {
+  fun.getReservation2(function(data) {
     myImport(data);
-  })
+  }, 5)
 };
 
 //使用批量后,弃用

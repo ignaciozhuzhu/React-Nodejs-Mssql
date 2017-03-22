@@ -40,7 +40,7 @@ exports.deleteResAll = function(callbackfunction) {
 
 
 var Arraydata = [];
-//使用批量后,弃用
+//使用批量后,作为增量更新使用
 exports.deleteResNext = function() {
   var count = 0;
   fun.getHosDataOpeDelResnext(function(data) {
