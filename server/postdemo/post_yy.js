@@ -55,7 +55,7 @@ function myImport(data, callbackfun) {
       //如遇网络或异常问题连接不上接口,等待2分钟后执行删除所有并重新导入一遍.尝试次数为5次.
       setTimeout(function() {
         if (retryCount < 5) {
-          console.log("重试次数:" + retryCount)
+          console.log("预约重试次数:" + retryCount)
           fundel.deleteResAll(function(callbackfunction) {
             request(Data(ajaxurl, Arraydata), callback);
             retryCount++;
