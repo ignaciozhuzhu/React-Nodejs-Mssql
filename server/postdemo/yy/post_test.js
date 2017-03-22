@@ -36,9 +36,11 @@ function myImport(data, callbackfun) {
 	}
 	importGH();
 	//console.log("yy长度:")
-	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[0]));
-	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
-	console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
+	for (var i = 0; i < 60; i++) {
+		console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
+	}
+	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[1]));
+	//console.log("长度：" + Arraydata.length + "-----" + JSON.stringify(Arraydata[2]));
 
 	//	console.log("长度："+options.length);
 	//循环执行导入(批量导入)
