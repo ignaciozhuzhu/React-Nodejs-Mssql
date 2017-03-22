@@ -1,7 +1,7 @@
 //同步挂号数据
 exports.getHosDataOpe = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = creategh(0) + "select top(2000) * from ##gh order by ghid";
+	var str = creategh(0) + "select top(4000) * from ##gh order by ghid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
