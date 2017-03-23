@@ -26,9 +26,9 @@ exports.getHosDataOpe2 = function(callback, piece) {
 //增量删除新增预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
 	var db = require('../sqlserver/db');
-	console.log(getNowFormatDate())
+	console.log("当前日期:" + getNowFormatDate())
 	var str = createyy(2) +
-		" select * from ##yy where  CONVERT(varchar(100), upt, 23) ='" + getNowFormatDate() + "' order by yyid";
+		" select * from ##yy where  CONVERT(varchar(100), upt, 23) ='" + getNowFormatDate() + "' order by yyid ";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -40,7 +40,8 @@ exports.getHosDataOpeDelResnext = function(callback) {
 //增量删除新增挂号数据
 exports.getHosDataOpeDelnext = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = creategh(2) + " select * from ##gh where bookingtime>= '" + gettimestamp() + "'";
+	console.log("当前时间戳:" + gettimestamp())
+	var str = creategh(2) + " select * from ##gh where bookingtime>= '" + gettimestamp() + "' order by ghid ";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -137,7 +138,8 @@ exports.getHosDataOpeTest = function(callback) {
 
 exports.getHosDataOpeTest2 = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + " SELECT * FROM ##yy  order by yyid desc  ";
+	var str = creategh(1) + " SELECT top(1) * FROM ##gh where ghid=15184  order by ghid desc  ";
+	//var str = createyy(1) + " SELECT * FROM ##yy where yyid=23212  order by yyid desc  ";
 	//var str = creategh() + " SELECT * FROM ##gh  order by ghid desc  ";
 	//var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
 	db.sql(str, function(err, result) {

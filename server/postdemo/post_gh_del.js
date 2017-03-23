@@ -1,4 +1,6 @@
-var request = require('request');
+var request = require('request').defaults({
+  jar: true
+});
 var fun = require('../data/getHosDataOpe');
 var conf = require('../sqlserver/config.js');
 
@@ -78,8 +80,10 @@ exports.deleteNext = function() {
         count++;
         if (count < options.length)
           request(options[count], callback);
+      } else if (response == undefined) {
+        console.log("无数据");
       } else {
-        console.log('导入失败~~error:' + error + '~~data:' + data);
+        console.log('导入失败~~error:' + error + '~~状态:' + response);
         count++;
         request(options[count], callback);
       }

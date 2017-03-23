@@ -1,4 +1,6 @@
-var request = require('request');
+var request = require('request').defaults({
+  jar: true
+});
 var fun = require('../data/getHosDataOpe');
 var fundel = require('./post_gh_del');
 var conf = require('../sqlserver/config.js');

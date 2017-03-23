@@ -5,7 +5,7 @@ var getdate = require('./getDate');
 var fun_ghnext = require('./post_gh_del.js')
 var fun_yynext = require('./post_yy_del.js');
 
-var rule = new schedule.RecurrenceRule();
+/*var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(1, 6)];　　
 rule.hour = [];
 //凌晨2点到3点这块时间段留给ons计划使用.
@@ -33,4 +33,7 @@ ruleons.second = 00;
 var jons = schedule.scheduleJob(ruleons, function() {
 	fun_gh.importDataBatch();
 	fun_yy.importDataResBatch();　
-});
+});*/
+
+fun_gh.importDataBatch();
+fun_yy.importDataResBatch();　
