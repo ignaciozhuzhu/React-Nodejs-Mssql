@@ -71,94 +71,19 @@ function myImport(data, callbackfun) {
 }
 
 //之后剩下的
+var yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+
 function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation2(function(data) {
-    myImport(data, importDataBatch3);
-  }, 1)
-};
-//之后剩下的
-function importDataBatch3() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation2(function(data) {
-    myImport(data, importDataBatch4);
-  }, 2)
-};
-//之后剩下的
-function importDataBatch4() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation2(function(data) {
-    myImport(data, importDataBatch5);
-  }, 3)
-};
-//之后剩下的
-function importDataBatch5() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation2(function(data) {
-    myImport(data, importDataBatch6);
-  }, 4)
-};
-//之后剩下的
-function importDataBatch6() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getReservation2(function(data) {
-    myImport(data);
-  }, 5)
-};
-
-//使用批量后,弃用
-exports.getReservation = function(index_b, index_e) {
-  var Arraydata = [];
-  var count = index_b;
-  fun.getReservation(function(data) {
-    Arraydata = data;
-
-    function Data(url, body) {
-      var O = new Object();
-      O.headers = {
-        "Connection": "close"
-      };
-      O.url = url;
-      O.method = 'POST';
-      O.json = true;
-      O.body = body;
-      return O;
-    }
-
-    var options = [];
-    var importGH = function() {
-      for (var i = 0, len = Arraydata.length; i < len; i++) {
-        //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf.service + '/hosDataOpe/importReservation', Arraydata[i]);
+  fun.getyypiece(function(p) {
+    console.log("预约分成块数:" + p[0].count)
+    console.log("目前是第几块:" + yypiece_count)
+    fun.getReservation2(function(data) {
+      if (yypiece_count < p[0].count) {
+        myImport(data, function() {
+          importDataBatch2(yypiece_count++)
+        });
       }
-    }
-    importGH();
-    //循环执行导入(批量导入)
-    for (var j = 0; j < 1000; j++) {
-      request(options[j], callback);
-    }
-
-    function imp() {
-      count++;
-      if (count < index_e) {
-        request(options[count], callback);
-      } else if (count == index_e) {
-        //console.log("导入结束.");
-        //return
-      }
-    }
-
-    function callback(error, response, data) {
-      if (!error && response.statusCode == 200) {
-        count++;
-        console.log('----info------\n'); //, data
-        //imp();
-      } else {
-        console.log('导入失败~~error:' + error + '~~data:' + data);
-        //imp();
-      }
-      console.log("截止目前总共导入" + count + "条记录");
-    }
-
-  });
+    }, yypiece_count)
+  })
 }

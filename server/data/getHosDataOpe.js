@@ -1,7 +1,8 @@
+var cake = 400;
 //同步挂号数据
 exports.getHosDataOpe = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = creategh(0) + "select top(4000) * from ##gh order by ghid";
+	var str = creategh(0) + "select top(" + cake + ")  * from ##gh order by ghid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -12,7 +13,7 @@ exports.getHosDataOpe = function(callback) {
 };
 exports.getHosDataOpe2 = function(callback, piece) {
 	var db = require('../sqlserver/db');
-	var str = creategh(0) + getlastghid(piece) + "select top(4000) * from ##gh where ghid>@lastid order by ghid";
+	var str = creategh(0) + getlastghid(piece) + "select top(" + cake + ") * from ##gh where ghid>@lastid order by ghid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -115,14 +116,47 @@ function createyy(status) {
 }
 
 function getlastghid(n) {
-	var str = "declare @lastid int  select top 1 @lastid=ghid from (select top(4000*" + n + ") *from ##gh order by ghid ) as t order by ghid desc ";
+	var str = "declare @lastid int  select top 1 @lastid=ghid from (select top(" + cake + "*" + n + ") *from ##gh order by ghid ) as t order by ghid desc ";
 	return str;
 }
 
 function getlastyyid(n) {
-	var str = "declare @lastid int  select top 1 @lastid=yyid from (select top(4000*" + n + ") *from ##yy order by yyid ) as t order by yyid desc ";
+	var str = "declare @lastid int  select top 1 @lastid=yyid from (select top(" + cake + "*" + n + ") *from ##yy order by yyid ) as t order by yyid desc ";
 	return str;
 }
+
+function getghcount() {
+	var str = creategh() + "declare @count int  select  @count=count(*) from ##gh ";
+	return str;
+}
+
+function getyycount() {
+	var str = createyy() + "declare @count int  select  @count=count(*) from ##yy ";
+	return str;
+}
+
+exports.getghpiece = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = getghcount() + "select @count/" + cake + " +1 as count";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
+exports.getyypiece = function(callback) {
+	var db = require('../sqlserver/db');
+	var str = getyycount() + "select @count/" + cake + " +1 as count";
+	db.sql(str, function(err, result) {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		callback(result);
+	})
+};
 
 exports.getHosDataOpeTest = function(callback) {
 	var db = require('../sqlserver/db');
@@ -154,7 +188,7 @@ exports.getHosDataOpeTest2 = function(callback) {
 //同步预约数据,医院暂时写默认值
 exports.getReservation = function(callback) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + "select top(4000) * from ##yy order by yyid";
+	var str = createyy() + "select top(" + cake + ") * from ##yy order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);
@@ -166,7 +200,7 @@ exports.getReservation = function(callback) {
 //同步预约数据,医院暂时写默认值
 exports.getReservation2 = function(callback, piece) {
 	var db = require('../sqlserver/db');
-	var str = createyy() + getlastyyid(piece) + "select top(4000) * from ##yy where yyid>@lastid order by yyid";
+	var str = createyy() + getlastyyid(piece) + "select top(" + cake + ") * from ##yy where yyid>@lastid order by yyid";
 	db.sql(str, function(err, result) {
 		if (err) {
 			console.log(err);

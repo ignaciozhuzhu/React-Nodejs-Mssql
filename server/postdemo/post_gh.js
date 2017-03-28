@@ -71,66 +71,19 @@ function myImport(data, callbackfun) {
 }
 
 //之后剩下的
+var ghpiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+
 function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpe2(function(data) {
-    myImport(data, importDataBatch3);
-  }, 1)
-};
-//之后剩下的
-function importDataBatch3() {
-  //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-  fun.getHosDataOpe2(function(data) {
-    myImport(data);
-  }, 2)
-};
-
-
-//使用批量后,弃用
-exports.importData = function() {
-  var count = 0;
-  fun.getHosDataOpe(function(data) {
-    //func_gh_del.importData;
-    Arraydata = data;
-
-    function Data(url, body) {
-      var O = new Object();
-      O.headers = {
-        "Connection": "close"
-      };
-      O.url = url;
-      O.method = 'POST';
-      O.json = true;
-      O.body = body;
-      console.log(body)
-      return O;
-    }
-
-    var options = [];
-    var importGH = function() {
-      for (var i = 0, len = Arraydata.length; i < len; i++) {
-        //从挂号到结束数据导入的接口,增加至可执行post对象中
-        options[i] = Data(conf.service + 'hosDataOpe/importData', Arraydata[i]);
+  fun.getghpiece(function(p) {
+    console.log("挂号分成块数:" + p[0].count)
+    console.log("目前是第几块:" + ghpiece_count)
+    fun.getHosDataOpe2(function(data) {
+      if (ghpiece_count < p[0].count) {
+        myImport(data, function() {
+          importDataBatch2(ghpiece_count++)
+        });
       }
-    }
-    importGH();
-    //循环执行导入(批量导入)
-    request(options[0], callback);
-
-    function callback(error, response, data) {
-      if (!error && response.statusCode == 200) {
-        console.log('----info------\n'); //, data
-        count++;
-        if (count < options.length)
-          request(options[count], callback);
-      } else {
-        console.log('导入失败~~error:' + error + '~~data:' + data);
-        count++;
-        request(options[count], callback);
-      }
-
-      console.log("截止目前总共导入" + count + "条记录");
-    }
-
+    }, ghpiece_count)
   })
-};
+}
