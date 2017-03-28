@@ -1,4 +1,4 @@
-var cake = 400;
+var cake = 4000;
 //同步挂号数据
 exports.getHosDataOpe = function(callback) {
 	var db = require('../sqlserver/db');
