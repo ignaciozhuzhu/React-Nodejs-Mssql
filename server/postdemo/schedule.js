@@ -34,5 +34,5 @@ var jons = schedule.scheduleJob(ruleons, function() {
 	fun_gh.importDataBatch();
 	fun_yy.importDataResBatch();　
 });
-fun_gh.importDataBatch();
-fun_yy.importDataResBatch();　
+fun_ghnext.deleteNext();　
+fun_yynext.deleteResNext();　　
