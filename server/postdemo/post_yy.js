@@ -4,12 +4,15 @@ var request = require('request').defaults({
 var fun = require('../data/getHosDataOpe');
 var fundel = require('./post_yy_del');
 var conf = require('../sqlserver/config.js');
+var funyy = require('./post_yy');
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
 var yypiece_count;
+var retryCount;
 //前4000条(最近)
 exports.importDataResBatch = function() {
+  retryCount = 0;
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fundel.deleteResAll(function(callbackfunction) {
     fun.getReservation(function(data) {
@@ -45,7 +48,6 @@ function myImport(data, callbackfun) {
   importGH();
   //循环执行导入(批量导入)
   request(Data(ajaxurl, Arraydata), callback);
-  var retryCount = 0;
 
   function callback(error, response) {
     if (!error && response.statusCode == 200) {
@@ -56,15 +58,20 @@ function myImport(data, callbackfun) {
         callbackfun();
       }
     } else {
-      console.log('预约导入失败~~error:' + error + '~~状态:' + JSON.stringify(response) + '可能是因为数据量传输过大或连接超时');
-      //如遇网络或异常问题连接不上接口,等待2分钟后执行删除所有并重新导入一遍.尝试次数为5次.
       setTimeout(function() {
         if (retryCount < 5) {
-          console.log("预约重试次数:" + retryCount)
-          fundel.deleteResAll(function(callbackfunction) {
-            request(Data(ajaxurl, Arraydata), callback);
+          //如遇网络或异常问题连接不上接口,等待2分钟后执行删除所有并重新导入一遍.尝试次数为5次.
+          (function() {
+            console.log('预约导入失败~~error:' + error + '~~状态:' + JSON.stringify(response) + '可能是因为数据量传输过大或连接超时');
             retryCount++;
-          })
+            console.log("预约重试次数:" + retryCount);
+          })(
+            fundel.deleteResAll(function(callbackfunction) {
+              fun.getReservation(function(data) {
+                yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+                myImport(data, importDataBatch2);
+              })
+            }))
         }
       }, 120e3);
     }
