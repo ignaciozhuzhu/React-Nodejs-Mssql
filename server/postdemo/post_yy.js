@@ -7,11 +7,13 @@ var conf = require('../sqlserver/config.js');
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
+var yypiece_count;
 //前4000条(最近)
 exports.importDataResBatch = function() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
   fundel.deleteResAll(function(callbackfunction) {
     fun.getReservation(function(data) {
+      yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
       myImport(data, importDataBatch2);
     })
   })
@@ -71,7 +73,6 @@ function myImport(data, callbackfun) {
 }
 
 //之后剩下的
-var yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
 
 function importDataBatch2() {
   //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
