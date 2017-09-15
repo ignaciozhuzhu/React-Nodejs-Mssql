@@ -1,3 +1,4 @@
+var request = require('request');
 var cake = 4000;
 //同步挂号数据
 exports.getHosDataOpe = function(callback) {
@@ -194,7 +195,6 @@ exports.getHosDataOpeTest = function(callback) {
         callback(result);
     })
 };
-
 exports.getHosDataOpeTest2 = function(callback) {
     var db = require('../sqlserver/db');
     var str = creategh(1) + " SELECT top(100) * FROM ##gh where pname='陈竺' order by ghid desc  ";
