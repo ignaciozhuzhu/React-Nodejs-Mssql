@@ -83,6 +83,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
                     arr[i].upt = '20170901'; //当前时间
                     arr[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加
                 }
+                console.log(arr.length - 40)
                 console.log("datajson:" + JSON.stringify(arr));
                 callback(arr)
             } else console.log(error);
