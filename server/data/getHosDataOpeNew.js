@@ -79,8 +79,8 @@ exports.getHosDataOpeDelResnext = function(callback) {
                     arr[i].otherphone = ''; //其他联系方式,暂未提供
                     arr[i].birthday = '20000101' //患者生日,暂未提供
                     arr[i].address = '' //患者地址,暂未提供
-                    arr[i].yyid = arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
-                    arr[i].upt = '20170901';
+                    arr[i].guid = arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
+                    arr[i].upt = '20170901'; //当前时间
                     arr[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加
                 }
                 callback(arr)
