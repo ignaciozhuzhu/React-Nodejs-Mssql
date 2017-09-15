@@ -54,17 +54,28 @@ exports.getReservation2 = function(callback, piece) {
 
 //增量删除新增预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
-    var db = require('../sqlserver/db');
-    console.log("当前日期:" + getNowFormatDate())
-    var str = createyy(2) +
-        " select * from ##yy where  CONVERT(varchar(100), upt, 23) ='" + getNowFormatDate() + "' order by yyid ";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+
+    GetData();
+
+    function GetData() {
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170913&cEndDate=20170914', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str);
+                var arr = JSON.parse(str);
+                //var arrNew = [];
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    // arr[i].title = '主任医师';
+                    //  arr[i].fullname = arr[i].cname;
+                    /* if (arr[i].lzz == 1) {
+                         arrNew.push(arr[i])
+                     }*/
+                }
+                callback(arr)
+            } else console.log(error);
+        });
+    }
+
 };
 //增量删除新增挂号数据
 exports.getHosDataOpeDelnext = function(callback) {
