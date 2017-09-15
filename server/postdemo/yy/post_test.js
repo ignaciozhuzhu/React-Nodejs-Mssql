@@ -14,7 +14,7 @@ var ajaxurl = conf.service + "hosDataOpe/importData";
 var importDataBatch = function() {
     fun.getDoc(function(data) {
         conf.login(function() {
-            //  myImport(data);
+            myImport(data);
         })
     })
 };
