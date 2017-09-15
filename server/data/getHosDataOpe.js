@@ -202,33 +202,25 @@ exports.getHosDataOpeTest2 = function(callback) {
     //var str = creategh() + " SELECT * FROM ##gh  order by ghid desc  ";
     //var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
     GetData();
-    //callback(login22)
+    //callback(Abandom)
 
     function GetData() {
-        /*        var xhr = new XMLHttpRequest();
-                xhr.open("GET", "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d", true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4) {
-                        if (xhr.status == 200) {
-                            console.log(xhr.responseText);
-                        }
-                    } else console.log("出错");
-                }
-                xhr.send(null);*/
         request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body); // 输出请求到的body
+                callback(body)
             } else console.log("出错");
         });
     }
 
-    function login22(callbackfunction) {
+
+    function Abandom(callbackfunction) {
         function Data() {
             var O = new Object();
             /*        O.headers = {
                         "Connection": "close"
                     };*/
-            O.url = "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d";
+            O.url = "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1";
             O.method = 'GET';
             //O.json = true;
             /*        O.body = {
