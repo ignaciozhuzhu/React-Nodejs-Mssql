@@ -25,7 +25,6 @@ fun.getServiceYlkm(function(data) {
     var importGH = function() {
         for (var i = 0, len = Arraydata.length; i < len; i++) {
             //从挂号到结束数据导入的接口,增加至可执行post对象中
-            console.log("aaaaa:" + Arraydata[i])
             options[i] = Data(conf.service + 'hosDataOpe/importService', Arraydata[i]);
         }
     }
