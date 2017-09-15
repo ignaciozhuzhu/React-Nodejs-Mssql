@@ -267,7 +267,7 @@ exports.getDoc = function(callback) {
                 for (var i = 0, len = arr.length; i < len; i++) {
                     // arr[i].title = '主任医师';
                     //  arr[i].fullname = arr[i].cname;
-                    if (arr[i].lzz = 1) {
+                    if (arr[i].lzz == 1) {
                         arrNew.push(arr[i])
                     }
                 }
