@@ -212,6 +212,7 @@ exports.getHosDataOpeTest2 = function(callback) {
             } else console.log("出错");
         });
     }
+    callback(result);
 
 
     function Abandom(callbackfunction) {
@@ -246,13 +247,14 @@ exports.getHosDataOpeTest2 = function(callback) {
         }
     }
 
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+
+    /*    db.sql(str, function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(result);
+        })*/
 };
 
 
