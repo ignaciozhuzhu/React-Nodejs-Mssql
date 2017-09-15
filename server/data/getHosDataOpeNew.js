@@ -65,25 +65,48 @@ exports.getHosDataOpeDelResnext = function(callback) {
                 var arr = JSON.parse(str);
                 var arrNew = [];
                 for (var i = 0, len = (arr.length - 40); i < len; i++) {
-                    arrNew[i].hospitalname = arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
-                    arrNew[i].doctorname = arr[i].DoctorName; //医生姓名
-                    arrNew[i].reserved_date = arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
-                    arrNew[i].reserved_time = arr[i].cTime; //预约时间，格式hh:mm,例如：08:30
-                    arrNew[i].remark = arr[i].CText; //备注信息
-                    arrNew[i].isfirst = 0; //暂未提供,向对方提出加进来,是否复诊病人
-                    arrNew[i].flag = 0; //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
-                    arrNew[i].fullname = arr[i].PatientName || 'noname';
-                    arrNew[i].idcard = '' //患者身份证号,暂未提供
-                    arrNew[i].anamnesisno = arr[i].PatientNo; //患者病历号
-                    arrNew[i].gender = 1; //性别,暂未提供
-                    arrNew[i].mobile = arr[i].Mobile;
-                    arrNew[i].otherphone = ''; //其他联系方式,暂未提供
-                    arrNew[i].birthday = '20000101' //患者生日,暂未提供
-                    arrNew[i].address = '' //患者地址,暂未提供
-                    arrNew[i].guid = arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
-                    arrNew[i].upt = '20170901'; //当前时间
-                    arrNew[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加
+                    /*                    arrNew[i].hospitalname = arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
+                                        arrNew[i].doctorname = arr[i].DoctorName; //医生姓名
+                                        arrNew[i].reserved_date = arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
+                                        arrNew[i].reserved_time = arr[i].cTime; //预约时间，格式hh:mm,例如：08:30
+                                        arrNew[i].remark = arr[i].CText; //备注信息
+                                        arrNew[i].isfirst = 0; //暂未提供,向对方提出加进来,是否复诊病人
+                                        arrNew[i].flag = 0; //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                                        arrNew[i].fullname = arr[i].PatientName || 'noname';
+                                        arrNew[i].idcard = '' //患者身份证号,暂未提供
+                                        arrNew[i].anamnesisno = arr[i].PatientNo; //患者病历号
+                                        arrNew[i].gender = 1; //性别,暂未提供
+                                        arrNew[i].mobile = arr[i].Mobile;
+                                        arrNew[i].otherphone = ''; //其他联系方式,暂未提供
+                                        arrNew[i].birthday = '20000101' //患者生日,暂未提供
+                                        arrNew[i].address = '' //患者地址,暂未提供
+                                        arrNew[i].guid = arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
+                                        arrNew[i].upt = '20170901'; //当前时间
+                                        arrNew[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加*/
+                    arrNew[i] = {
+                        hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
+                        doctorname: arr[i].DoctorName; //医生姓名
+                        reserved_date: arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
+                        reserved_time: arr[i].cTime; //预约时间，格式hh:mm,例如：08:30
+                        remark: arr[i].CText; //备注信息
+                        isfirst: 0; //暂未提供,向对方提出加进来,是否复诊病人
+                        flag: 0; //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                        fullname: arr[i].PatientName || 'noname';
+                        idcard: '' //患者身份证号,暂未提供
+                        anamnesisno: arr[i].PatientNo; //患者病历号
+                        gender: 1; //性别,暂未提供
+                        mobile: arr[i].Mobile;
+                        otherphone: ''; //其他联系方式,暂未提供
+                        birthday: '20000101' //患者生日,暂未提供
+                        address: '' //患者地址,暂未提供
+                        guid: arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
+                        upt: '20170901'; //当前时间
+                        d: 2; //d: 操作标志，0增加，1删除，2先删除后增加
+                    }
                 }
+
+
+
                 console.log("datajson:" + JSON.stringify(arrNew));
                 callback(arrNew)
             } else console.log(error);
