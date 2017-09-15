@@ -2,7 +2,7 @@
 var request = require('request').defaults({
     jar: true
 });
-var fun = require('../../data/getHosDataOpe');
+var fun = require('../../data/getHosDataOpeNew');
 //var fundel = require('../post_gh_del');
 var conf = require('../../sqlserver/config.js');
 var fs = require("fs");
