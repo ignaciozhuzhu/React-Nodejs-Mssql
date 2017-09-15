@@ -207,11 +207,10 @@ exports.getHosDataOpeTest2 = function(callback) {
     function GetData() {
         request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log(response);
                 var str = body;
                 if (str)
                     str = str.substr(37, str.length - 10)
-                console.log(str);
+                console.log("datajson:" + str);
                 callback(str)
             } else console.log(error);
         });
