@@ -196,8 +196,8 @@ exports.getHosDataOpeTest = function(callback) {
     })
 };
 exports.getHosDataOpeTest2 = function(callback) {
-    var db = require('../sqlserver/db');
-    var str = creategh(1) + " SELECT top(100) * FROM ##gh where pname='陈竺' order by ghid desc  ";
+    //var db = require('../sqlserver/db');
+    //var str = creategh(1) + " SELECT top(100) * FROM ##gh where pname='陈竺' order by ghid desc  ";
     //var str = createyy(1) + " SELECT * FROM ##yy where yyid=23212  order by yyid desc  ";
     //var str = creategh() + " SELECT * FROM ##gh  order by ghid desc  ";
     //var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
