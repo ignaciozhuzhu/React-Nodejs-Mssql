@@ -40,7 +40,7 @@ fun.getServiceYlkm(function(data) {
         request(options[count], callback);
     } else {
       console.log('导入失败~~error:' + error + '~~data:' + data);
-      //request(options[count], callback);
+    //request(options[count], callback);
     }
 
     console.log("截止目前总共导入" + count + "条记录");
