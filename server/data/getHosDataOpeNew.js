@@ -262,8 +262,12 @@ exports.getDoc = function(callback) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str);
+                var arr = JSON.parse(str);
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    arr[i].title = '主任医师';
+                }
                 // console.log("datajson:" + str);
-                callback(str)
+                callback(arr)
             } else console.log(error);
         });
     }

@@ -44,9 +44,9 @@ function myImport(data, callbackfun) {
         //console.log(JSON.stringify(Arraydata))
     importGH();
     //console.log("长度:" + options.length)
-    console.log("数据:" + JSON.parse(Arraydata))
+    //console.log("数据:" + JSON.parse(Arraydata))
     for (var i = 0; i < Arraydata.length; i++) {
-        //  console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
+        console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
     }
     fs.writeFile('ghdata.txt', JSON.stringify(Arraydata), function(err) {
         if (err) {
