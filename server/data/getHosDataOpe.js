@@ -194,16 +194,28 @@ exports.getHosDataOpeTest = function(callback) {
         callback(result);
     })
 };
-var request = require('request').defaults({
-    jar: true
-});
+
 exports.getHosDataOpeTest2 = function(callback) {
     var db = require('../sqlserver/db');
     var str = creategh(1) + " SELECT top(100) * FROM ##gh where pname='陈竺' order by ghid desc  ";
     //var str = createyy(1) + " SELECT * FROM ##yy where yyid=23212  order by yyid desc  ";
     //var str = creategh() + " SELECT * FROM ##gh  order by ghid desc  ";
     //var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
-    callback(login22)
+    GetData();
+    //callback(login22)
+
+    function GetData() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            } else console.log("出错");
+        }
+        xhr.send(null);
+    }
 
     function login22(callbackfunction) {
         function Data() {
