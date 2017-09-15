@@ -58,18 +58,30 @@ exports.getHosDataOpeDelResnext = function(callback) {
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170913&cEndDate=20170914', function(error, response, body) {
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170914&cEndDate=20170914', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str);
                 var arr = JSON.parse(str);
-                //var arrNew = [];
                 for (var i = 0, len = arr.length; i < len; i++) {
-                    // arr[i].title = '主任医师';
-                    //  arr[i].fullname = arr[i].cname;
-                    /* if (arr[i].lzz == 1) {
-                         arrNew.push(arr[i])
-                     }*/
+                    arr[i].hospitalname = arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
+                    arr[i].doctorname = arr[i].DoctorName; //医生姓名
+                    arr[i].reserved_date = arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
+                    arr[i].reserved_time = arr[i].cTime; //预约时间，格式hh:mm,例如：08:30
+                    arr[i].remark = arr[i].CText; //备注信息
+                    arr[i].isfirst = 0; //暂未提供,向对方提出加进来,是否复诊病人
+                    arr[i].flag = 0; //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                    arr[i].fullname = arr[i].PatientName || 'noname';
+                    arr[i].idcard = '' //患者身份证号,暂未提供
+                    arr[i].anamnesisno = arr[i].PatientNo; //患者病历号
+                    arr[i].gender = 1; //性别,暂未提供
+                    arr[i].mobile = arr[i].Mobile;
+                    arr[i].otherphone = ''; //其他联系方式,暂未提供
+                    arr[i].birthday = '20000101' //患者生日,暂未提供
+                    arr[i].address = '' //患者地址,暂未提供
+                    arr[i].yyid = arr[i].cGuid //cGuid是预约主键值（修改删除时要用）
+                    arr[i].upt = '20170901';
+                    arr[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加
                 }
                 callback(arr)
             } else console.log(error);
