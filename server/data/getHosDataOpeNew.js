@@ -63,7 +63,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
                 var str = body;
                 str = subJson(str);
                 var arr = JSON.parse(str);
-                for (var i = 0, len = arr.length; i < len; i++) {
+                for (var i = 0, len = arr.length - 40; i < len; i++) {
                     arr[i].hospitalname = arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
                     arr[i].doctorname = arr[i].DoctorName; //医生姓名
                     arr[i].reserved_date = arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
@@ -83,6 +83,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
                     arr[i].upt = '20170901'; //当前时间
                     arr[i].d = 2; //d: 操作标志，0增加，1删除，2先删除后增加
                 }
+                console.log("datajson:" + JSON.stringify(arr));
                 callback(arr)
             } else console.log(error);
         });
