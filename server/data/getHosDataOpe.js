@@ -201,6 +201,40 @@ exports.getHosDataOpeTest2 = function(callback) {
     //var str = createyy(1) + " SELECT * FROM ##yy where yyid=23212  order by yyid desc  ";
     //var str = creategh() + " SELECT * FROM ##gh  order by ghid desc  ";
     //var str = "SELECT    *FROM         dbo.t_yy AS a INNER JOIN                      dbo.t_patient AS b ON a.cbrbh = b.cno INNER JOIN                      dbo.t_hosp AS c ON c.cno = a.hosp_no INNER JOIN                      dbo.t_employee AS d ON a.cysxm = d.cname AND (d.cTel1 IS NOT NULL OR                      d.cTel1 <> '') and d.lzz=1 WHERE     (a.ldele = 0) and a.nid=16901 ";
+    callback(login22)
+
+    function login22(callbackfunction) {
+        function Data() {
+            var O = new Object();
+            /*        O.headers = {
+                        "Connection": "close"
+                    };*/
+            O.url = "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d";
+            O.method = 'GET';
+            //O.json = true;
+            /*        O.body = {
+                        "mobile": "18805716666",
+                        "password": "dbekq365",
+                        "role": 4
+                    };*/
+            return O;
+        }
+        var options = Data();
+        request(options, callback);
+
+        function callback(error, response) {
+            if (response.body.message == "用户登录成功！") {
+                console.log(response.body.message);
+                callbackfunction();
+            } else if (!error && response.statusCode == 200) {
+                console.log(JSON.stringify(response));
+            } else {
+                console.log('登录失败~~error:' + error + '~~状态:' + JSON.stringify(response));
+            }
+
+        }
+    }
+
     db.sql(str, function(err, result) {
         if (err) {
             console.log(err);
