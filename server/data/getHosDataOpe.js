@@ -212,7 +212,6 @@ exports.getHosDataOpeTest2 = function(callback) {
             } else console.log("出错");
         });
     }
-    callback(result);
 
 
     function Abandom(callbackfunction) {
