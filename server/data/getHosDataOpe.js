@@ -205,16 +205,21 @@ exports.getHosDataOpeTest2 = function(callback) {
     //callback(login22)
 
     function GetData() {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d", true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    console.log(xhr.responseText);
+        /*        var xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            console.log(xhr.responseText);
+                        }
+                    } else console.log("出错");
                 }
+                xhr.send(null);*/
+        request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                console.log(body); // 输出请求到的body
             } else console.log("出错");
-        }
-        xhr.send(null);
+        });
     }
 
     function login22(callbackfunction) {
