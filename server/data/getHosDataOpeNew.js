@@ -63,7 +63,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
                 var str = body;
                 str = subJson(str);
                 var arr = JSON.parse(str);
-                for (var i = 0, len = arr.length - 40; i < len; i++) {
+                for (var i = 0, len = (arr.length - 40); i < len; i++) {
                     arr[i].hospitalname = arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所';
                     arr[i].doctorname = arr[i].DoctorName; //医生姓名
                     arr[i].reserved_date = arr[i].cDate; //预约日期，格式yyyy-mm-dd（必填）
