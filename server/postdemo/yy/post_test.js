@@ -44,7 +44,7 @@ function myImport(data, callbackfun) {
         //console.log(JSON.stringify(Arraydata))
     importGH();
     //console.log("长度:" + options.length)
-    console.log("数据:" + JSON.stringify(Arraydata))
+    console.log("数据:" + JSON.parse(Arraydata))
     for (var i = 0; i < Arraydata.length; i++) {
         //  console.log(Arraydata.length + "-----" + JSON.stringify(Arraydata[i]));
     }
