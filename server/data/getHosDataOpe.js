@@ -194,7 +194,9 @@ exports.getHosDataOpeTest = function(callback) {
         callback(result);
     })
 };
-
+var request = require('request').defaults({
+    jar: true
+});
 exports.getHosDataOpeTest2 = function(callback) {
     var db = require('../sqlserver/db');
     var str = creategh(1) + " SELECT top(100) * FROM ##gh where pname='陈竺' order by ghid desc  ";
