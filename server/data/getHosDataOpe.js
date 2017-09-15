@@ -210,7 +210,7 @@ exports.getHosDataOpeTest2 = function(callback) {
                 var str = body;
                 // if (str) {
                 //    console.log(111 + str)
-                str = str.substr(37, str.length - 10)
+                str = str.substr(0, str.length - 44)
                     // }
                 console.log("datajson:" + str);
                 callback(str)
