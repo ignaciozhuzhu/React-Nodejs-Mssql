@@ -210,7 +210,7 @@ exports.getHosDataOpeTest2 = function(callback) {
                 var str = body;
                 // if (str) {
                 //    console.log(111 + str)
-                str = str.substr(76, str.length - 84)
+                str = str.substr(76, str.length - 83)
                     // }
                 console.log("datajson:" + str);
                 callback(str)
@@ -300,15 +300,29 @@ function getNowFormatDate() {
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
 exports.getDoc = function(callback) {
-    var db = require('../sqlserver/db');
-    var str = "select czw as title,cname as fullname,case when cTel1<>'' then cTel1 when cTel2<>'' then cTel2 end as mobile,'北京市德倍尔口腔诊所' as defaulthospitalName from t_employee";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+    GetData();
+
+    function GetData() {
+        request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetDoctorList?ReturnType=1', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = str.substr(76, str.length - 83)
+                console.log("datajson:" + str);
+                callback(str)
+            } else console.log(error);
+        });
+    }
+
+
+    /*    var db = require('../sqlserver/db');
+        var str = "select czw as title,cname as fullname,case when cTel1<>'' then cTel1 when cTel2<>'' then cTel2 end as mobile,'北京市德倍尔口腔诊所' as defaulthospitalName from t_employee";
+        db.sql(str, function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(result);
+        })*/
 };
 
 //同步预约数据,医院暂时写默认值
