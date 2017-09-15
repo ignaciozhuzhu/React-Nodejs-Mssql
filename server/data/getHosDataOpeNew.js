@@ -1,4 +1,5 @@
 var request = require('request');
+var localService = require('../sqlserver/config').localService;
 
 var cake = 4000;
 //同步挂号数据
@@ -258,7 +259,7 @@ exports.getDoc = function(callback) {
     GetData();
 
     function GetData() {
-        request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetDoctorList?ReturnType=1', function(error, response, body) {
+        request(localService + '/Keson_GetDoctorList?ReturnType=1', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str);
@@ -271,7 +272,6 @@ exports.getDoc = function(callback) {
                         arrNew.push(arr[i])
                     }
                 }
-                // console.log("datajson:" + str);
                 callback(arrNew)
             } else console.log(error);
         });
