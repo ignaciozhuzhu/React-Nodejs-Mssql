@@ -60,7 +60,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
     console.log('111' + Now)
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now,
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170918&cEndDate=20170918',
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
