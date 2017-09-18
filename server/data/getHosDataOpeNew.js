@@ -213,7 +213,7 @@ exports.getyypiece = function(callback) {
             }
             callback(result);
         })*/
-    GetData()
+    GetData();
 
     function GetData() {
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=&cEndDate=',
