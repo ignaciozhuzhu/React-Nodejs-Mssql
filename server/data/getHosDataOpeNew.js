@@ -216,11 +216,11 @@ exports.getyypiece = function(callback) {
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=2&NumType=1&cValue=&cStartDate=20130426&cEndDate=20140426',
+        request(localService + '/Keson_GetYYData?ReturnType=2&NumType=1&cValue=&cStartDate=20130426&cEndDate=20170926',
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
-                    console.log(str)
+                    //console.log(str)
                     var re = new RegExp("&lt;YYDataListParm&gt;", "g");
                     var arr = str.match(re);
                     // console.log(arr.length + "111111111")
