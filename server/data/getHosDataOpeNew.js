@@ -222,7 +222,7 @@ exports.getyypiece = function(callback) {
                     var str = body;
                     str = subJson(str);
                     var arr = JSON.parse(str);
-                    console.log("datajson:" + JSON.stringify(arrNew));
+                    console.log("datajson Length:" + arr.length);
                     callback(arr)
                 } else console.log(error);
             });
