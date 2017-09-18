@@ -39,7 +39,7 @@ exports.getReservation = function(callback) {
     })
 };
 //同步预约数据,医院暂时写默认值
-exports.getReservation2 = function(callback, year, month) {
+exports.getReservation2 = function(callback) { //, year, month
 
     GetData();
 
@@ -51,7 +51,7 @@ exports.getReservation2 = function(callback, year, month) {
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
-                    //console.log(str)
+                    console.log(str)
                     var arr = JSON.parse(str);
                     // console.log(arr.length + "111111111")
                     /*                    str = subJson(str);
