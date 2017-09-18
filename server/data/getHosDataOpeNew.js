@@ -56,9 +56,10 @@ exports.getReservation2 = function(callback, piece) {
 exports.getHosDataOpeDelResnext = function(callback) {
 
     GetData();
+    var Now = getNowFormatDate();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170914&cEndDate=20170914', function(error, response, body) {
+        request(localService + ` /Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=${getNowFormatDate}+ &cEndDate=${getNowFormatDate} `, function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str);
@@ -267,7 +268,6 @@ function subJson(str) {
 function getNowFormatDate() {
     var date = new Date();
     var seperator1 = "-";
-    var seperator2 = ":";
     var month = date.getMonth() + 1;
     var strDate = date.getDate();
     if (month >= 1 && month <= 9) {
