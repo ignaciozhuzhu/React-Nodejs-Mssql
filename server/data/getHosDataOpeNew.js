@@ -241,7 +241,7 @@ function date2Format2(str) {
     return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
 }
 
-// YYYY-mm-dd 转 YYYYmmdd
+// 将科胜接口获取过来的数据做转化至牙艺接口使用
 function formatYYdata(error, response, body, callback, flag) {
     if (!error && response.statusCode == 200) {
         var str = body;
@@ -269,8 +269,7 @@ function formatYYdata(error, response, body, callback, flag) {
                 d: flag //d: 操作标志，0增加，1删除，2先删除后增加
             }
         }
-
-        console.log("datajson:" + JSON.stringify(arrNew));
+        //console.log("datajson:" + JSON.stringify(arrNew));
         callback(arrNew)
     } else console.log(error);
 };
