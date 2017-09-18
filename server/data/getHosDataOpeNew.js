@@ -252,7 +252,7 @@ function date2Format2(str) {
 
 
 // 预约写入科胜
-exports.YYData_Add = function(str) {
+exports.YYData_Add = function(callback) {
     request(localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=1&cValue=88cc3052-d92d-4523-adf4-5752500e80c3&cPatNo=10000&cPatName=龙鸿轩1&cDate=20170919&cTime=16:00&nlen=30&Doctorid=00011&DoctorName=侯博&CText=test0&CMemo=test1&Hosp_no=001&nSource=1',
         function(error, response, body) {
             if (!error && response.statusCode == 200) {
@@ -266,7 +266,7 @@ exports.YYData_Add = function(str) {
 }
 
 // 删除科胜预约
-exports.YYData_Del = function(str) {
+exports.YYData_Del = function(callback) {
     request(localService + '/Keson_PostYYData_Del?ReturnType=1&cValue=88cc3052-d92d-4523-adf4-5752500e80c3',
         function(error, response, body) {
             if (!error && response.statusCode == 200) {
