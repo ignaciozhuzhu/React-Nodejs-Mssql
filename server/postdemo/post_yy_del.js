@@ -1,6 +1,8 @@
 var request = require('request').defaults({
     jar: true
 });
+//var fun = require('../data/getHosDataOpe');
+//2017-09-15 因为数据库帐号被删除,无法连接数据库,修改为新的获取数据方法,用纯接口获取
 var fun = require('../data/getHosDataOpeNew');
 var conf = require('../sqlserver/config.js');
 
@@ -69,8 +71,8 @@ exports.deleteResNext = function() {
                 }
             }
             importGH();
-            console.log("aaaaa:" + JSON.stringify(options[0]))
-                //循环执行导入(批量导入)
+            //console.log("aaaaa:" + JSON.stringify(options[0]))
+            //循环执行导入(批量导入)
             try {
                 request(options[0], callback);
             } catch (error) {}

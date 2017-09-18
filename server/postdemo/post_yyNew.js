@@ -8,7 +8,9 @@ var funyy = require('./post_yy');
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
-var yypiece_count;
+//var yypiece_count;
+var year = 2013;
+var month = 1;
 var retryCount;
 //前4000条(最近)
 exports.importDataResBatch = function() {
@@ -16,7 +18,7 @@ exports.importDataResBatch = function() {
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
     fundel.deleteResAll(function(callbackfunction) {
         fun.getReservation(function(data) {
-            yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+            year = 2013; //该变量用于计数,与importDataBatch2共存亡
             myImport(data, importDataBatch2);
         })
     })
@@ -68,7 +70,7 @@ function myImport(data, callbackfun) {
                     })(
                         fundel.deleteResAll(function(callbackfunction) {
                             fun.getReservation(function(data) {
-                                yypiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+                                year = 2013; //该变量用于计数,与importDataBatch2共存亡
                                 myImport(data, importDataBatch2);
                             })
                         }))
@@ -84,14 +86,18 @@ function myImport(data, callbackfun) {
 function importDataBatch2() {
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
     fun.getyypiece(function(p) {
-        console.log("预约分成块数:" + p[0].count)
-        console.log("目前是第几块:" + yypiece_count)
+        console.log("目前月:" + month)
+        console.log("目前年:" + year)
         fun.getReservation2(function(data) {
-            if (yypiece_count < p[0].count) {
-                myImport(data, function() {
-                    importDataBatch2(yypiece_count++)
-                });
+            if (year < 2014) {
+                if (month < 6) {
+                    myImport(data, function() {
+                        importDataBatch2(month++)
+                    });
+                } else {
+                    year++
+                }
             }
-        }, yypiece_count)
+        }, year, month)
     })
 }
