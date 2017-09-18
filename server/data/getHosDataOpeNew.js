@@ -56,7 +56,7 @@ exports.getReservation2 = function(callback, year, month) {
                     // console.log(arr.length + "111111111")
                     /*                    str = subJson(str);
                      */
-                    console.log("datajson:" + arr.length);
+                    console.log("datajson:" + arr);
                     callback(arr)
                 } else console.log(error);
             });
