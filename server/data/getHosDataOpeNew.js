@@ -55,12 +55,11 @@ exports.getReservation2 = function(callback, piece) {
 //增量删除新增预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
 
-    GetData();
     var Now = date2Format2(getNowFormatDate());
-    console.log('111' + Now)
+    GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170918&cEndDate=20170918',
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '',
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
