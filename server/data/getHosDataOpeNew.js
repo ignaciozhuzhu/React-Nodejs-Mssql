@@ -74,8 +74,8 @@ exports.getReservation2 = function(callback, year, month) {
                             d: 2 //d: 操作标志，0增加，1删除，2先删除后增加
                         }
                     }
-                    console.log("datajson:" + str);
-                    callback(str)
+                    console.log("datajson:" + JSON.stringify(arrNew));
+                    callback(arrNew)
                 } else console.log(error);
             });
     }
