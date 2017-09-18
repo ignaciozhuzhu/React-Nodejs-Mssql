@@ -12,11 +12,11 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun.getReservation2(function(data, '2017', '09') {
+    fun.getReservation2(function(data) {
         conf.login(function() {
             //  myImport(data);
         })
-    })
+    }, '2017', '09')
 };
 
 function myImport(data, callbackfun) {
