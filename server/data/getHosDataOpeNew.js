@@ -216,7 +216,7 @@ exports.getyypiece = function(callback) {
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=2&NumType=1&cValue=&cStartDate=20130426&cEndDate=20171001',
+        request(localService + '/Keson_GetYYData?ReturnType=2&NumType=1&cValue=&cStartDate=20130426&cEndDate=20130426',
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
