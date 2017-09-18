@@ -71,7 +71,7 @@ exports.getReservation2 = function(callback, year, month) {
                             birthday: '2000-01-01', //患者生日,暂未提供
                             address: '', //患者地址,暂未提供
                             guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
-                            d: 2 //d: 操作标志，0增加，1删除，2先删除后增加
+                            d: 0 //d: 操作标志，0增加，1删除，2先删除后增加
                         }
                     }
                     console.log("datajson:" + JSON.stringify(arrNew));
