@@ -90,8 +90,8 @@ function importDataBatch2() {
     console.log("目前月:" + month)
     console.log("目前年:" + year)
     fun.getReservation2(function(data) {
-        if (year < 2015) {
-            if (month < 3) {
+        if (year < 2017) {
+            if (month < 12) {
                 myImport(data, function() {
                     importDataBatch2(month++)
                 });
