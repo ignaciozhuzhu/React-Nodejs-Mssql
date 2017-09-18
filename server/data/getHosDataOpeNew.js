@@ -290,7 +290,7 @@ function date2Format(str) {
 
 // YYYY-mm-dd 转 YYYYmmdd
 function date2Format2(str) {
-    return str.substr(0, 4) + str.substr(5, 2) + str.substr(7, 2);
+    return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
 }
 
 
