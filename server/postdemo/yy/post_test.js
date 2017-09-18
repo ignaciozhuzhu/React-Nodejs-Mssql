@@ -3,6 +3,7 @@ var request = require('request').defaults({
     jar: true
 });
 var fun = require('../../data/getHosDataOpeNew');
+var fun_yy = require('../post_yyNew.js');
 //var fundel = require('../post_gh_del');
 var conf = require('../../sqlserver/config.js');
 var fs = require("fs");
@@ -12,7 +13,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun.importDataResBatch(function(data) {
+    fun_yy.importDataResBatch(function(data) {
         conf.login(function() {
             //  myImport(data);
         })
