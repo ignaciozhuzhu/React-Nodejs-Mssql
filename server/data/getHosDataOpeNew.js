@@ -221,10 +221,13 @@ exports.getyypiece = function(callback) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
                     console.log(str)
-                    str = subJson(str);
-                    var arr = JSON.parse(str);
+                    var re = new RegExp("&lt;YYDataListParm&gt;", "g");
+                    var arr = s.match(re);
+                    console.log(arr.length + "111111111")
+                        /*                    str = subJson(str);
+                                            var arr = JSON.parse(str);*/
                     console.log("datajson Length:" + arr.length);
-                    callback(arr)
+                    //  callback(arr)
                 } else console.log(error);
             });
     }
