@@ -47,7 +47,7 @@ exports.getReservation2 = function(callback, year, month) {
         if (month < 10) month = '0' + month;
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01&cEndDate=' + year + '' + month + '31',
             function(error, response, body) {
-                formatYYdata(error, response, body, 0);
+                formatYYdata(error, response, body, callback, 0);
             });
     }
 };
@@ -61,7 +61,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
     function GetData() {
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '',
             function(error, response, body) {
-                formatYYdata(error, response, body, 2);
+                formatYYdata(error, response, body, callback, 2);
             });
     }
 
@@ -242,7 +242,7 @@ function date2Format2(str) {
 }
 
 // YYYY-mm-dd 转 YYYYmmdd
-function formatYYdata(error, response, body, flag) {
+function formatYYdata(error, response, body, callback, flag) {
     if (!error && response.statusCode == 200) {
         var str = body;
         str = subJson(str);
