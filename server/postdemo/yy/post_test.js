@@ -13,7 +13,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun_yy.YYData_Add(function(data) {
+    fun.YYData_Add(function(data) {
         conf.login(function() {
             //  myImport(data);
         })
