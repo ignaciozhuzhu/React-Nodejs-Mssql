@@ -222,7 +222,7 @@ exports.getyypiece = function(callback) {
                     var str = body;
                     console.log(str)
                     var re = new RegExp("&lt;YYDataListParm&gt;", "g");
-                    var arr = s.match(re);
+                    var arr = str.match(re);
                     console.log(arr.length + "111111111")
                         /*                    str = subJson(str);
                                             var arr = JSON.parse(str);*/
