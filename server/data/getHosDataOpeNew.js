@@ -66,7 +66,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
                     str = subJson(str);
                     var arr = JSON.parse(str);
                     var arrNew = [];
-                    for (var i = 0, len = (arr.length - 40); i < len; i++) {
+                    for (var i = 0, len = arr.length; i < len; i++) {
                         arrNew[i] = {
                             hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
                             doctorname: arr[i].DoctorName, //医生姓名
@@ -204,15 +204,29 @@ exports.getghpiece = function(callback) {
     })
 };
 exports.getyypiece = function(callback) {
-    var db = require('../sqlserver/db');
-    var str = getyycount() + "select @count/" + cake + " +1 as count";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+    /*    var db = require('../sqlserver/db');
+        var str = getyycount() + "select @count/" + cake + " +1 as count";
+        db.sql(str, function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(result);
+        })*/
+    GetData()
+
+    function GetData() {
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=&cEndDate=',
+            function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var str = body;
+                    str = subJson(str);
+                    var arr = JSON.parse(str);
+                    console.log("datajson:" + JSON.stringify(arrNew));
+                    callback(arr)
+                } else console.log(error);
+            });
+    }
 };
 
 
