@@ -44,7 +44,7 @@ exports.getReservation2 = function(callback) { //, year, month
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170629&cEndDate=20170630',
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170630&cEndDate=20170631',
             /*'/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01'
                        '&cEndDate=' + year + '' + month + '01'*/
 
@@ -52,6 +52,7 @@ exports.getReservation2 = function(callback) { //, year, month
                 if (!error && response.statusCode == 200) {
                     var str = body;
                     console.log(str)
+                    str = subJson(str);
                     var arr = JSON.parse(str);
                     // console.log(arr.length + "111111111")
                     /*                    str = subJson(str);
