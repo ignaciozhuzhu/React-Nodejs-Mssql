@@ -16,9 +16,7 @@ exports.importDataResBatch = function() {
     retryCount = 0;
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
     fundel.deleteResAll(function(callbackfunction) {
-        console.log(1)
         fun.getReservation2(function(data) {
-            console.log(2)
             year = 2013; //该变量用于计数,与importDataBatch2共存亡
             myImport(data, importDataBatch2);
         }, year, month)
