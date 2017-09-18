@@ -44,10 +44,10 @@ exports.getReservation2 = function(callback, year, month) {
     GetData();
 
     function GetData() {
-        request(localService +
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170629&cEndDate=20170630',
             /*'/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01'
                        '&cEndDate=' + year + '' + month + '01'*/
-            '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170629&cEndDate=20170630',
+
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
