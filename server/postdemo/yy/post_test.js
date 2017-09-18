@@ -16,7 +16,7 @@ var importDataBatch = function() {
         conf.login(function() {
             //  myImport(data);
         })
-    }, '2017', '09')
+    }, '2016', '09')
 };
 
 function myImport(data, callbackfun) {

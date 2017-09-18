@@ -48,7 +48,7 @@ exports.getReservation2 = function(callback, year, month) {
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
-                    console.log(str)
+                    // console.log(str)
                     str = subJson(str);
                     var arr = JSON.parse(str);
                     // console.log(arr.length + "111111111")
