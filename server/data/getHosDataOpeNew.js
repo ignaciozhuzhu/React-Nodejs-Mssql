@@ -39,16 +39,38 @@ exports.getReservation = function(callback) {
     })
 };
 //同步预约数据,医院暂时写默认值
-exports.getReservation2 = function(callback, piece) {
-    var db = require('../sqlserver/db');
-    var str = createyy() + getlastyyid(piece) + "select top(" + cake + ") * from ##yy where yyid<@lastid order by yyid desc ";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+exports.getReservation2 = function(callback, year, month) {
+
+    GetData();
+
+    function GetData() {
+        request(localService +
+            /*'/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01'
+                       '&cEndDate=' + year + '' + month + '01'*/
+            '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170629&cEndDate=20170631',
+            function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var str = body;
+                    //console.log(str)
+                    var arr = JSON.parse(str);
+                    // console.log(arr.length + "111111111")
+                    /*                    str = subJson(str);
+                     */
+                    console.log("datajson:" + arr.length);
+                    //  callback(arr)
+                } else console.log(error);
+            });
+    }
+
+    /*    var db = require('../sqlserver/db');
+        var str = createyy() + getlastyyid(piece) + "select top(" + cake + ") * from ##yy where yyid<@lastid order by yyid desc ";
+        db.sql(str, function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(result);
+        })*/
 };
 
 
@@ -249,7 +271,7 @@ exports.getHosDataOpeTest2 = function(callback) {
     GetData();
 
     function GetData() {
-        request('http://192.168.1.254/WebService/Keson_Interface.asmx/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
+        request(localService + '/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str)

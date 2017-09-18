@@ -12,7 +12,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun.getyypiece(function(data) {
+    fun.getReservation2(function(data) {
         conf.login(function() {
             //  myImport(data);
         })
