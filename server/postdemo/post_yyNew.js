@@ -9,7 +9,7 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
 //var yypiece_count;
 var year = 2013;
-var month = 3;
+var month = 10;
 var retryCount;
 //前4000条(最近)
 exports.importDataResBatch = function() {
@@ -90,16 +90,16 @@ function importDataBatch2() {
     console.log("目前月:" + month)
     console.log("目前年:" + year)
     fun.getReservation2(function(data) {
-        if (year < 2014) {
-            if (month < 5) {
+        if (year < 2015) {
+            if (month < 3) {
                 myImport(data, function() {
                     importDataBatch2(month++)
                 });
             } else {
-                year++
+                myImport(data, function() {
+                    importDataBatch2(year++, month = 1)
+                });
             }
         }
     }, year, month)
-
-    // })
 }

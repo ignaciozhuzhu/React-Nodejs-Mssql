@@ -40,97 +40,28 @@ exports.getReservation = function(callback) {
 };
 //同步预约数据,医院暂时写默认值
 exports.getReservation2 = function(callback, year, month) {
-
     GetData();
     console.log("year:" + year + "month:" + month)
-        /*'/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=20170630&cEndDate=20170631',*/
+
     function GetData() {
         if (month < 10) month = '0' + month;
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01&cEndDate=' + year + '' + month + '31',
             function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var str = body;
-                    str = subJson(str);
-                    var arr = JSON.parse(str);
-                    var arrNew = [];
-                    for (var i = 0, len = arr.length; i < len; i++) {
-                        arrNew[i] = {
-                            hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
-                            doctorname: arr[i].DoctorName, //医生姓名
-                            reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
-                            reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
-                            remark: arr[i].CText, //备注信息
-                            isfirst: 0, //暂未提供,向对方提出加进来,是否复诊病人
-                            flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
-                            fullname: arr[i].PatientName || 'noname',
-                            idcard: '', //患者身份证号,暂未提供
-                            anamnesisno: arr[i].PatientNo, //患者病历号
-                            gender: 1, //性别,暂未提供
-                            mobile: arr[i].Mobile,
-                            otherphone: '', //其他联系方式,暂未提供
-                            birthday: '2000-01-01', //患者生日,暂未提供
-                            address: '', //患者地址,暂未提供
-                            guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
-                            d: 0 //d: 操作标志，0增加，1删除，2先删除后增加
-                        }
-                    }
-                    console.log("datajson:" + JSON.stringify(arrNew));
-                    callback(arrNew)
-                } else console.log(error);
+                formatYYdata(error, response, body, 0);
             });
     }
-
-    /*    var db = require('../sqlserver/db');
-        var str = createyy() + getlastyyid(piece) + "select top(" + cake + ") * from ##yy where yyid<@lastid order by yyid desc ";
-        db.sql(str, function(err, result) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            callback(result);
-        })*/
 };
 
 
 //增量删除新增预约数据
 exports.getHosDataOpeDelResnext = function(callback) {
-
     var Now = date2Format2(getNowFormatDate());
     GetData();
 
     function GetData() {
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '',
             function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var str = body;
-                    str = subJson(str);
-                    var arr = JSON.parse(str);
-                    var arrNew = [];
-                    for (var i = 0, len = arr.length; i < len; i++) {
-                        arrNew[i] = {
-                            hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
-                            doctorname: arr[i].DoctorName, //医生姓名
-                            reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
-                            reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
-                            remark: arr[i].CText, //备注信息
-                            isfirst: 0, //暂未提供,向对方提出加进来,是否复诊病人
-                            flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
-                            fullname: arr[i].PatientName || 'noname',
-                            idcard: '', //患者身份证号,暂未提供
-                            anamnesisno: arr[i].PatientNo, //患者病历号
-                            gender: 1, //性别,暂未提供
-                            mobile: arr[i].Mobile,
-                            otherphone: '', //其他联系方式,暂未提供
-                            birthday: '2000-01-01', //患者生日,暂未提供
-                            address: '', //患者地址,暂未提供
-                            guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
-                            d: 2 //d: 操作标志，0增加，1删除，2先删除后增加
-                        }
-                    }
-
-                    console.log("datajson:" + JSON.stringify(arrNew));
-                    callback(arrNew)
-                } else console.log(error);
+                formatYYdata(error, response, body, 2);
             });
     }
 
@@ -243,48 +174,8 @@ exports.getghpiece = function(callback) {
         callback(result);
     })
 };
-exports.getyypiece = function(callback) {
-    /*    var db = require('../sqlserver/db');
-        var str = getyycount() + "select @count/" + cake + " +1 as count";
-        db.sql(str, function(err, result) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            callback(result);
-        })*/
-    GetData();
-
-    function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=2&NumType=1&cValue=&cStartDate=20130426&cEndDate=20170926',
-            function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var str = body;
-                    //console.log(str)
-                    var re = new RegExp("&lt;YYDataListParm&gt;", "g");
-                    var arr = str.match(re);
-                    // console.log(arr.length + "111111111")
-                    /*                    str = subJson(str);
-                                        var arr = JSON.parse(str);*/
-                    console.log("datajson Length:" + Math.ceil(arr.length / cake));
-                    //  callback(arr)
-                } else console.log(error);
-            });
-    }
-};
 
 
-exports.getHosDataOpeTest = function(callback) {
-    var db = require('../sqlserver/db');
-    var str = "select * from V_GH order by ghid";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
-};
 exports.getHosDataOpeTest2 = function(callback) {
     GetData();
 
@@ -349,6 +240,40 @@ function date2Format(str) {
 function date2Format2(str) {
     return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
 }
+
+// YYYY-mm-dd 转 YYYYmmdd
+function formatYYdata(error, response, body, flag) {
+    if (!error && response.statusCode == 200) {
+        var str = body;
+        str = subJson(str);
+        var arr = JSON.parse(str);
+        var arrNew = [];
+        for (var i = 0, len = arr.length; i < len; i++) {
+            arrNew[i] = {
+                hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
+                doctorname: arr[i].DoctorName, //医生姓名
+                reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
+                reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
+                remark: arr[i].CText, //备注信息
+                isfirst: 0, //暂未提供,向对方提出加进来,是否复诊病人
+                flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                fullname: arr[i].PatientName || 'noname',
+                idcard: '', //患者身份证号,暂未提供
+                anamnesisno: arr[i].PatientNo, //患者病历号
+                gender: 1, //性别,暂未提供
+                mobile: arr[i].Mobile,
+                otherphone: '', //其他联系方式,暂未提供
+                birthday: '2000-01-01', //患者生日,暂未提供
+                address: '', //患者地址,暂未提供
+                guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
+                d: flag //d: 操作标志，0增加，1删除，2先删除后增加
+            }
+        }
+
+        console.log("datajson:" + JSON.stringify(arrNew));
+        callback(arrNew)
+    } else console.log(error);
+};
 
 
 
