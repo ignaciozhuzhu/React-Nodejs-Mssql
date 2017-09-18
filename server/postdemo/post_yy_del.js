@@ -9,37 +9,37 @@ var conf = require('../sqlserver/config.js');
 var ajaxurl = conf.service + "hosDataOpe/deleteResAll";
 exports.deleteResAll = function(callbackfunction) {
     var count2 = 0;
-    fun.getHosName(function(mdata) {
-        function Data(url, body) {
-            var O = new Object();
-            O.headers = {
-                "Connection": "close"
-            };
-            O.url = url;
-            O.method = 'POST';
-            O.json = true;
-            O.body = body;
-            return O;
-        }
-        request(Data(ajaxurl, mdata[0]), callback);
+    // fun.getHosName(function(mdata) {
+    function Data(url, body) {
+        var O = new Object();
+        O.headers = {
+            "Connection": "close"
+        };
+        O.url = url;
+        O.method = 'POST';
+        O.json = true;
+        O.body = body;
+        return O;
+    }
+    request(Data(ajaxurl, { "hname": "北京市德倍尔口腔诊所" }), callback);
 
-        function callback(error, response, data) {
-            if (!error && response.statusCode == 200) {
-                if (count2 == 0) {
-                    console.log("北京预约已清除")
-                    request(Data(ajaxurl, mdata[1]), callback);
-                } else if (count2 == 1) {
-                    console.log("天津预约已清除")
-                    console.log("开始执行预约导入")
-                    callbackfunction();
-                }
-                count2++;
-            } else {
-                console.log('清除失败~~error:' + error + '~~data:' + data);
+    function callback(error, response, data) {
+        if (!error && response.statusCode == 200) {
+            if (count2 == 0) {
+                console.log("北京预约已清除")
+                request(Data(ajaxurl, { "hname": "天津市德倍尔口腔诊所" }), callback);
+            } else if (count2 == 1) {
+                console.log("天津预约已清除")
+                console.log("开始执行预约导入")
+                callbackfunction();
             }
+            count2++;
+        } else {
+            console.log('清除失败~~error:' + error + '~~data:' + data);
         }
+    }
 
-    })
+    // })
 };
 
 
