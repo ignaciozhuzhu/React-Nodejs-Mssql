@@ -84,19 +84,20 @@ function myImport(data, callbackfun) {
 
 function importDataBatch2() {
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-    fun.getyypiece(function(p) {
-        console.log("目前月:" + month)
-        console.log("目前年:" + year)
-        fun.getReservation2(function(data) {
-            if (year < 2014) {
-                if (month < 6) {
-                    myImport(data, function() {
-                        importDataBatch2(month++)
-                    });
-                } else {
-                    year++
-                }
+    //fun.getyypiece(function(p) {
+    console.log("目前月:" + month)
+    console.log("目前年:" + year)
+    fun.getReservation2(function(data) {
+        if (year < 2014) {
+            if (month < 6) {
+                myImport(data, function() {
+                    importDataBatch2(month++)
+                });
+            } else {
+                year++
             }
-        }, year, month)
-    })
+        }
+    }, year, month)
+
+    // })
 }
