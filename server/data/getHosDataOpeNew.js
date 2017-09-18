@@ -41,7 +41,6 @@ exports.getReservation = function(callback) {
 //同步预约数据,医院暂时写默认值
 exports.getReservation2 = function(callback, year, month) {
     GetData();
-    console.log("year:" + year + "month:" + month)
 
     function GetData() {
         if (month < 10) month = '0' + month;
@@ -68,16 +67,26 @@ exports.getHosDataOpeDelResnext = function(callback) {
 };
 //增量删除新增挂号数据
 exports.getHosDataOpeDelnext = function(callback) {
-    var db = require('../sqlserver/db');
-    console.log("当前时间戳:" + gettimestamp())
-    var str = creategh(2) + " select * from ##gh where bookingtime>= '" + gettimestamp() + "' order by ghid ";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
+
+    var Now = date2Format2(getNowFormatDate());
+    GetData();
+
+    function GetData() {
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '',
+            function(error, response, body) {
+                formatGHdata(error, response, body, callback, 2);
+            });
+    }
+    /*    var db = require('../sqlserver/db');
+        console.log("当前时间戳:" + gettimestamp())
+        var str = creategh(2) + " select * from ##gh where bookingtime>= '" + gettimestamp() + "' order by ghid ";
+        db.sql(str, function(err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            callback(result);
+        })*/
 };
 
 //创建挂号临时数据表
@@ -239,6 +248,35 @@ function date2Format(str) {
 // YYYY-mm-dd 转 YYYYmmdd
 function date2Format2(str) {
     return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
+}
+
+
+// 预约写入科胜
+function YYData_Add(str) {
+    request(localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=1&cValue=88cc3052-d92d-4523-adf4-5752500e80c3&cPatNo=10000&cPatName=龙鸿轩1&cDate=20170919&cTime=16:00&nlen=30&Doctorid=00011&DoctorName=侯博&CText=test0&CMemo=test1&Hosp_no=001&nSource=1',
+        function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str);
+                var arr = JSON.parse(str);
+                console.log("datajson:" + JSON.stringify(arr));
+                callback(arr)
+            } else console.log(error);
+        });
+}
+
+// 删除科胜预约
+function YYData_Del(str) {
+    request(localService + '/Keson_PostYYData_Del?ReturnType=1&cValue=88cc3052-d92d-4523-adf4-5752500e80c3',
+        function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str);
+                var arr = JSON.parse(str);
+                console.log("datajson:" + JSON.stringify(arr));
+                callback(arr)
+            } else console.log(error);
+        });
 }
 
 // 将科胜接口获取过来的数据做转化至牙艺接口使用
