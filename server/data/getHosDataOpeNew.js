@@ -220,6 +220,7 @@ exports.getyypiece = function(callback) {
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
+                    console.log(str)
                     str = subJson(str);
                     var arr = JSON.parse(str);
                     console.log("datajson Length:" + arr.length);
