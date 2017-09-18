@@ -59,7 +59,7 @@ exports.getHosDataOpeDelResnext = function(callback) {
     var Now = getNowFormatDate();
 
     function GetData() {
-        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + getNowFormatDate + '&cEndDate=' + getNowFormatDate + '', function(error, response, body) {
+        request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 var str = body;
                 str = subJson(str);
