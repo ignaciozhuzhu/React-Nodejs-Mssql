@@ -226,7 +226,7 @@ exports.getyypiece = function(callback) {
                     // console.log(arr.length + "111111111")
                     /*                    str = subJson(str);
                                         var arr = JSON.parse(str);*/
-                    console.log("datajson Length:" + arr.length);
+                    console.log("datajson Length:" + Math.ceil(arr.length / cake));
                     //  callback(arr)
                 } else console.log(error);
             });
