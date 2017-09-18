@@ -50,14 +50,32 @@ exports.getReservation2 = function(callback, year, month) {
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
-                    // console.log(str)
                     str = subJson(str);
                     var arr = JSON.parse(str);
-                    // console.log(arr.length + "111111111")
-                    /*                    str = subJson(str);
-                     */
+                    var arrNew = [];
+                    for (var i = 0, len = arr.length; i < len; i++) {
+                        arrNew[i] = {
+                            hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
+                            doctorname: arr[i].DoctorName, //医生姓名
+                            reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
+                            reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
+                            remark: arr[i].CText, //备注信息
+                            isfirst: 0, //暂未提供,向对方提出加进来,是否复诊病人
+                            flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                            fullname: arr[i].PatientName || 'noname',
+                            idcard: '', //患者身份证号,暂未提供
+                            anamnesisno: arr[i].PatientNo, //患者病历号
+                            gender: 1, //性别,暂未提供
+                            mobile: arr[i].Mobile,
+                            otherphone: '', //其他联系方式,暂未提供
+                            birthday: '2000-01-01', //患者生日,暂未提供
+                            address: '', //患者地址,暂未提供
+                            guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
+                            d: 2 //d: 操作标志，0增加，1删除，2先删除后增加
+                        }
+                    }
                     console.log("datajson:" + str);
-                    callback(str)
+                    callback(str) * /
                 } else console.log(error);
             });
     }
