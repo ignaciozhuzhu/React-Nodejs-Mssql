@@ -75,7 +75,7 @@ exports.getReservation2 = function(callback, year, month) {
                         }
                     }
                     console.log("datajson:" + str);
-                    callback(str) * /
+                    callback(str)
                 } else console.log(error);
             });
     }
