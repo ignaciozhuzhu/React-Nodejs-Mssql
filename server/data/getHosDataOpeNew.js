@@ -32,7 +32,7 @@ exports.getJZData = function(callback) {
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetJZData?ReturnType=2&NumType=1&cValue=&cGuid=',
+        request(localService + '/Keson_GetJZData?ReturnType=2&NumType=1=&Guid=',
             function(error, response, body) {
                 console.log(1)
                 if (!error && response.statusCode == 200) {
