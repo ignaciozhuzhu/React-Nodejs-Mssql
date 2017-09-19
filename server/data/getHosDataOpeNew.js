@@ -36,8 +36,9 @@ exports.getJZData = function(callback) {
             function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var str = body;
-                    //   str = subJson(str);
-                    //   var arr = JSON.parse(str);
+                    console.log(str)
+                        //   str = subJson(str);
+                        //   var arr = JSON.parse(str);
                     var re = new RegExp("/GHParameter", "g");
                     var arr = str.match(re);
                     console.log(arr.length)
