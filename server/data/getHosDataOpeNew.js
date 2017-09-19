@@ -35,20 +35,20 @@ exports.getJZData = function(callback) {
         request(localService + '/Keson_GetJZData?ReturnType=2&NumType=1&Guid=',
             function(error, response, body) {
                 console.log(1)
-                if (!error && response.statusCode == 200) {
-                    var str = body;
-                    console.log(str)
-                        //   str = subJson(str);
-                        //   var arr = JSON.parse(str);
-                    var re = new RegExp("/GHParameter", "g");
-                    var arr = str.match(re);
-                    console.log(arr.length)
-                        //var arrNew = [];
-                        // callback(arrNew)
-                } else {
-                    console.log(error);
-                    console.log(2)
-                }
+                    /*                if (!error && response.statusCode == 200) {
+                                        var str = body;
+                                        console.log(str)
+                                            //   str = subJson(str);
+                                            //   var arr = JSON.parse(str);
+                                        var re = new RegExp("/GHParameter", "g");
+                                        var arr = str.match(re);
+                                        console.log(arr.length)
+                                            //var arrNew = [];
+                                            // callback(arrNew)
+                                    } else {
+                                        console.log(error);
+                                        console.log(2)
+                                    }*/
             }
         )
     }
