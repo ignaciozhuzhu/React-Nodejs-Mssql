@@ -26,6 +26,30 @@ exports.getHosDataOpe2 = function(callback, piece) {
     })
 };
 
+
+//同步预约数据,医院暂时写默认值
+exports.getJZData = function(callback) {
+    GetData();
+
+    function GetData() {
+        request(localService + '/Keson_GetJZData?ReturnType=2&NumType=1&cValue=&cGuid=',
+            function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var str = body;
+                    //   str = subJson(str);
+                    //   var arr = JSON.parse(str);
+                    var re = new RegExp("&lt;GHParameter&gt;", "g");
+                    var arr = str.match(re);
+                    console.log(arr.length)
+                        //var arrNew = [];
+                        // callback(arrNew)
+                } else console.log(error);
+            }
+        )
+    }
+};
+
+
 //同步预约数据,医院暂时写默认值
 exports.getReservation = function(callback) {
     var db = require('../sqlserver/db');
@@ -304,7 +328,7 @@ function formatYYdata(error, response, body, callback, flag) {
                 birthday: '2000-01-01', //患者生日,暂未提供
                 address: '', //患者地址,暂未提供
                 guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
-                d: flag //d: 操作标志，0增加，1删除，2先删除后增加
+                d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
             }
         }
         //console.log("datajson:" + JSON.stringify(arrNew));
