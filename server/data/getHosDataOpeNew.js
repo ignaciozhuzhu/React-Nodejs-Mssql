@@ -34,6 +34,7 @@ exports.getJZData = function(callback) {
     function GetData() {
         request(localService + '/Keson_GetJZData?ReturnType=2&NumType=1&cValue=&cGuid=',
             function(error, response, body) {
+                console.log(1)
                 if (!error && response.statusCode == 200) {
                     var str = body;
                     console.log(str)
@@ -44,7 +45,10 @@ exports.getJZData = function(callback) {
                     console.log(arr.length)
                         //var arrNew = [];
                         // callback(arrNew)
-                } else console.log(error);
+                } else {
+                    console.log(error);
+                    console.log(2)
+                }
             }
         )
     }
