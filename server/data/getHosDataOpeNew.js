@@ -338,14 +338,16 @@ function formatGHdata(error, response, body, callback, flag) {
                 isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反,挂号未提供
                 hname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
                 dname: arr[i].DoctorName, //医生姓名
-                booking_items: arr[i].CMx[0].cDenkName, //处置明细是一个list,取第一个作为标题  -- 对应牙艺的"挂号事项"
+                booking_items: arr[i].CMx.length > 0 ? arr[i].CMx[0].cDenkName : '',
+                //处置明细是一个list,取第一个作为标题  -- 对应牙艺的"挂号事项"
                 important: 0, //暂未提供,先默认为0 是否重要  0-不重要   1-重要
                 anamnesisno: arr[i].PatientNo, //病历编号
                 bookingtime: dateFormatStamp(arr[i].cDate), //科胜的格式是20170901,牙艺的格式是时间戳,需要转
                 ordercontent: '服务内容', //暂未提供,给默认值
                 totalprice: arr[i].nysje * 100, // 科胜:应收金额,单位元 -- 牙艺:总金额(应收)  单位:分
                 reduce: arr[i].nzkje * 100, // 科胜:折扣金额,单位元 -- 牙艺:折扣  单位:分
-                services: arr[i].CMx[0].cDenkName + ',' + arr[i].CMx[0].nNumber, //牙艺:服务项目  名称1,数量1;名称2,数量2,
+                services: arr[i].CMx.length > 0 ? arr[i].CMx[0].cDenkName + ',' + arr[i].CMx[0].nNumber : '',
+                //牙艺:服务项目  名称1,数量1;名称2,数量2,
                 ordertime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
                 tradeno: '', //暂未提供
                 channel: arr[i].cType, // 科胜:收费类型 -- 牙艺:支付方式 1-支付宝 2-微信 3-银联 4-银行卡 5-现金 
