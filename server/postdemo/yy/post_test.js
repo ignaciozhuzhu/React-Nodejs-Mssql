@@ -16,13 +16,14 @@ var importDataBatch = function() {
     // fun.getJZData(function(data) {
     conf.login(function() {
             // fun.aa();
-            myImport(data);
+            myImport();
         })
         //  })
 };
 
 function myImport(data, callbackfun) {
-    Arraydata = data;
+    // data = "";
+    Arraydata = data || "";
 
     function Data(url, body) {
         var O = new Object();
