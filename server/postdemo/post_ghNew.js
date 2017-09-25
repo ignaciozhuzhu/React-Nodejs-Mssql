@@ -1,14 +1,14 @@
 var request = require('request').defaults({
     jar: true
 });
-var fun = require('../data/getHosDataOpe');
+var fun = require('../data/getHosDataOpeNew');
 var fundel = require('./post_gh_del');
 var conf = require('../sqlserver/config.js');
-var fungh = require('./post_gh');
+var funghNew = require('./post_ghNew');
 
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importAll";
-var ghpiece_count;
+//var ghpiece_count;
 var year = 2013;
 var month = 1;
 var retryCount;
@@ -16,10 +16,12 @@ var retryCount;
 exports.importDataBatch = function() {
     retryCount = 0;
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-    fundel.deleteAll(function(callbackfunction) {
-        fun.getHosDataOpe(function(data) {
-            ghpiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
-            myImport(data, importDataBatch2);
+    conf.login(function() {
+        fundel.deleteAll(function(callbackfunction) {
+            fun.getHosDataOpe2(function(data) {
+                year = 2013; //该变量用于计数,与importDataBatch2共存亡
+                myImport(data, importDataBatch2);
+            }, year, month)
         })
     })
 };
@@ -69,11 +71,11 @@ function myImport(data, callbackfun) {
                         console.log("挂号重试次数:" + retryCount)
                     })(
                         fundel.deleteAll(function(callbackfunction) {
-                            fun.getHosDataOpe(function(data) {
-                                ghpiece_count = 1; //该变量用于计数,与importDataBatch2共存亡
+                            fun.getHosDataOpe2(function(data) {
+                                year = 2013; //该变量用于计数,与importDataBatch2共存亡
                                 myImport(data, importDataBatch2);
                             })
-                        }))
+                        }, year, month))
                 }
             }, 120e3);
         }
