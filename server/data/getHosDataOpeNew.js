@@ -173,10 +173,10 @@ function formatGHdata(error, response, body, callback, flag) {
 //查询牙艺最新预约患者信息
 exports.patientSync = function(callback) {
     //先调用牙艺的最新插入病人接口
+    var uuid = uuid();
+    console.log("uuid:" + uuid)
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var uuid = uuid();
-            console.log("uuid:" + uuid)
             console.log(body)
             var arr = JSON.parse(body);
             if (arr.data.length > 0) {
@@ -286,7 +286,6 @@ function date2Format2(str) {
 
 //随机生成uuid
 function uuid() {
-    console.log(1)
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {
@@ -297,7 +296,6 @@ function uuid() {
     s[8] = s[13] = s[18] = s[23] = "-";
 
     var uuid = s.join("");
-    console.log(2)
     return uuid;
 }
 
