@@ -286,6 +286,7 @@ function date2Format2(str) {
 
 //随机生成uuid
 function uuid() {
+    console.log(1)
     var s = [];
     var hexDigits = "0123456789abcdef";
     for (var i = 0; i < 36; i++) {
@@ -296,6 +297,7 @@ function uuid() {
     s[8] = s[13] = s[18] = s[23] = "-";
 
     var uuid = s.join("");
+    console.log(2)
     return uuid;
 }
 
