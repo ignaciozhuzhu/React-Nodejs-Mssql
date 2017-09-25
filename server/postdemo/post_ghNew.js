@@ -87,15 +87,18 @@ function myImport(data, callbackfun) {
 
 function importDataBatch2() {
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
-    fun.getghpiece(function(p) {
-        console.log("挂号分成块数:" + p[0].count)
-        console.log("目前是第几块:" + ghpiece_count)
-        fun.getHosDataOpe2(function(data) {
-            if (ghpiece_count < p[0].count) {
+    console.log("目前年:" + year + "###" + "目前月:" + month)
+    fun.getHosDataOpe2(function(data) {
+        if (year < 2015) {
+            if (month < 12) {
                 myImport(data, function() {
-                    importDataBatch2(ghpiece_count++)
+                    importDataBatch2(month++)
+                });
+            } else {
+                myImport(data, function() {
+                    importDataBatch2(year++, month = 1)
                 });
             }
-        }, ghpiece_count)
-    })
+        }
+    }, year, month)
 }

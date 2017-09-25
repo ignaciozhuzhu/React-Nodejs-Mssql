@@ -256,7 +256,7 @@ function uuid() {
 function dateFormatStamp(date) {
     var strtime = date2Format(date)
     var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-    return dateNew.getTime();
+    return (dateNew.getTime()) / 1000;
 }
 
 
@@ -346,7 +346,7 @@ function formatGHdata(error, response, body, callback, flag) {
                 ordercontent: '服务内容', //暂未提供,给默认值
                 totalprice: arr[i].nysje * 100, // 科胜:应收金额,单位元 -- 牙艺:总金额(应收)  单位:分
                 reduce: arr[i].nzkje * 100, // 科胜:折扣金额,单位元 -- 牙艺:折扣  单位:分
-                services: arr[i].CMx.length > 0 ? arr[i].CMx[0].cDenkName + ',' + arr[i].CMx[0].nNumber : '',
+                services: list2String(arr[i].CMx),
                 //牙艺:服务项目  名称1,数量1;名称2,数量2,
                 ordertime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
                 tradeno: '', //暂未提供
@@ -363,6 +363,16 @@ function formatGHdata(error, response, body, callback, flag) {
     } else console.log(error);
 }
 
+// 服务项目list 转string格式
+function list2String(list) {
+    var str = '';
+    if (list.length > 0) {
+        for (var i = 0; i < list.length; i++) {
+            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
+        }
+        return str;
+    } else return ''
+}
 
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
