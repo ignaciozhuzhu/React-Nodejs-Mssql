@@ -89,7 +89,7 @@ function importDataBatch2() {
     //先删除,再异步回来去执行新增,所以需要包裹,将成功事件写到callbackfunction
     console.log("目前年:" + year + "###" + "目前月:" + month)
     fun.getHosDataOpe2(function(data) {
-        if (year < 2015) {
+        if (year < 2018) {
             if (month < 12) {
                 myImport(data, function() {
                     importDataBatch2(month++)
