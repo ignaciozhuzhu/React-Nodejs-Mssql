@@ -184,9 +184,11 @@ exports.patientSync = function(callback) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
+                            console.log(arrKs)
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
                                 var uuid = uuid();
+                                console.log(uuid)
                                 var patientname = arr.data[i].patientname;
                                 var gender = arr.data[i].gender == '1' ? '男' : '女';
                                 var birthday = arr.data[i].birthday;
