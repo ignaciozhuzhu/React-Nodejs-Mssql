@@ -371,8 +371,8 @@ function formatGHdata(error, response, body, callback, flag) {
                 d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
             }
         }
-        console.log("datajson:" + JSON.stringify(arrNew));
-        //callback(arrNew)
+        //console.log("datajson:" + JSON.stringify(arrNew));
+        callback(arrNew)
     } else console.log(error);
 }
 
