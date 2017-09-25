@@ -41,6 +41,7 @@ exports.getHosDataOpe2 = function(callback, piece) {
         if (month < 10)
             month = '0' + month;
         request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&cGuid=&cStartDate=' + year + '' + month + '01&cEndDate=' + year + '' + month + '31', function(error, response, body) {
+            console.log("body:" + body)
             formatGHdata(error, response, body, callback, 0);
         });
     }
