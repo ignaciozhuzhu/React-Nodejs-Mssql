@@ -260,6 +260,18 @@ function dateFormatStamp(date) {
 }
 
 
+// 服务项目list 转string格式
+function list2String(list) {
+    var str = '';
+    if (list.length > 0) {
+        for (var i = 0; i < list.length; i++) {
+            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
+        }
+        return str;
+    } else return ''
+}
+
+
 // 预约写入科胜
 exports.YYData_Add = function(callback) {
     request(localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=1&cValue=88cc3052-d92d-4523-adf4-5752500e80c3&cPatNo=10000&cPatName=龙鸿轩1&cDate=20170919&cTime=16:00&nlen=30&Doctorid=00011&DoctorName=侯博&CText=test0&CMemo=test1&Hosp_no=001&nSource=1', function(error, response, body) {
@@ -350,7 +362,8 @@ function formatGHdata(error, response, body, callback, flag) {
                 //牙艺:服务项目  名称1,数量1;名称2,数量2,
                 ordertime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
                 tradeno: '', //暂未提供
-                channel: arr[i].cType, // 科胜:收费类型 -- 牙艺:支付方式 1-支付宝 2-微信 3-银联 4-银行卡 5-现金 
+                channel: 5,
+                // 科胜:收费类型(正常收费) -- 牙艺:支付方式 1-支付宝 2-微信 3-银联 4-银行卡 5-现金 
                 paytime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
                 refundtime: '', //暂未提供,为空
                 refundmoney: '', //暂未提供,为空
@@ -359,19 +372,8 @@ function formatGHdata(error, response, body, callback, flag) {
             }
         }
         console.log("datajson:" + JSON.stringify(arrNew));
-        callback(arrNew)
+        //callback(arrNew)
     } else console.log(error);
-}
-
-// 服务项目list 转string格式
-function list2String(list) {
-    var str = '';
-    if (list.length > 0) {
-        for (var i = 0; i < list.length; i++) {
-            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
-        }
-        return str;
-    } else return ''
 }
 
 
