@@ -170,6 +170,8 @@ function formatGHdata(error, response, body, callback, flag) {
     } else console.log(error);
 }
 
+function(i, funcion(a, b))
+
 //查询牙艺最新预约患者信息
 exports.patientSync = function() {
     //先调用牙艺的最新插入病人接口
@@ -181,10 +183,11 @@ exports.patientSync = function() {
                 //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
                     console.log("i:" + i)
-                    request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
+                    request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body, i) {
                         //这里需加入闭包
                         // console.log("ii:" + i)
-                        (function(i) {
+                        //   (function(i) {
+                        return function() {
 
                             //  console.log(error, response.statusCode)
                             if (!error && response.statusCode == 200) {
@@ -215,8 +218,8 @@ exports.patientSync = function() {
                                     })
                                 } else console.log("该牙艺新患者已在科胜库中.")
                             } else console.log(error);
-                        })(i)
-                    });
+                        }
+                    })(i);
                 }
             } else console.log('无最新患者')
         } else console.log(error);
