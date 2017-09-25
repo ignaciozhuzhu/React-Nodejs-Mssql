@@ -173,8 +173,6 @@ function formatGHdata(error, response, body, callback, flag) {
 //查询牙艺最新预约患者信息
 exports.patientSync = function() {
     //先调用牙艺的最新插入病人接口
-    var uuid = uuid();
-    console.log("uuid:" + uuid)
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body)
@@ -188,8 +186,6 @@ exports.patientSync = function() {
                             var arrKs = JSON.parse(str);
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
-                                // console.log(uuid())
-                                //var uuid = uuid();
                                 var patientname = arr.data[i].patientname;
                                 var gender = arr.data[i].gender == '1' ? '男' : '女';
                                 var birthday = arr.data[i].birthday;
@@ -202,7 +198,7 @@ exports.patientSync = function() {
                                 var type = arr.data[i].type;
                                 var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
 
-                                request(localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + uuid + '&cPatNo=' + uuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '', function(error, response, body) {
+                                request(localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + uuid() + '&cPatNo=' + uuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '', function(error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         console.log('病人写入成功')
                                     } else console.log(error);
