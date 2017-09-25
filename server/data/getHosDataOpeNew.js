@@ -213,7 +213,7 @@ exports.patientSync = function() {
                                     })
                                 } else console.log("该牙艺新患者已在科胜库中.")
                             } else console.log(error);
-                        }
+                        }(i)
                     });
                 }
             } else console.log('无最新患者')
