@@ -180,7 +180,7 @@ exports.patientSync = function() {
             //if (arr.data.length > 0) {
             //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
             for (var i = 0; i < 2; i++) {
-                request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=&cName=', function(error, response, body, i) {
+                request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=&cName=', function(error, response, body) {
                     return function() {
                             console.log("i:" + i)
                         }
@@ -212,7 +212,7 @@ exports.patientSync = function() {
                                 })
                             } else console.log("该牙艺新患者已在科胜库中.")
                         } else console.log(error);*/
-                }(i));
+                })(i);
             }
             // } else console.log('无最新患者')
         } else console.log(error);
