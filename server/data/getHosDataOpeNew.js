@@ -181,9 +181,9 @@ exports.patientSync = function() {
             //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
             for (var i = 0; i < 2; i++) {
                 (request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=&cName=', function(error, response, body) {
-                    return function() {
-                            console.log("i:" + i)
-                        }
+                    // return function() {
+                    console.log("i:" + i)
+                        //     }
                         /*if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
