@@ -184,7 +184,7 @@ exports.patientSync = function(callback) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
-                            console.log(arrKs)
+                            console.log("uuid:" + uuid())
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
                                 console.log(uuid())
