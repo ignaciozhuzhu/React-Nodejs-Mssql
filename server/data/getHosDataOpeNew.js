@@ -171,10 +171,10 @@ function formatGHdata(error, response, body, callback, flag) {
 }
 
 //查询牙艺最新预约患者信息
-exports.patientSync = function(callback) {
+exports.patientSync = function() {
     //先调用牙艺的最新插入病人接口
-    var uuid = uuid();
-    console.log("uuid:" + uuid)
+    // var uuid = uuid();
+    console.log("uuid:" + uuid())
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body)
