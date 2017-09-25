@@ -316,7 +316,7 @@ function formatYYdata(error, response, body, callback, flag) {
         reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
         reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
         remark: arr[i].CText, //备注信息
-        isfirst: arr[i].IsNew, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供
+        isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反
         // 牙艺: "isfirst": 新老病人，0新病人，1老病人
         flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
         fullname: arr[i].PatientName || 'noname',
