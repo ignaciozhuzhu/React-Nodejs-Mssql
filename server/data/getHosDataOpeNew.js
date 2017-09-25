@@ -182,7 +182,7 @@ exports.patientSync = function() {
                 for (var i = 0; i < arr.data.length; i++) {
                     request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body, i) {
                         //这里需加入闭包
-                        console.log("ii": i)
+                        console.log("ii:" + i)
                         return function() {
                             console.log(error, response.statusCode)
                             if (!error && response.statusCode == 200) {
