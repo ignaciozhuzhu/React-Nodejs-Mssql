@@ -180,13 +180,13 @@ exports.patientSync = function() {
             if (arr.data.length > 0) {
                 //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
-                    request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
+                    request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body, arr) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
-                                var aa = uuid();
+                                var newUuid = uuid();
                                 var patientname = arr.data[i].patientname;
                                 var gender = arr.data[i].gender == '1' ? '男' : '女';
                                 var birthday = arr.data[i].birthday;
@@ -199,7 +199,7 @@ exports.patientSync = function() {
                                 var type = arr.data[i].type;
                                 var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
 
-                                request(localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + aa + '&cPatNo=' + aa + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '', function(error, response, body) {
+                                request(localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '', function(error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         console.log('病人写入成功')
                                     } else console.log(error);
