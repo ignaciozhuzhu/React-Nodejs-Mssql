@@ -182,7 +182,9 @@ exports.patientSync = function() {
                 for (var i = 0; i < arr.data.length; i++) {
                     //这里需要闭包,参照经典闭包法
                     (function(i) {
-                        request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
+                        var uri0 = localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + ''
+                        console.log("uri0:" + uri0)
+                        request(uri0, function(error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 var str = subJson(body)
                                 var arrKs = JSON.parse(str);
