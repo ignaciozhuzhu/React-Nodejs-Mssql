@@ -10,20 +10,19 @@ var fs = require("fs");
 
 var Arraydata = [];
 //var ajaxurl = conf.service + "hosDataOpe/importReservation";
-var ajaxurl = conf.service + "hosDataOpe/selectNewHosPatient";
+var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
     // fun.getJZData(function(data) {
     conf.login(function() {
-            // fun.aa();
-            myImport();
+            fun.aa();
+            //  myImport(data);
         })
         //  })
 };
 
 function myImport(data, callbackfun) {
-    // data = "";
-    Arraydata = data || "";
+    Arraydata = data;
 
     function Data(url, body) {
         var O = new Object();
@@ -31,7 +30,7 @@ function myImport(data, callbackfun) {
             "Connection": "close"
         };
         O.url = url;
-        O.method = 'GET';
+        O.method = 'POST';
         O.json = true;
         O.body = body;
         return O;
