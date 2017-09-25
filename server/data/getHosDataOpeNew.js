@@ -187,7 +187,7 @@ exports.patientSync = function() {
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
                                 var newUuid = uuid();
-                                console.log("arr:" + arr)
+                                console.log("arr:" + JSON.stringify(arr))
                                 var patientname = arr.data[i].patientname;
                                 var gender = arr.data[i].gender == '1' ? '男' : '女';
                                 var birthday = arr.data[i].birthday;
