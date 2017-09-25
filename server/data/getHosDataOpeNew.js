@@ -177,30 +177,20 @@ exports.patientSync = function() {
         if (!error && response.statusCode == 200) {
             console.log(body)
             var arr = JSON.parse(body);
-            //if (arr.data.length > 0) {
-            //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
-            for (var i = 0; i < 2; i++) {
-                (function(i) {
-
-                    /*    setTimeout(function() {
-
-                            console.log(i + ' ');
-
-                        }, 100);*/
-
-
-                    request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=&cName=', function(error, response, body) {
-                        // return function() {
-                        console.log("i:" + i)
-                            //     }
-                            /*if (!error && response.statusCode == 200) {
+            if (arr.data.length > 0) {
+                //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
+                for (var i = 0; i < arr.data.length; i++) {
+                    //这里需要闭包,参照经典闭包法
+                    (function(i) {
+                        request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
+                            if (!error && response.statusCode == 200) {
                                 var str = subJson(body)
                                 var arrKs = JSON.parse(str);
                                 if (arrKs.cGuid == "") {
                                     //是的话就调用2．7 病人信息写入方法
                                     var newUuid = uuid();
                                     console.log("arr:" + JSON.stringify(arr))
-                                    console.log("i:" + i)
+                                    console.log("arr:" + i)
                                     var patientname = arr.data[i].patientname;
                                     var gender = arr.data[i].gender == '1' ? '男' : '女';
                                     var birthday = arr.data[i].birthday;
@@ -220,11 +210,11 @@ exports.patientSync = function() {
 
                                     })
                                 } else console.log("该牙艺新患者已在科胜库中.")
-                            } else console.log(error);*/
-                    });
-                }(i));
-            }
-            // } else console.log('无最新患者')
+                            } else console.log(error);
+                        });
+                    })(i)
+                }
+            } else console.log('无最新患者')
         } else console.log(error);
     })
 }
