@@ -180,12 +180,13 @@ exports.patientSync = function() {
             if (arr.data.length > 0) {
                 //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
+                    console.log("i:" + i)
                     request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
                         //这里需加入闭包
                         // console.log("ii:" + i)
                         (function(i) {
-                            console.log("i:" + i)
-                                //  console.log(error, response.statusCode)
+
+                            //  console.log(error, response.statusCode)
                             if (!error && response.statusCode == 200) {
                                 var str = subJson(body)
                                 var arrKs = JSON.parse(str);
