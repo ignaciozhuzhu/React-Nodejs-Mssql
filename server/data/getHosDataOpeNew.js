@@ -1,4 +1,7 @@
 var request = require('request');
+var request2 = require('request').defaults({
+    jar: true
+});
 var localService = require('../sqlserver/config').localService;
 var service = require('../sqlserver/config').service;
 
@@ -61,106 +64,6 @@ exports.getHosDataOpeDelnext = function(callback) {
         });
     }
 };
-
-
-exports.getHosDataOpeTest2 = function(callback) {
-    GetData();
-
-    function GetData() {
-        request(localService + '/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var str = body;
-                str = subJson(str)
-                console.log("datajson:" + str);
-                callback(str)
-            } else console.log(error);
-        });
-    }
-};
-
-//获取医院名
-exports.getHosName = function(callback) {
-    var db = require('../sqlserver/db');
-    var str = "select '北京市德倍尔口腔诊所' as hname union select '天津市德倍尔口腔诊所' as hname";
-    db.sql(str, function(err, result) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        callback(result);
-    })
-};
-
-//获取当前时间戳
-function gettimestamp() {
-    var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
-    return timeStamp;
-}
-
-//裁掉前后这段:<?xml version="1.0" encoding="utf-8"?><string xmlns="http://tempuri.org/"></string>
-function subJson(str) {
-    return str = str.substr(76, str.length - 85);
-}
-//获取当前时间
-function getNowFormatDate() {
-    var date = new Date();
-    var seperator1 = "-";
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-        month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate;
-    }
-    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-    return currentdate;
-}
-
-
-//YYYYmmdd 转YYYY-mm-dd
-function date2Format(str) {
-    return str.substr(0, 4) + '-' + str.substr(4, 2) + '-' + str.substr(6, 2);
-}
-
-// YYYY-mm-dd 转 YYYYmmdd
-function date2Format2(str) {
-    return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
-}
-
-//随机生成uuid
-function uuid() {
-    var s = [];
-    var hexDigits = "0123456789abcdef";
-    for (var i = 0; i < 36; i++) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-    }
-    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-    s[8] = s[13] = s[18] = s[23] = "-";
-
-    var uuid = s.join("");
-    return uuid;
-}
-
-//YYYYmmdd转时间戳
-function dateFormatStamp(date) {
-    var strtime = date2Format(date)
-    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-    return (dateNew.getTime()) / 1000;
-}
-
-
-// 服务项目list 转string格式
-function list2String(list) {
-    var str = '';
-    if (list.length > 0) {
-        for (var i = 0; i < list.length; i++) {
-            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
-        }
-        return str;
-    } else return ''
-}
 
 
 // 预约写入科胜
@@ -269,13 +172,127 @@ function formatGHdata(error, response, body, callback, flag) {
 
 //查询牙艺最新预约患者信息
 exports.aa = function(callback) {
-    request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            //var str = body;
-            console.log(body)
-        } else console.log(error);
-    })
+    /*    function Data(url, body) {
+            var O = new Object();
+            O.headers = {
+                "Connection": "close"
+            };
+            O.url = url;
+            O.method = 'GET';
+            O.json = true;
+            //O.body = body;
+            return O;
+        }*/
+    request2(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                //var str = body;
+                console.log(body)
+            } else console.log(error);
+        })
+        // request(Data(ajaxurl, Arraydata), callback);
 }
+
+
+
+exports.getHosDataOpeTest2 = function(callback) {
+    GetData();
+
+    function GetData() {
+        request(localService + '/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str)
+                console.log("datajson:" + str);
+                callback(str)
+            } else console.log(error);
+        });
+    }
+};
+
+//获取医院名
+exports.getHosName = function(callback) {
+    var db = require('../sqlserver/db');
+    var str = "select '北京市德倍尔口腔诊所' as hname union select '天津市德倍尔口腔诊所' as hname";
+    db.sql(str, function(err, result) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        callback(result);
+    })
+};
+
+//获取当前时间戳
+function gettimestamp() {
+    var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
+    return timeStamp;
+}
+
+//裁掉前后这段:<?xml version="1.0" encoding="utf-8"?><string xmlns="http://tempuri.org/"></string>
+function subJson(str) {
+    return str = str.substr(76, str.length - 85);
+}
+//获取当前时间
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
+
+//YYYYmmdd 转YYYY-mm-dd
+function date2Format(str) {
+    return str.substr(0, 4) + '-' + str.substr(4, 2) + '-' + str.substr(6, 2);
+}
+
+// YYYY-mm-dd 转 YYYYmmdd
+function date2Format2(str) {
+    return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
+}
+
+//随机生成uuid
+function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+
+//YYYYmmdd转时间戳
+function dateFormatStamp(date) {
+    var strtime = date2Format(date)
+    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    return (dateNew.getTime()) / 1000;
+}
+
+
+// 服务项目list 转string格式
+function list2String(list) {
+    var str = '';
+    if (list.length > 0) {
+        for (var i = 0; i < list.length; i++) {
+            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
+        }
+        return str;
+    } else return ''
+}
+
 
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
