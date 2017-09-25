@@ -175,13 +175,13 @@ exports.patientSync = function(callback) {
     //先调用牙艺的最新插入病人接口
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
+            var uuid = uuid();
+            console.log("uuid:" + uuid)
             console.log(body)
             var arr = JSON.parse(body);
             if (arr.data.length > 0) {
                 //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
-                    var uuid = uuid();
-                    console.log("uuid:" + uuid)
                     request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
