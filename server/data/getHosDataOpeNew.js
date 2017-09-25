@@ -71,6 +71,7 @@ exports.getHosDataOpeDelnext = function(callback) {
 
     function GetData() {
         request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&cValue=&cStartDate=' + Now + '&cEndDate=' + Now + '', function(error, response, body) {
+            console.log("body:" + body)
             formatGHdata(error, response, body, callback, 2);
         });
     }
