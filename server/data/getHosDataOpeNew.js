@@ -183,7 +183,7 @@ exports.patientSync = function() {
                     request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
                         //这里需加入闭包
                         // console.log("ii:" + i)
-                        return function(i) {
+                        (function(i) {
                             console.log("i:" + i)
                                 //  console.log(error, response.statusCode)
                             if (!error && response.statusCode == 200) {
@@ -214,7 +214,7 @@ exports.patientSync = function() {
                                     })
                                 } else console.log("该牙艺新患者已在科胜库中.")
                             } else console.log(error);
-                        }(i)
+                        })(i)
                     });
                 }
             } else console.log('无最新患者')
