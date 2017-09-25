@@ -10,13 +10,13 @@ var fs = require("fs");
 
 var Arraydata = [];
 //var ajaxurl = conf.service + "hosDataOpe/importReservation";
-var ajaxurl = conf.service + "hosDataOpe/importData";
+var ajaxurl = conf.service + "hosDataOpe/selectNewHosPatient";
 //前4000条(最近)
 var importDataBatch = function() {
     // fun.getJZData(function(data) {
     conf.login(function() {
-            fun.aa();
-            //  myImport(data);
+            // fun.aa();
+            myImport(data);
         })
         //  })
 };
