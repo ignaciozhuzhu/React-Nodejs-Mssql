@@ -183,7 +183,7 @@ exports.aa = function(callback) {
             //O.body = body;
             return O;
         }*/
-    request2(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
+    request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 //var str = body;
                 console.log(body)
