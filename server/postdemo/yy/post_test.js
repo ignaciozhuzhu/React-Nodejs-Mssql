@@ -13,11 +13,12 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun.getJZData(function(data) {
-        conf.login(function() {
+    // fun.getJZData(function(data) {
+    conf.login(function() {
+            fun.aa();
             //  myImport(data);
         })
-    })
+        //  })
 };
 
 function myImport(data, callbackfun) {
