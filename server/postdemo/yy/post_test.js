@@ -31,7 +31,7 @@ function myImport(data, callbackfun) {
             "Connection": "close"
         };
         O.url = url;
-        O.method = 'POST';
+        O.method = 'GET';
         O.json = true;
         O.body = body;
         return O;
