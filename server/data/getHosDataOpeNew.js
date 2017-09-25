@@ -34,7 +34,7 @@ exports.getReservation2 = function(callback, year, month) {
 /*同步
  *挂号
  *数据,医院暂时写默认值*/
-exports.getHosDataOpe2 = function(callback, piece) {
+exports.getHosDataOpe2 = function(callback, year, month) {
     GetData();
 
     function GetData() {
