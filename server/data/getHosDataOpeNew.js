@@ -180,7 +180,7 @@ exports.patientSync = function() {
             //if (arr.data.length > 0) {
             //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
             for (var i = 0; i < 2; i++) {
-                request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body, i) {
+                request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=&cName=', function(error, response, body, i) {
                     return function() {
                             console.log("i:" + i)
                         }
