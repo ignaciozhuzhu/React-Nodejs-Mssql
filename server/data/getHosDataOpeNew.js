@@ -202,8 +202,10 @@ exports.patientSync = function() {
                                     var firstdate = arr.data[i].firstdate;
                                     var type = arr.data[i].type;
                                     var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
+                                    var uri = localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '';
+                                    console.log("uri:" + uri)
 
-                                    request(localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '', function(error, response, body) {
+                                    request(uri, function(error, response, body) {
                                         if (!error && response.statusCode == 200) {
                                             console.log('病人写入成功')
                                         } else console.log(error);
