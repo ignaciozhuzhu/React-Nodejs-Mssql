@@ -1,5 +1,5 @@
 var schedule = require("node-schedule");
-var fun_gh = require('./post_gh.js');
+var fun_gh = require('./post_ghNew.js');
 var fun_yyNew = require('./post_yyNew.js');
 var getdate = require('./getDate');
 var fun_ghnext = require('./post_gh_del.js')
