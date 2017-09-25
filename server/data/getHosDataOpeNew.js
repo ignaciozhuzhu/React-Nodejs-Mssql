@@ -173,6 +173,7 @@ function formatGHdata(error, response, body, callback, flag) {
 //查询牙艺最新预约患者信息
 exports.patientSync = function(callback) {
     //先调用牙艺的最新插入病人接口
+    console.log("uuid:" + uuid())
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body)
@@ -184,7 +185,6 @@ exports.patientSync = function(callback) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
-                            console.log("uuid:" + uuid())
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
                                 console.log(uuid())
