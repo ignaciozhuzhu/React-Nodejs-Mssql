@@ -40,8 +40,7 @@ exports.getHosDataOpe2 = function(callback, piece) {
     function GetData() {
         if (month < 10)
             month = '0' + month;
-        request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&cGuid=&cStartDate=' + year + '' + month + '01&cEndDate=' + year + '' + month + '31', function(error, response, body) {
-            console.log("body:" + body)
+        request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&Guid=&StartData=' + year + '' + month + '01&EndData=' + year + '' + month + '31', function(error, response, body) {
             formatGHdata(error, response, body, callback, 0);
         });
     }
@@ -70,7 +69,7 @@ exports.getHosDataOpeDelnext = function(callback) {
     GetData();
 
     function GetData() {
-        request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&cGuid=&cStartDate=' + Now + '&cEndDate=' + Now + '', function(error, response, body) {
+        request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&Guid=&StartData=' + Now + '&EndData=' + Now + '', function(error, response, body) {
             console.log("body:" + body)
             formatGHdata(error, response, body, callback, 2);
         });
@@ -238,6 +237,28 @@ function date2Format2(str) {
     return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
 }
 
+//随机生成uuid
+function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+
+//YYYYmmdd转时间戳
+function dateFormatStamp(date) {
+    var strtime = date2Format(date)
+    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    return dateNew.getTime();
+}
+
 
 // 预约写入科胜
 exports.YYData_Add = function(callback) {
@@ -310,28 +331,32 @@ function formatGHdata(error, response, body, callback, flag) {
         var arrNew = [];
         for (var i = 0, len = arr.length; i < len; i++) {
             arrNew[i] = {
-                hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
-                doctorname: arr[i].DoctorName, //医生姓名
-                reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
-                reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
-                remark: arr[i].CText, //备注信息
-                isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反
-                // 牙艺: "isfirst": 新老病人，0新病人，1老病人
-                flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
-                fullname: arr[i].PatientName || 'noname',
-                idcard: '', //患者身份证号,暂未提供
-                anamnesisno: arr[i].PatientNo, //患者病历号
-                gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null
-                // 牙艺: "gender":"性别，1男，-1女，0未知",
-                mobile: arr[i].Mobile,
-                otherphone: '', //其他联系方式,暂未提供
-                birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null
-                address: '', //患者地址,暂未提供
-                guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
+                pmobile: arr[i].Mobile,
+                pname: arr[i].PatientName || 'noname',
+                gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null,挂号未提供
+                birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null,挂号未提供
+                isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反,挂号未提供
+                hname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
+                dname: arr[i].DoctorName, //医生姓名
+                booking_items: arr[i].CMx[0].cDenkName, //处置明细是一个list,取第一个作为标题  -- 对应牙艺的"挂号事项"
+                important: 0, //暂未提供,先默认为0 是否重要  0-不重要   1-重要
+                anamnesisno: arr[i].PatientNo, //病历编号
+                bookingtime: dateFormatStamp(arr[i].cDate), //科胜的格式是20170901,牙艺的格式是时间戳,需要转
+                ordercontent: '服务内容', //暂未提供,给默认值
+                totalprice: arr[i].nysje * 100, // 科胜:应收金额,单位元 -- 牙艺:总金额(应收)  单位:分
+                reduce: arr[i].nzkje * 100, // 科胜:折扣金额,单位元 -- 牙艺:折扣  单位:分
+                services: arr[i].CMx[0].cDenkName + ',' + arr[i].CMx[0].nNumber, //牙艺:服务项目  名称1,数量1;名称2,数量2,
+                ordertime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
+                tradeno: '', //暂未提供
+                channel: arr[i].cType, // 科胜:收费类型 -- 牙艺:支付方式 1-支付宝 2-微信 3-银联 4-银行卡 5-现金 
+                paytime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
+                refundtime: '', //暂未提供,为空
+                refundmoney: '', //暂未提供,为空
+                ghid: uuid(), //暂未提供,随机生成
                 d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
             }
         }
-        //console.log("datajson:" + JSON.stringify(arrNew));
+        console.log("datajson:" + JSON.stringify(arrNew));
         callback(arrNew)
     } else console.log(error);
 }
