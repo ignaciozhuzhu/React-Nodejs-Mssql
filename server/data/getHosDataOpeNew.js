@@ -173,7 +173,6 @@ function formatGHdata(error, response, body, callback, flag) {
 //查询牙艺最新预约患者信息
 exports.patientSync = function(callback) {
     //先调用牙艺的最新插入病人接口
-    console.log("uuid:" + uuid())
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body)
@@ -181,14 +180,16 @@ exports.patientSync = function(callback) {
             if (arr.data.length > 0) {
                 //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
+                    var uuid = uuid();
+                    console.log("uuid:" + uuid)
                     request(localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + '', function(error, response, body) {
                         if (!error && response.statusCode == 200) {
                             var str = subJson(body)
                             var arrKs = JSON.parse(str);
                             if (arrKs.cGuid == "") {
                                 //是的话就调用2．7 病人信息写入方法
-                                console.log(uuid())
-                                var uuid = uuid();
+                                // console.log(uuid())
+                                //var uuid = uuid();
                                 var patientname = arr.data[i].patientname;
                                 var gender = arr.data[i].gender == '1' ? '男' : '女';
                                 var birthday = arr.data[i].birthday;
