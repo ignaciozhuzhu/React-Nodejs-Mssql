@@ -256,6 +256,11 @@ exports.reservationSync = function() {
                         var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=10000&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
                         request(uriAdd, function(error, response, body) {
                             if (!error && response.statusCode == 200) {
+                                console.log(body)
+                                    // var strRes = JSON.parse(body);
+                                    // strRes = subJson(strRes)
+                                    //  var arrRes=JSON.parse(strRes)
+                                    //if(arrRes.)
                                 console.log('预约写入成功')
                             } else console.log('预约写入失败:' + error);
                         })
