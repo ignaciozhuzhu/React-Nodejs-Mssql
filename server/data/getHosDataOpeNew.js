@@ -198,7 +198,7 @@ exports.patientSync = function() {
                                 if (arrKs.cGuid == "") {
                                     //是的话就调用2．7 病人信息写入方法
                                     var newUuid = uuid();
-                                    //console.log("arr:" + JSON.stringify(arr))
+                                    var anamnesisno = arr.data[i].anamnesisno
                                     var patientname = arr.data[i].patientname;
                                     var gender = arr.data[i].gender == '1' ? '男' : '女';
                                     var birthday = arr.data[i].birthday;
@@ -210,7 +210,7 @@ exports.patientSync = function() {
                                     var firstdate = arr.data[i].firstdate;
                                     var type = arr.data[i].type;
                                     var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
-                                    var uriAdd = localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '';
+                                    var uriAdd = localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + anamnesisno + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '';
                                     request(uriAdd, function(error, response, body) {
                                         if (!error && response.statusCode == 200) {
                                             console.log('病人写入成功')
@@ -406,8 +406,6 @@ exports.getDoc = function(callback) {
                 var arr = JSON.parse(str);
                 var arrNew = [];
                 for (var i = 0, len = arr.length; i < len; i++) {
-                    // arr[i].title = '主任医师';
-                    //  arr[i].fullname = arr[i].cname;
                     if (arr[i].lzz == 1) {
                         arrNew.push(arr[i])
                     }
