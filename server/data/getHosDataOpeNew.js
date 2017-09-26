@@ -246,7 +246,9 @@ exports.reservationSync = function() {
                         var anamnesisno = arr.data[i].anamnesisno
                         var patientname = arr.data[i].patientname
                         var reserved_date = date2Format2(arr.data[i].reserved_date)
-                        var reserved_time = arr.data[i].reserved_time.substring(0, 5)
+                        var reserved_time = (arr.data[i].reserved_time).substring(0, 5)
+                        console.log((arr.data[i].reserved_time).substring(0, 5))
+                        console.log(arr.data[i].reserved_time.substring(0, 5))
                         var nlen = arr.data[i].duration / 60;
                         var doctorid = getDoctorId(arr.data[i].doctorname)
                         console.log("doctorid:" + doctorid)
