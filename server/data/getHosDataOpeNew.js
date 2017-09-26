@@ -240,7 +240,6 @@ exports.reservationSync = function() {
                     //这里需要闭包,参照经典闭包法
                     (function(i) {
                         //2.6.1 预约写入方法 同步至科胜
-                        console.log("arr:" + i)
                         var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
                         var guid = getInitConcatId(arr.data[i].id)
                         var anamnesisno = arr.data[i].anamnesisno
@@ -258,7 +257,6 @@ exports.reservationSync = function() {
                             console.log("uriAdd:" + uriAdd)
                             request(uriAdd, function(error, response, body) {
                                 if (!error && response.statusCode == 200) {
-                                    console.log(body)
                                     var strRes = subJson(body)
                                     if (strRes == 1)
                                         console.log('预约写入成功')
