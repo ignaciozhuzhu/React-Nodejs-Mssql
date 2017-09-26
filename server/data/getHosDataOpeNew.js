@@ -229,220 +229,220 @@ exports.patientSync = function() {
 
 //同步预约至科胜
 exports.reservationSync = function() {
-        //先调用牙艺的最新插入病人接口
-        request(service + 'hosDataOpe/selectNewReservation', function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    console.log(body)
-                    var arr = JSON.parse(body);
-                    if (arr.data.length > 0) {
-                        for (var i = 0; i < arr.data.length; i++) {
-                            //这里需要闭包,参照经典闭包法
-                            (function(i) {
-                                    //2.6.1 预约写入方法 同步至科胜
-                                    console.log("arr:" + JSON.stringify(arr))
-                                    console.log("arr:" + i)
-                                    var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
-                                    var guid = getInitConcatId(arr.data[i].id)
-                                    var anamnesisno = arr.data[i].anamnesisno
-                                    var patientname = arr.data[i].patientname
-                                    var reserved_date = date2Format2(arr.data[i].reserved_date)
-                                    var reserved_time = (arr.data[i].reserved_time.substring(0, 5))
-                                    var nlen = ((arr.data[i].duration) / 60);
-                                    getDoctorId(arr.data[i].doctorname, function(doctorid) {
-                                            console.log("doctorid0:" + doctorid)
-                                            var doctorname = arr.data[i].doctorname;
-                                            var items = arr.data[i].items;
-                                            var remark = arr.data[i].remark;
-                                            var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
-                                            var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=' + anamnesisno + '&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
-                                            request(uriAdd, function(error, response, body) {
-                                                if (!error && response.statusCode == 200) {
-                                                    console.log(body)
-                                                    var strRes = subJson(body)
-                                                    if (strRes == 1)
-                                                        console.log('预约写入成功')
-                                                    else if (strRes == 0)
-                                                        console.log('预约写入失败')
-                                                    else
-                                                        console.log('预约写入失败2')
-                                                } else console.log('预约写入失败:' + error);
-                                            })
-                                        }
-                                    })(i)
-                            }
-                        } else console.log('无最新患者')
-                    } else console.log(error);
-                })
-        }
-
-
-        exports.getHosDataOpeTest2 = function(callback) {
-            GetData();
-
-            function GetData() {
-                request(localService + '/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var str = body;
-                        str = subJson(str)
-                        console.log("datajson:" + str);
-                        callback(str)
-                    } else console.log(error);
-                });
-            }
-        };
-
-        //获取医院名
-        exports.getHosName = function(callback) {
-            var db = require('../sqlserver/db');
-            var str = "select '北京市德倍尔口腔诊所' as hname union select '天津市德倍尔口腔诊所' as hname";
-            db.sql(str, function(err, result) {
-                if (err) {
-                    console.log(err);
-                    return;
+    //先调用牙艺的最新插入病人接口
+    request(service + 'hosDataOpe/selectNewReservation', function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body)
+            var arr = JSON.parse(body);
+            if (arr.data.length > 0) {
+                for (var i = 0; i < arr.data.length; i++) {
+                    //这里需要闭包,参照经典闭包法
+                    (function(i) {
+                        //2.6.1 预约写入方法 同步至科胜
+                        console.log("arr:" + JSON.stringify(arr))
+                        console.log("arr:" + i)
+                        var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
+                        var guid = getInitConcatId(arr.data[i].id)
+                        var anamnesisno = arr.data[i].anamnesisno
+                        var patientname = arr.data[i].patientname
+                        var reserved_date = date2Format2(arr.data[i].reserved_date)
+                        var reserved_time = (arr.data[i].reserved_time.substring(0, 5))
+                        var nlen = ((arr.data[i].duration) / 60);
+                        getDoctorId(arr.data[i].doctorname, function(doctorid) {
+                            console.log("doctorid0:" + doctorid)
+                            var doctorname = arr.data[i].doctorname;
+                            var items = arr.data[i].items;
+                            var remark = arr.data[i].remark;
+                            var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
+                            var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=' + anamnesisno + '&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
+                            request(uriAdd, function(error, response, body) {
+                                if (!error && response.statusCode == 200) {
+                                    console.log(body)
+                                    var strRes = subJson(body)
+                                    if (strRes == 1)
+                                        console.log('预约写入成功')
+                                    else if (strRes == 0)
+                                        console.log('预约写入失败')
+                                    else
+                                        console.log('预约写入失败2')
+                                } else console.log('预约写入失败:' + error);
+                            })
+                        })
+                    })(i)
                 }
-                callback(result);
-            })
-        };
+            } else console.log('无最新患者')
+        } else console.log(error);
+    })
+}
 
-        //获取当前时间戳
-        function gettimestamp() {
-            var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
-            return timeStamp;
+
+exports.getHosDataOpeTest2 = function(callback) {
+    GetData();
+
+    function GetData() {
+        request(localService + '/Keson_GetPatienData?ReturnType=1&Guid=f9d84510-b6ce-4baf-9e3c-161697f32a3d', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str)
+                console.log("datajson:" + str);
+                callback(str)
+            } else console.log(error);
+        });
+    }
+};
+
+//获取医院名
+exports.getHosName = function(callback) {
+    var db = require('../sqlserver/db');
+    var str = "select '北京市德倍尔口腔诊所' as hname union select '天津市德倍尔口腔诊所' as hname";
+    db.sql(str, function(err, result) {
+        if (err) {
+            console.log(err);
+            return;
         }
+        callback(result);
+    })
+};
 
-        //裁掉前后这段:<?xml version="1.0" encoding="utf-8"?><string xmlns="http://tempuri.org/"></string>
-        function subJson(str) {
-            return str = str.substr(76, str.length - 85);
+//获取当前时间戳
+function gettimestamp() {
+    var timeStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000;
+    return timeStamp;
+}
+
+//裁掉前后这段:<?xml version="1.0" encoding="utf-8"?><string xmlns="http://tempuri.org/"></string>
+function subJson(str) {
+    return str = str.substr(76, str.length - 85);
+}
+//获取当前时间
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
+
+//YYYYmmdd 转YYYY-mm-dd
+function date2Format(str) {
+    return str.substr(0, 4) + '-' + str.substr(4, 2) + '-' + str.substr(6, 2);
+}
+
+// YYYY-mm-dd 转 YYYYmmdd
+function date2Format2(str) {
+    return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
+}
+
+
+//YYYYmmdd转时间戳
+function dateFormatStamp(date) {
+    var strtime = date2Format(date)
+    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    return (dateNew.getTime()) / 1000;
+}
+
+//随机生成uuid
+function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+
+//0+id补全uuid字数
+function getInitConcatId(id) {
+    var init = '00000000-0000-0000-0000-000000000000'
+    return init.substring(0, init.length - id.toString().length) + id
+}
+
+
+// 服务项目list 转string格式
+function list2String(list) {
+    var str = '';
+    if (list.length > 0) {
+        for (var i = 0; i < list.length; i++) {
+            str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
         }
-        //获取当前时间
-        function getNowFormatDate() {
-            var date = new Date();
-            var seperator1 = "-";
-            var month = date.getMonth() + 1;
-            var strDate = date.getDate();
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
-            }
-            if (strDate >= 0 && strDate <= 9) {
-                strDate = "0" + strDate;
-            }
-            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
-            return currentdate;
-        }
+        return str;
+    } else return ''
+}
 
+//2.2 科胜接口 得到医生编号
+function getDoctorId(name, callback) {
+    var uriGet = localService + '/Keson_GetDoctorGuid?ReturnType=1&NumType=1&cNo=&cName=' + name + ''
+        //var result;
+    request(uriGet, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var str = subJson(body)
+            var arr = JSON.parse(str)
+                // console.log(arr)
+                // result = arr.cemployee
+            callback(arr.cemployee)
+        } else console.log('查无此人')
+    })
+    return result
+}
 
-        //YYYYmmdd 转YYYY-mm-dd
-        function date2Format(str) {
-            return str.substr(0, 4) + '-' + str.substr(4, 2) + '-' + str.substr(6, 2);
-        }
+//同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
+exports.getDoc = function(callback) {
+    GetData();
 
-        // YYYY-mm-dd 转 YYYYmmdd
-        function date2Format2(str) {
-            return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
-        }
-
-
-        //YYYYmmdd转时间戳
-        function dateFormatStamp(date) {
-            var strtime = date2Format(date)
-            var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-            return (dateNew.getTime()) / 1000;
-        }
-
-        //随机生成uuid
-        function uuid() {
-            var s = [];
-            var hexDigits = "0123456789abcdef";
-            for (var i = 0; i < 36; i++) {
-                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-            }
-            s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-            s[8] = s[13] = s[18] = s[23] = "-";
-
-            var uuid = s.join("");
-            return uuid;
-        }
-
-        //0+id补全uuid字数
-        function getInitConcatId(id) {
-            var init = '00000000-0000-0000-0000-000000000000'
-            return init.substring(0, init.length - id.toString().length) + id
-        }
-
-
-        // 服务项目list 转string格式
-        function list2String(list) {
-            var str = '';
-            if (list.length > 0) {
-                for (var i = 0; i < list.length; i++) {
-                    str = str + list[i].cDenkName + ',' + list[i].nNumber + ';'
+    function GetData() {
+        request(localService + '/Keson_GetDoctorList?ReturnType=1', function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                var str = body;
+                str = subJson(str);
+                var arr = JSON.parse(str);
+                var arrNew = [];
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    // arr[i].title = '主任医师';
+                    //  arr[i].fullname = arr[i].cname;
+                    if (arr[i].lzz == 1) {
+                        arrNew.push(arr[i])
+                    }
                 }
-                return str;
-            } else return ''
+                callback(arrNew)
+            } else console.log(error);
+        });
+    }
+};
+
+//同步预约数据,医院暂时写默认值
+//导入会有缺少,因为有重复数据,我们的接口会自动过滤,比如有次导出1080条,只导入了1068条,这个其实是正常的.
+exports.getService = function(callback) {
+    var db = require('../sqlserver/db');
+    var str = "select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno union all select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno ";
+    db.sql(str, function(err, result) {
+        if (err) {
+            console.log(err);
+            return;
         }
-
-        //2.2 科胜接口 得到医生编号
-        function getDoctorId(name, callback) {
-            var uriGet = localService + '/Keson_GetDoctorGuid?ReturnType=1&NumType=1&cNo=&cName=' + name + ''
-                //var result;
-            request(uriGet, function(error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    var str = subJson(body)
-                    var arr = JSON.parse(str)
-                        // console.log(arr)
-                        // result = arr.cemployee
-                    callback(arr.cemployee)
-                } else console.log('查无此人')
-            })
-            return result
+        callback(result);
+    })
+};
+exports.getServiceYlkm = function(callback) {
+    var db = require('../sqlserver/db');
+    var str = "select cname as title,0 as price,0 as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],'tjms' as detail,ckjkm as tagname,'次' as unit from T_ylkm        union all select cname as title,0 as price,0 as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],'bjms' as detail,ckjkm as tagname,'次' as unit from T_ylkm";
+    db.sql(str, function(err, result) {
+        if (err) {
+            console.log(err);
+            return;
         }
-
-        //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
-        exports.getDoc = function(callback) {
-            GetData();
-
-            function GetData() {
-                request(localService + '/Keson_GetDoctorList?ReturnType=1', function(error, response, body) {
-                    if (!error && response.statusCode == 200) {
-                        var str = body;
-                        str = subJson(str);
-                        var arr = JSON.parse(str);
-                        var arrNew = [];
-                        for (var i = 0, len = arr.length; i < len; i++) {
-                            // arr[i].title = '主任医师';
-                            //  arr[i].fullname = arr[i].cname;
-                            if (arr[i].lzz == 1) {
-                                arrNew.push(arr[i])
-                            }
-                        }
-                        callback(arrNew)
-                    } else console.log(error);
-                });
-            }
-        };
-
-        //同步预约数据,医院暂时写默认值
-        //导入会有缺少,因为有重复数据,我们的接口会自动过滤,比如有次导出1080条,只导入了1068条,这个其实是正常的.
-        exports.getService = function(callback) {
-            var db = require('../sqlserver/db');
-            var str = "select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno union all select cypmc as title,cast(njhcb*100 as int) as price,cast(njhcb1*100 as int) as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],tsm as detail,b.cname as tagname,cdw as unit from t_yp a inner join t_yplb b on a.cyplb=b.cno ";
-            db.sql(str, function(err, result) {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                callback(result);
-            })
-        };
-        exports.getServiceYlkm = function(callback) {
-            var db = require('../sqlserver/db');
-            var str = "select cname as title,0 as price,0 as reduce,'天津市德倍尔口腔诊所' as hospitalname,'1' as [on],'tjms' as detail,ckjkm as tagname,'次' as unit from T_ylkm        union all select cname as title,0 as price,0 as reduce,'北京市德倍尔口腔诊所' as hospitalname,'1' as [on],'bjms' as detail,ckjkm as tagname,'次' as unit from T_ylkm";
-            db.sql(str, function(err, result) {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                callback(result);
-            })
-        };
+        callback(result);
+    })
+};
