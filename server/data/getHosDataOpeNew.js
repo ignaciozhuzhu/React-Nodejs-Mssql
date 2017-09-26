@@ -246,17 +246,17 @@ exports.reservationSync = function() {
                         var anamnesisno = arr.data[i].anamnesisno
                         var patientname = arr.data[i].patientname
                         var reserved_date = date2Format2(arr.data[i].reserved_date)
-                        var reserved_time = (arr.data[i].reserved_time).substring(0, 5)
-                        console.log((arr.data[i].reserved_time).substring(0, 5))
-                        console.log(arr.data[i].reserved_time.substring(0, 5))
+                        var reserved_time = arr.data[i].reserved_time.substring(0, 5)
                         var nlen = arr.data[i].duration / 60;
                         var doctorid = getDoctorId(arr.data[i].doctorname)
                         console.log("doctorid:" + doctorid)
+                        console.log("doctorid:" + arr.data[i].doctorname)
+                        console.log("doctorid:" + getDoctorId('郝宁宁'))
                         var doctorname = arr.data[i].doctorname;
                         var items = arr.data[i].items;
                         var remark = arr.data[i].remark;
                         var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
-                        var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=10000&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
+                        var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=' + anamnesisno + '&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
                         request(uriAdd, function(error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 console.log(body)
