@@ -385,7 +385,6 @@ function list2String(list) {
 //2.2 科胜接口 得到医生编号
 function getDoctorId(name, callback) {
     var uriGet = localService + '/Keson_GetDoctorGuid?ReturnType=1&NumType=1&cNo=&cName=' + name + ''
-        //var result;
     request(uriGet, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var str = subJson(body)
@@ -393,9 +392,8 @@ function getDoctorId(name, callback) {
                 // console.log(arr)
                 // result = arr.cemployee
             callback(arr.cemployee)
-        } else console.log('查无此人')
+        } else console.log('查无此医生')
     })
-    return result
 }
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
