@@ -235,6 +235,7 @@ exports.reservationSync = function() {
             console.log(body)
             var arr = JSON.parse(body);
             if (arr.data.length > 0) {
+                console.log("getInitConcatId(arr.data[0].id):" + getInitConcatId(arr.data[0].id))
                 for (var i = 0; i < arr.data.length; i++) {
                     //这里需要闭包,参照经典闭包法
                     (function(i) {
