@@ -239,7 +239,6 @@ exports.reservationSync = function() {
                     //这里需要闭包,参照经典闭包法
                     (function(i) {
                         //2.6.1 预约写入方法 同步至科胜
-                        console.log("arr:" + JSON.stringify(arr))
                         console.log("arr:" + i)
                         var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
                         var guid = getInitConcatId(arr.data[i].id)
@@ -249,12 +248,13 @@ exports.reservationSync = function() {
                         var reserved_time = (arr.data[i].reserved_time.substring(0, 5))
                         var nlen = ((arr.data[i].duration) / 60);
                         getDoctorId(arr.data[i].doctorname, function(doctorid) {
-                            console.log("doctorid0:" + doctorid)
+                            console.log("doctorid:" + doctorid)
                             var doctorname = arr.data[i].doctorname;
                             var items = arr.data[i].items;
                             var remark = arr.data[i].remark;
                             var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
                             var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=' + anamnesisno + '&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
+                            console.log("uriAdd:" + uriAdd)
                             request(uriAdd, function(error, response, body) {
                                 if (!error && response.statusCode == 200) {
                                     console.log(body)
@@ -389,8 +389,6 @@ function getDoctorId(name, callback) {
         if (!error && response.statusCode == 200) {
             var str = subJson(body)
             var arr = JSON.parse(str)
-                // console.log(arr)
-                // result = arr.cemployee
             callback(arr.cemployee)
         } else console.log('查无此医生')
     })
