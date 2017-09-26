@@ -243,8 +243,6 @@ exports.reservationSync = function() {
                         console.log("arr:" + i)
                         var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
                         var guid = getInitConcatId(arr.data[i].id)
-                        console.log("getInitConcatId(arr.data[i].id):" + getInitConcatId(arr.data[i].id))
-                        console.log("guid:" + guid)
                         var anamnesisno = arr.data[i].anamnesisno
                         var patientname = arr.data[i].patientname
                         var reserved_date = date2Format2(arr.data[i].reserved_date)
@@ -390,6 +388,7 @@ function getDoctorId(name) {
         if (!error && response.statusCode == 200) {
             var str = subJson(body)
             var arr = JSON.parse(str)
+            console.log(arr)
             return arr.cemployee
         } else console.log('查无此人')
     })
