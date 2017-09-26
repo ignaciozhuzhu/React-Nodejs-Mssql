@@ -249,6 +249,7 @@ exports.reservationSync = function() {
                         var reserved_time = arr.data[i].reserved_time.substring(0, 5)
                         var nlen = arr.data[i].duration / 60;
                         var doctorid = getDoctorId(arr.data[i].doctorname)
+                        console.log("docroeid:" + doctorid)
                         var doctorname = arr.data[i].doctorname;
                         var items = arr.data[i].items;
                         var remark = arr.data[i].remark;
@@ -257,11 +258,13 @@ exports.reservationSync = function() {
                         request(uriAdd, function(error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 console.log(body)
-                                    // var strRes = JSON.parse(body);
-                                    // strRes = subJson(strRes)
-                                    //  var arrRes=JSON.parse(strRes)
-                                    //if(arrRes.)
-                                console.log('预约写入成功')
+                                var strRes = subJson(body)
+                                if (strRes == 1)
+                                    console.log('预约写入成功')
+                                else if (strRes == 0)
+                                    console.log('预约写入失败')
+                                else
+                                    console.log('预约写入失败2')
                             } else console.log('预约写入失败:' + error);
                         })
                     })(i)
@@ -385,7 +388,6 @@ function getDoctorId(name) {
         if (!error && response.statusCode == 200) {
             var str = subJson(body)
             var arr = JSON.parse(str)
-            console.log("docroeid:" + arr.cemployee)
             return arr.cemployee
         } else console.log('查无此人')
     })
