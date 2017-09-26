@@ -386,16 +386,16 @@ function list2String(list) {
 //2.2 科胜接口 得到医生编号
 function getDoctorId(name) {
     var uriGet = localService + '/Keson_GetDoctorGuid?ReturnType=1&NumType=1&cNo=&cName=' + name + ''
+    var result;
     request(uriGet, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             var str = subJson(body)
             var arr = JSON.parse(str)
             console.log(arr)
-            console.log(arr.cemployee)
-            console.log(arr[0].cemployee)
-            return arr.cemployee
+            result = arr.cemployee
         } else console.log('查无此人')
     })
+    return result
 }
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
