@@ -15,7 +15,7 @@ var ajaxurl = conf.service + "hosDataOpe/importData";
 var importDataBatch = function() {
     // fun.getJZData(function(data) {
     conf.login(function() {
-            fun.patientSync();
+            fun.reservationSync();
             //  myImport(data);
         })
         //  })

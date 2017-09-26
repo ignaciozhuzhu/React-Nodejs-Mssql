@@ -170,30 +170,35 @@ function formatGHdata(error, response, body, callback, flag) {
     } else console.log(error);
 }
 
-//查询牙艺最新预约患者信息
+
+/*查询牙艺最新预约患者信息,并从牙艺同步至科胜
+ *9.25
+ *龙鸿轩
+ *两步骤 patientSync,reservationSync
+ */
+
+//同步患者至科胜
 exports.patientSync = function() {
     //先调用牙艺的最新插入病人接口
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body)
+            //console.log(body)
             var arr = JSON.parse(body);
             if (arr.data.length > 0) {
-                //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
                 for (var i = 0; i < arr.data.length; i++) {
                     //这里需要闭包,参照经典闭包法
                     (function(i) {
-                        var uri0 = localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + ''
-                        console.log("uri0:" + uri0)
-                        request(uri0, function(error, response, body) {
+                        //再调用2.1 得到病人在系统的唯一关键字,判断是否需要往科胜数据库插入新病人.
+                        var uriGet = localService + '/GetPatientGuid?ReturnType=1&NumType=1&cNo=' + arr.data[i].mobile + '&cName=' + arr.data[i].patientname + ''
+                        request(uriGet, function(error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 var str = subJson(body)
                                 var arrKs = JSON.parse(str);
-                                console.log("arrKs.cGuid:" + arrKs.cGuid)
+                                //console.log("arrKs.cGuid:" + arrKs.cGuid)
                                 if (arrKs.cGuid == "") {
                                     //是的话就调用2．7 病人信息写入方法
                                     var newUuid = uuid();
-                                    console.log("arr:" + JSON.stringify(arr))
-                                    console.log("arr:" + i)
+                                    //console.log("arr:" + JSON.stringify(arr))
                                     var patientname = arr.data[i].patientname;
                                     var gender = arr.data[i].gender == '1' ? '男' : '女';
                                     var birthday = arr.data[i].birthday;
@@ -205,13 +210,11 @@ exports.patientSync = function() {
                                     var firstdate = arr.data[i].firstdate;
                                     var type = arr.data[i].type;
                                     var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
-                                    var uri = localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '';
-                                    console.log("uri:" + uri)
-
-                                    request(uri, function(error, response, body) {
+                                    var uriAdd = localService + '/Keson_PostPatientData_Add?ReturnType=1&cValue=' + newUuid + '&cPatNo=' + newUuid + '&cPatName=' + patientname + '&cGender=' + gender + '&cBirthDay=' + birthday + '&cId=' + idcard + '&cMobile=' + mobile + '&cTelephone=' + otherphone + '&cweixin=' + wx + '&cAddress1=' + address + '&cFirstdate=' + firstdate + '&cSource=牙艺平台&cType=' + type + '&cIntroducer=牙艺平台&Hosp_no=' + Hosp_no + '';
+                                    request(uriAdd, function(error, response, body) {
                                         if (!error && response.statusCode == 200) {
                                             console.log('病人写入成功')
-                                        } else console.log(error);
+                                        } else console.log('病人写入失败' + error);
 
                                     })
                                 } else console.log("该牙艺新患者已在科胜库中.")
@@ -224,6 +227,44 @@ exports.patientSync = function() {
     })
 }
 
+//同步预约至科胜
+exports.reservationSync = function() {
+    //先调用牙艺的最新插入病人接口
+    request(service + 'hosDataOpe/selectNewReservation', function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body)
+            var arr = JSON.parse(body);
+            if (arr.data.length > 0) {
+                for (var i = 0; i < arr.data.length; i++) {
+                    //这里需要闭包,参照经典闭包法
+                    (function(i) {
+                        //2.6.1 预约写入方法 同步至科胜
+                        console.log("arr:" + JSON.stringify(arr))
+                        console.log("arr:" + i)
+                        var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
+                        var guid = getInitConcatId(arr.data[i].id)
+                        var anamnesisno = arr.data[i].anamnesisno
+                        var patientname = arr.data[i].patientname
+                        var reserved_date = date2Format2(arr.data[i].reserved_date)
+                        var reserved_time = arr.data[i].reserved_time.substring(0, 5)
+                        var nlen = arr.data[i].duration / 60;
+                        var doctorid = getDoctorId(arr.data[i].doctorname)
+                        var doctorname = arr.data[i].doctorname;
+                        var items = arr.data[i].items;
+                        var remark = arr.data[i].remark;
+                        var Hosp_no = arr.data[i].hospitalname == '天津市德倍尔口腔诊所' ? '001' : '002';
+                        var uriAdd = localService + '/Keson_PostYYData_Add?ReturnType=1&IsNewPatient=' + isfirst + '&cValue=' + guid + '&cPatNo=10000&cPatName=' + patientname + '&cDate=' + reserved_date + '&cTime=' + reserved_time + '&nlen=' + nlen + '&Doctorid=' + doctorid + '&DoctorName=' + doctorname + '&CText=' + items + '&CMemo=' + remark + '&Hosp_no=' + Hosp_no + '&nSource=1'
+                        request(uriAdd, function(error, response, body) {
+                            if (!error && response.statusCode == 200) {
+                                console.log('预约写入成功')
+                            } else console.log('预约写入失败:' + error);
+                        })
+                    })(i)
+                }
+            } else console.log('无最新患者')
+        } else console.log(error);
+    })
+}
 
 
 exports.getHosDataOpeTest2 = function(callback) {
@@ -291,6 +332,14 @@ function date2Format2(str) {
     return str.substr(0, 4) + str.substr(5, 2) + str.substr(8, 2);
 }
 
+
+//YYYYmmdd转时间戳
+function dateFormatStamp(date) {
+    var strtime = date2Format(date)
+    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    return (dateNew.getTime()) / 1000;
+}
+
 //随机生成uuid
 function uuid() {
     var s = [];
@@ -306,11 +355,10 @@ function uuid() {
     return uuid;
 }
 
-//YYYYmmdd转时间戳
-function dateFormatStamp(date) {
-    var strtime = date2Format(date)
-    var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-    return (dateNew.getTime()) / 1000;
+//0+id补全uuid字数
+function getInitConcatId(id) {
+    var init = '00000000-0000-0000-0000-000000000000'
+    return init.substring(0, init.length - id.length) + id
 }
 
 
@@ -325,7 +373,18 @@ function list2String(list) {
     } else return ''
 }
 
-
+//2.2 科胜接口 得到医生编号
+function getDoctorId(name) {
+    var uriGet = localService + '/Keson_GetDoctorGuid?ReturnType=1&NumType=1&cNo=&cName=' + name + ''
+    request(uriGet, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var str = subJson(body)
+            var arr = JSON.parse(str)
+            console.log("docroeid:" + arr.cemployee)
+            return arr.cemployee
+        } else console.log('查无此人')
+    })
+}
 
 //同步医生数据,医院暂时写默认值,(大部分员工(80来个)没有手机号,则先不导入)
 exports.getDoc = function(callback) {
