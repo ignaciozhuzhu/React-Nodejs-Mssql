@@ -368,7 +368,8 @@ function uuid() {
 //0+id补全uuid字数
 function getInitConcatId(id) {
     var init = '00000000-0000-0000-0000-000000000000'
-    return init.substring(0, init.length - id.length) + id
+    var result = init.substring(0, init.length - id.length) + id
+    return result
 }
 
 
