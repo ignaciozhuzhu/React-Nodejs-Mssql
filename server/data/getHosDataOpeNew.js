@@ -391,6 +391,8 @@ function getDoctorId(name) {
             var str = subJson(body)
             var arr = JSON.parse(str)
             console.log(arr)
+            console.log(arr.cemployee)
+            console.log(arr[0].cemployee)
             return arr.cemployee
         } else console.log('查无此人')
     })
