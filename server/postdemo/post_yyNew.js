@@ -107,6 +107,8 @@ function importDataBatch2() {
 //同步预约数据至科胜
 exports.sync2KS = function() {
     conf.login(function() {
-        fun.reservationSync(fun.patientSync());
+        fun.patientSync(function() {
+            fun.reservationSync();
+        })
     })
 }

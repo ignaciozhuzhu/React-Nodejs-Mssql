@@ -178,7 +178,7 @@ function formatGHdata(error, response, body, callback, flag) {
  */
 
 //同步患者至科胜
-exports.patientSync = function() {
+exports.patientSync = function(callbackfun) {
     //先调用牙艺的最新插入病人接口
     request(service + 'hosDataOpe/selectNewHosPatient', function(error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -215,6 +215,7 @@ exports.patientSync = function() {
                                     request(uriAdd, function(error, response, body) {
                                         if (!error && response.statusCode == 200) {
                                             console.log('病人写入成功')
+                                            callbackfun();
                                         } else console.log('病人写入失败' + error);
 
                                     })
