@@ -99,12 +99,12 @@ function formatYYdata(error, response, body, callback, flag) {
         str = subJson(str);
         var arr = JSON.parse(str);
         var arrNew = [];
+        var Ob = {}
         for (var i = 0, len = arr.length; i < len; i++) {
             //科胜的来源需要导,牙艺的不需要 -- > nSource 1：牙艺0:科胜
-            //console.log("arr[i].nSource" + arr[i].nSource)
-            console.log(arr[i].nSource == 0)
+
             if (arr[i].nSource == 0) {
-                arrNew[i] = {
+                Ob = {
                     hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
                     doctorname: arr[i].DoctorName, //医生姓名
                     reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
@@ -125,9 +125,10 @@ function formatYYdata(error, response, body, callback, flag) {
                     guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
                     d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
                 }
+                arrNew.push(Ob)
             }
         }
-        //console.log("datajson:" + JSON.stringify(arrNew));
+        console.log("datajson:" + JSON.stringify(arrNew));
         callback(arrNew)
     } else console.log(error);
 }
