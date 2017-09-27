@@ -102,7 +102,6 @@ function formatYYdata(error, response, body, callback, flag) {
         var Ob = {}
         for (var i = 0, len = arr.length; i < len; i++) {
             //科胜的来源需要导,牙艺的不需要 -- > nSource 1：牙艺0:科胜
-
             if (arr[i].nSource == 0) {
                 Ob = {
                     hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
@@ -128,7 +127,7 @@ function formatYYdata(error, response, body, callback, flag) {
                 arrNew.push(Ob)
             }
         }
-        console.log("datajson:" + JSON.stringify(arrNew));
+        //console.log("datajson:" + JSON.stringify(arrNew));
         callback(arrNew)
     } else console.log(error);
 }
