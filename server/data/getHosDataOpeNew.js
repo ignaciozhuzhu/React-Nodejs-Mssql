@@ -240,7 +240,7 @@ exports.reservationSync = function() {
     //先调用牙艺的最新插入病人接口
     request(service + 'hosDataOpe/selectNewReservation', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body)
+            //console.log(body)
             var arr = JSON.parse(body);
             if (arr.data.length > 0) {
                 for (var i = 0; i < arr.data.length; i++) {
@@ -255,7 +255,7 @@ exports.reservationSync = function() {
                         var reserved_time = (arr.data[i].reserved_time.substring(0, 5))
                         var nlen = ((arr.data[i].duration) / 60);
                         getDoctorId(arr.data[i].doctorname, function(doctorid) {
-                            console.log("doctorid:" + doctorid)
+                            //console.log("doctorid:" + doctorid)
                             var doctorname = arr.data[i].doctorname;
                             var items = arr.data[i].items;
                             var remark = arr.data[i].remark;
@@ -270,7 +270,8 @@ exports.reservationSync = function() {
                                     else if (strRes == 0)
                                         console.log('预约写入失败')
                                     else
-                                        console.log('预约写入失败2')
+                                        console.log('预约写入失败2:' + strRes)
+
                                 } else console.log('预约写入失败:' + error);
                             })
                         })
