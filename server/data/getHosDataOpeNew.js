@@ -101,8 +101,9 @@ function formatYYdata(error, response, body, callback, flag) {
         var arrNew = [];
         for (var i = 0, len = arr.length; i < len; i++) {
             //科胜的来源需要导,牙艺的不需要 -- > nSource 1：牙艺0:科胜
-            console.log("arr[i].nSource" + arr[i].nSource)
-            if (arr[i].nSource === 0) {
+            //console.log("arr[i].nSource" + arr[i].nSource)
+            console.log('aa' + arr[i].nSource == 0)
+            if (arr[i].nSource == 0) {
                 arrNew[i] = {
                     hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
                     doctorname: arr[i].DoctorName, //医生姓名
