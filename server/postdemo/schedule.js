@@ -20,8 +20,10 @@ for (var i = 0; i < 60; i++) {
 }
 var j = schedule.scheduleJob(rule, function() {
     console.log("\n当前时间:" + getdate.fn(new Date()));
-    fun_ghnext.deleteNext();　
-    fun_yynext.deleteResNext();　　
+    fun_ghnext.deleteNext();
+    fun_yynext.deleteResNext();
+    //同步预约数据至科胜,包括病人
+    fun_yy.sync2KS();
 });
 
 var ruleons = new schedule.RecurrenceRule();
