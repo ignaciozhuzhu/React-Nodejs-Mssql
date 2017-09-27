@@ -216,10 +216,16 @@ exports.patientSync = function(callbackfun) {
                                         if (!error && response.statusCode == 200) {
                                             console.log('病人写入成功')
                                             callbackfun();
-                                        } else console.log('病人写入失败' + error);
+                                        } else {
+                                            console.log('病人写入失败' + error);
+                                            callbackfun()
+                                        }
 
                                     })
-                                } else console.log("该牙艺新患者已在科胜库中.")
+                                } else {
+                                    console.log("该牙艺新患者已在科胜库中.")
+                                    callbackfun();
+                                }
                             } else console.log(error);
                         });
                     })(i)
