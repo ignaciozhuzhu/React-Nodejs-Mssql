@@ -100,26 +100,28 @@ function formatYYdata(error, response, body, callback, flag) {
         var arr = JSON.parse(str);
         var arrNew = [];
         for (var i = 0, len = arr.length; i < len; i++) {
-            arrNew[i] = {
-                hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
-                doctorname: arr[i].DoctorName, //医生姓名
-                reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
-                reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
-                remark: arr[i].CText, //备注信息
-                isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反
-                // 牙艺: "isfirst": 新老病人，0新病人，1老病人
-                flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
-                fullname: arr[i].PatientName || 'noname',
-                idcard: '', //患者身份证号,暂未提供
-                anamnesisno: arr[i].PatientNo, //患者病历号
-                gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null
-                // 牙艺: "gender":"性别，1男，-1女，0未知",
-                mobile: arr[i].Mobile,
-                otherphone: '', //其他联系方式,暂未提供
-                birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null
-                address: '', //患者地址,暂未提供
-                guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
-                d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
+            if (arr[i].nSource === 0) {
+                arrNew[i] = {
+                    hospitalname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
+                    doctorname: arr[i].DoctorName, //医生姓名
+                    reserved_date: date2Format(arr[i].cDate), //预约日期，格式yyyy-mm-dd（必填）
+                    reserved_time: arr[i].cTime, //预约时间，格式hh:mm,例如：08:30
+                    remark: arr[i].CText, //备注信息
+                    isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反
+                    // 牙艺: "isfirst": 新老病人，0新病人，1老病人
+                    flag: 0, //flag：预约状态，0未确认，1已确认，3已失约..暂未提供
+                    fullname: arr[i].PatientName || 'noname',
+                    idcard: '', //患者身份证号,暂未提供
+                    anamnesisno: arr[i].PatientNo, //患者病历号
+                    gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null
+                    // 牙艺: "gender":"性别，1男，-1女，0未知",
+                    mobile: arr[i].Mobile,
+                    otherphone: '', //其他联系方式,暂未提供
+                    birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null
+                    address: '', //患者地址,暂未提供
+                    guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
+                    d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
+                }
             }
         }
         //console.log("datajson:" + JSON.stringify(arrNew));
