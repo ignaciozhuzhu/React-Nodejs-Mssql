@@ -3,6 +3,7 @@ var request2 = require('request').defaults({
     jar: true
 });
 var localService = require('../sqlserver/config').localService;
+console.log("localService:" + localService)
 var service = require('../sqlserver/config').service;
 
 /*同步
