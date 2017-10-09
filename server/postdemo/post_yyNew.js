@@ -9,8 +9,8 @@ var funyyNew = require('./post_yyNew');
 var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importResAll";
 //var yypiece_count;
-var year = 2013;
-var month = 1;
+var year = 2014;
+var month = 10;
 var retryCount;
 //前4000条(最近)
 exports.importDataResBatch = function() {
@@ -19,7 +19,7 @@ exports.importDataResBatch = function() {
     conf.login(function() {
         fundel.deleteResAll(function(callbackfunction) {
             fun.getReservation2(function(data) {
-                year = 2013; //该变量用于计数,与importDataBatch2共存亡
+                year = 2014; //该变量用于计数,与importDataBatch2共存亡
                 myImport(data, importDataBatch2);
             }, year, month)
         })
@@ -72,7 +72,7 @@ function myImport(data, callbackfun) {
                     })(
                         fundel.deleteResAll(function(callbackfunction) {
                             fun.getReservation2(function(data) {
-                                year = 2013; //该变量用于计数,与importDataBatch2共存亡
+                                year = 2014; //该变量用于计数,与importDataBatch2共存亡
                                 myImport(data, importDataBatch2);
                             })
                         }, year, month))
