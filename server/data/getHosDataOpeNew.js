@@ -3,7 +3,6 @@ var request2 = require('request').defaults({
     jar: true
 });
 var localService = require('../sqlserver/config').localService;
-console.log("localService:" + localService)
 var service = require('../sqlserver/config').service;
 
 /*同步
@@ -13,6 +12,7 @@ exports.getReservation2 = function(callback, year, month) {
     GetData();
 
     function GetData() {
+        console.log("localService:" + localService)
         if (month < 10)
             month = '0' + month;
         request(localService + '/Keson_GetYYData?ReturnType=1&NumType=1&cValue=&cStartDate=' + year + '' + month + '01&cEndDate=' + year + '' + month + '31', function(error, response, body) {
