@@ -121,7 +121,7 @@ function formatYYdata(error, response, body, callback, flag) {
                     //--10.9 已提供男女
                     mobile: arr[i].Mobile,
                     otherphone: '', //其他联系方式,暂未提供
-                    birthday: arr[i].cBirthday ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
+                    birthday: (arr[i].cBirthday == null || arr[i].cBirthday == '--') ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
                     //10.9 已提供
                     address: '', //患者地址,暂未提供
                     guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
