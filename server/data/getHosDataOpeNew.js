@@ -115,8 +115,10 @@ function formatYYdata(error, response, body, callback, flag) {
                     fullname: arr[i].PatientName || 'noname',
                     idcard: '', //患者身份证号,暂未提供
                     anamnesisno: arr[i].PatientNo, //患者病历号
-                    gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null
+                    gender: arr[i].cGender == null ? 0 : arr[i].cGender == '男' ? 1 : -1,
+                    //性别,暂未提供 --9.25已提供null ,
                     // 牙艺: "gender":"性别，1男，-1女，0未知",
+                    //--10.9 已提供男女
                     mobile: arr[i].Mobile,
                     otherphone: '', //其他联系方式,暂未提供
                     birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null
@@ -144,7 +146,10 @@ function formatGHdata(error, response, body, callback, flag) {
             arrNew[i] = {
                 pmobile: arr[i].Mobile,
                 pname: arr[i].PatientName || 'noname',
-                gender: arr[i].cGender == null ? 0 : arr[i].cGender, //性别,暂未提供 --9.25已提供null,挂号未提供
+                gender: arr[i].cGender == null ? 0 : arr[i].cGender == '男' ? 1 : -1,
+                //性别,暂未提供 --9.25已提供null ,
+                // 牙艺: "gender":"性别，1男，-1女，0未知",
+                //--10.9 已提供男女
                 birthday: arr[i].cBirthday == null ? '2000-01-01' : arr[i].cBirthday, //患者生日,暂未提供 --9.25已提供null,挂号未提供
                 isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反,挂号未提供
                 hname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
