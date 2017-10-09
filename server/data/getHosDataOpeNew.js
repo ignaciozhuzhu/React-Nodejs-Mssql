@@ -375,7 +375,7 @@ function dateFormatStamp(date, time) {
     var strtime = date2Format(date) + ' ' + time + ':00';
     var dateNew = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
     var result = (dateNew.getTime()) / 1000;
-    console.log("时间戳:" + result)
+    //console.log("时间戳:" + result)
     return result;
 }
 
