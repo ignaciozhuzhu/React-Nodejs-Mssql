@@ -15,14 +15,15 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun_yy.importDataResBatch()
-        //fun_yy_del.deleteResNext()
-        // fun.getJZData(function(data) {
-        /*    conf.login(function() {
-                    fun.reservationSync();
-                    //  myImport(data);
-                })*/
-        //  })
+    //fun_yy.importDataResBatch()
+    fun_yy.sync2KS();
+    //fun_yy_del.deleteResNext()
+    // fun.getJZData(function(data) {
+    /*    conf.login(function() {
+                fun.reservationSync();
+                //  myImport(data);
+            })*/
+    //  })
 };
 
 function myImport(data, callbackfun) {

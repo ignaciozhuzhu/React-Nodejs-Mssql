@@ -23,7 +23,7 @@ var j = schedule.scheduleJob(rule, function() {
     fun_ghnext.deleteNext();
     fun_yynext.deleteResNext();
     //同步预约数据至科胜,包括病人
-    fun_yy.sync2KS();
+    fun_yyNew.sync2KS();
 });
 
 var ruleons = new schedule.RecurrenceRule();
