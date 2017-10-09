@@ -121,7 +121,7 @@ function formatYYdata(error, response, body, callback, flag) {
                     //--10.9 已提供男女
                     mobile: arr[i].Mobile,
                     otherphone: '', //其他联系方式,暂未提供
-                    birthday: arr[i].cBirthday.length != 8 ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
+                    birthday: arr[i].cBirthday.replace(/\s/g, "").length != 8 ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
                     //10.9 已提供
                     address: '', //患者地址,暂未提供
                     guid: arr[i].cGuid, //cGuid是预约主键值（修改删除时要用）
@@ -151,7 +151,7 @@ function formatGHdata(error, response, body, callback, flag) {
                 //性别,暂未提供 --9.25已提供null ,
                 // 牙艺: "gender":"性别，1男，-1女，0未知",
                 //--10.9 已提供男女
-                birthday: arr[i].cBirthday.length != 8 ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
+                birthday: arr[i].cBirthday.replace(/\s/g, "").length != 8 ? '2000-01-01' : date2Format(arr[i].cBirthday), //患者生日,暂未提供 --9.25已提供null
                 //10.9 已提供
                 isfirst: arr[i].IsNew == 1 ? 0 : 1, //暂未提供,向对方提出加进来,是否复诊病人 --9.25已提供 1是新,和我们相反,挂号未提供
                 hname: arr[i].Hosp_no == '001' ? '天津市德倍尔口腔诊所' : '北京市德倍尔口腔诊所',
