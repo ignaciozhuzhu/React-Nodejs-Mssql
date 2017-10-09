@@ -59,7 +59,7 @@ exports.getHosDataOpeDelnext = function(callback) {
 
     function GetData() {
         request(localService + '/Keson_GetJZData?ReturnType=1&NumType=1&Guid=&StartData=' + Now + '&EndData=' + Now + '', function(error, response, body) {
-            console.log("body:" + body)
+            //console.log("body:" + body)
             formatGHdata(error, response, body, callback, 2);
         });
     }
@@ -163,17 +163,23 @@ function formatGHdata(error, response, body, callback, flag) {
                 //处置明细是一个list,取第一个作为标题  -- 对应牙艺的"挂号事项"
                 important: 0, //暂未提供,先默认为0 是否重要  0-不重要   1-重要
                 anamnesisno: arr[i].PatientNo, //病历编号
-                bookingtime: dateFormatStamp(arr[i].cDate), //科胜的格式是20170901,牙艺的格式是时间戳,需要转
+                bookingtime: dateFormatStamp(arr[i].cDate, arr[i].cTime),
+                //科胜的格式是20170901,牙艺的格式是时间戳,需要转
+                //10.9已提供时间cTime
                 ordercontent: '服务内容', //暂未提供,给默认值
                 totalprice: arr[i].nysje * 100, // 科胜:应收金额,单位元 -- 牙艺:总金额(应收)  单位:分
                 reduce: arr[i].nzkje * 100, // 科胜:折扣金额,单位元 -- 牙艺:折扣  单位:分
                 services: list2String(arr[i].CMx),
                 //牙艺:服务项目  名称1,数量1;名称2,数量2,
-                ordertime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
+                ordertime: dateFormatStamp(arr[i].cDate, arr[i].cTime),
+                //暂未提供,同bookingtime
+                //10.9已提供时间cTime
                 tradeno: '', //暂未提供
                 channel: 5,
                 // 科胜:收费类型(正常收费) -- 牙艺:支付方式 1-支付宝 2-微信 3-银联 4-银行卡 5-现金 
-                paytime: dateFormatStamp(arr[i].cDate), //暂未提供,同bookingtime
+                paytime: dateFormatStamp(arr[i].cDate, arr[i].cTime),
+                //暂未提供,同bookingtime
+                //10.9已提供时间cTime
                 refundtime: '', //暂未提供,为空
                 refundmoney: '', //暂未提供,为空
                 ghid: uuid(), //暂未提供,随机生成
