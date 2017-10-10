@@ -405,7 +405,7 @@ function getInitConcatId(id) {
 function getJZuuid(arr) {
     //医生id+'000-0000-0000-0000-'+日期+时间
     var cTime = arr.cTime.replace(':', '');
-    var uuid = arr.Doctor + '000-0000-0000-0000-' + arr.cDate + cTime
+    var uuid = arr.Doctorid + '000-0000-0000-0000-' + arr.cDate + cTime
     console.log("uuid:" + uuid)
     return uuid;
 }
