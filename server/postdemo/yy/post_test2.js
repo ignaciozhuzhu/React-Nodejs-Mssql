@@ -6,6 +6,7 @@ var fun = require('../../data/getHosDataOpeNew');
 var fun_yy = require('../post_yyNew.js');
 var fun_yy_del = require('../post_yy_del.js');
 var fun_gh = require('../post_ghNew.js');
+var fun_gh_del = require('../post_gh_del.js');
 //var fundel = require('../post_gh_del');
 var conf = require('../../sqlserver/config.js');
 var fs = require("fs");
@@ -15,13 +16,16 @@ var Arraydata = [];
 var ajaxurl = conf.service + "hosDataOpe/importData";
 //前4000条(最近)
 var importDataBatch = function() {
-    fun_gh.importDataBatch()
-        // fun.getJZData(function(data) {
-        /*    conf.login(function() {
-                    fun.reservationSync();
-                    //  myImport(data);
-                })*/
-        //  })
+    //fun_yy.importDataResBatch()
+    //fun_yy.sync2KS();
+    fun_gh.importDataBatch();
+    //fun_yy_del.deleteResNext()
+    // fun.getJZData(function(data) {
+    /*    conf.login(function() {
+                fun.reservationSync();
+                //  myImport(data);
+            })*/
+    //  })
 };
 
 function myImport(data, callbackfun) {
