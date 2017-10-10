@@ -182,7 +182,7 @@ function formatGHdata(error, response, body, callback, flag) {
                 //10.9已提供时间cTime
                 refundtime: '', //暂未提供,为空
                 refundmoney: '', //暂未提供,为空
-                ghid: uuid(), //暂未提供,随机生成
+                ghid: getJZuuid(arr[i]), //暂未提供,自己组合生成
                 d: flag //d: 操作标志，0增加，1删除，2先删除后增加dd
             }
         }
@@ -399,6 +399,15 @@ function uuid() {
 function getInitConcatId(id) {
     var init = '00000000-0000-0000-0000-000000000000'
     return init.substring(0, init.length - id.toString().length) + id
+}
+
+//组合生成挂号需要的uuid唯一标识
+function getJZuuid(arr) {
+    //医生id+'000-0000-0000-0000-'+日期+时间
+    var cTime = arr.cTime.replace(':', '');
+    var uuid = arr.Doctor + '000-0000-0000-0000-' + arr.cDate + cTime
+    console.log("uuid:" + uuid)
+    return uuid;
 }
 
 
