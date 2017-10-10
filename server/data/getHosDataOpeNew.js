@@ -269,8 +269,8 @@ exports.reservationSync = function() {
                     (function(i) {
                         //2.6.1 预约写入方法 同步至科胜
                         var isfirst = arr.data[i].isfirst == 1 ? 0 : 1
-                        console.log("arr.data[i].id" + arr.data[i].id)
                         var guid = getInitConcatId(arr.data[i].id)
+                            //console.log("arr.data[i].id" + arr.data[i].id)
                         var anamnesisno = arr.data[i].anamnesisno
                         var patientname = arr.data[i].patientname
                         var reserved_date = date2Format2(arr.data[i].reserved_date)
