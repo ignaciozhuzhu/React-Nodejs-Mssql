@@ -251,8 +251,14 @@ exports.patientSync = function(callbackfun) {
                         });
                     })(i)
                 }
-            } else console.log('无最新患者')
-        } else console.log(error);
+            } else {
+                console.log('无最新患者')
+                callbackfun();
+            }
+        } else {
+            console.log(error);
+            callbackfun();
+        }
     })
 }
 
