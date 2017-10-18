@@ -247,7 +247,10 @@ exports.patientSync = function(callbackfun) {
                                     console.log("该牙艺新患者已在科胜库中.")
                                     callbackfun();
                                 }
-                            } else console.log(error);
+                            } else {
+                                console.log(error);
+                                callbackfun();
+                            }
                         });
                     })(i)
                 }
