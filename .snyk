@@ -1,0 +1,95 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - nodemon > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:debug:20170905'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > tar-pack > debug
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:debug:20170905'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack >
+          debug
+  'npm:extend:20180424':
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > extend:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:extend:20180424'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > request > extend
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > extend:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:extend:20180424'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          extend
+  'npm:hoek:20180212':
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > hoek
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > boom > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: >-
+          nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > boom >
+          hoek
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > sntp > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: >-
+          nodemon > chokidar > fsevents > node-pre-gyp > request > hawk > sntp >
+          hoek
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > hawk > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          hawk > hoek
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > hawk > boom > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          hawk > boom > hoek
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > hawk > sntp > hoek:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:hoek:20180212'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          hawk > sntp > hoek
+  'npm:ms:20170412':
+    - nodemon > chokidar > fsevents > node-pre-gyp > tar-pack > debug > ms:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:ms:20170412'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > tar-pack > debug > ms
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug > ms:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:ms:20170412'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack >
+          debug > ms
+  'npm:stringstream:20180511':
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > stringstream:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:stringstream:20180511'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > request > stringstream
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > stringstream:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:stringstream:20180511'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          stringstream
+  'npm:tough-cookie:20170905':
+    - nodemon > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:tough-cookie:20170905'
+        path: nodemon > chokidar > fsevents > node-pre-gyp > request > tough-cookie
+    - webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        patched: '2023-08-30T15:19:20.692Z'
+        id: 'npm:tough-cookie:20170905'
+        path: >-
+          webpack > watchpack > chokidar > fsevents > node-pre-gyp > request >
+          tough-cookie
